@@ -12,8 +12,8 @@
     "build": "rm -r dist | true && tsc",
     "lint": "tslint -p tsconfig.json",
     "preinstall": "yarn build",
-    "prepublish": "yarn test && yarn lint && yarn build",
-    "postversion": "git add . && git push && git push --tags"
+    "preversion": "yarn test && yarn lint && yarn build",
+    "postversion": "git add -A . && git push && git push --tags"
   },
   "devDependencies": {
     "@types/react": "^16.4.18",
