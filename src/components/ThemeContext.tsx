@@ -1,4 +1,5 @@
 import React, { Component, createContext } from "react";
+import { Helmet } from "react-helmet";
 
 type IThemeColour =
   | "primaryColor"
@@ -32,7 +33,7 @@ export interface IThemeContext {
 }
 
 interface IThemeProviderProps {
-  theme?: string;
+  theme?: "portal" | "saas" | "default";
 }
 
 interface IThemeProviderState {
@@ -71,6 +72,13 @@ export class ThemeProvider extends Component<
         getColour: this.state.colours ? this.getColour : undefined
       }}
     >
+      <Helmet>
+        <link
+          rel="stylesheet"
+          href={`//cdn.jsdelivr.net/gh/arago/hiro-ui-themes@latest/dist/${this
+            .props.theme || "default"}/semantic.min.css`}
+        />
+      </Helmet>
       {this.props.children}
     </ThemeContext.Provider>
   );

@@ -11,13 +11,13 @@
     "test": "echo \"no tests\"",
     "build": "rm -r dist | true && tsc",
     "lint": "tslint -p tsconfig.json",
-    "prepublish": "git diff --quiet --exit-code",
     "preversion": "yarn test && yarn lint && yarn build",
     "postversion": "git add -A . && git push && git push --tags"
   },
   "devDependencies": {
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
+    "@types/react-helmet": "^5.0.7",
     "parcel-bundler": "^1.10.3",
     "react-dom": "^16.0.0",
     "sass": "^1.14.3",
@@ -28,6 +28,7 @@
   "dependencies": {
     "next": "^7.0.2",
     "react": "^16.0.0",
+    "react-helmet": "^5.2.0",
     "semantic-ui-react": "^0.83.0"
   },
   "publishConfig": {
