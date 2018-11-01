@@ -11,7 +11,6 @@
     "test": "echo \"no tests\"",
     "build": "rm -r dist | true && tsc",
     "lint": "tslint -p tsconfig.json",
-    "preinstall": "yarn build",
     "prepublish": "git diff --quiet --exit-code",
     "preversion": "yarn test && yarn lint && yarn build",
     "postversion": "git add -A . && git push && git push --tags"

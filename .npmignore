@@ -1,0 +1,6 @@
+.cache
+src/
+build/
+index.html
+index.tsx
+yarn-error.log
