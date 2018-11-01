@@ -1,0 +1,16 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "jsRules": {},
+  "rules": {
+    "member-access": false,
+    "arrow-parens": false,
+    "no-empty-interface": false,
+    "no-console": false,
+    "array-type": false
+  },
+  "rulesDirectory": [],
+  "linterOptions": {
+    "exclude": ["./src/mockData.ts"]
+  }
+}
