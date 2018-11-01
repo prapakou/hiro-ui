@@ -12,6 +12,7 @@
     "build": "rm -r dist | true && tsc",
     "lint": "tslint -p tsconfig.json",
     "preinstall": "yarn build",
+    "prepublish": "git diff --quiet --exit-code",
     "preversion": "yarn test && yarn lint && yarn build",
     "postversion": "git add -A . && git push && git push --tags"
   },
@@ -31,6 +32,6 @@
     "semantic-ui-react": "^0.83.0"
   },
   "publishConfig": {
-    "private": false
+    "access": "public"
   }
 }
