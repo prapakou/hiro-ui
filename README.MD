@@ -1,4 +1,4 @@
-# Hiro UI
+# Hiro UI [![npm (scoped)](https://img.shields.io/npm/v/@hiro-graph/ui.svg)](https://www.npmjs.com/package/@hiro-graph/ui)
 
 This project is a wrapper for [Semantic UI React](https://react.semantic-ui.com/), it exists so that additional components can be added if needed.
 
