@@ -35,6 +35,7 @@ export interface IThemeContext {
 
 interface IHiroAppProps {
   theme?: "portal" | "saas" | "default";
+  themeVersion?: string;
   ready?: () => void;
 }
 
@@ -53,8 +54,9 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
 
   componentDidMount() {
     const theme = this.props.theme || "default";
+    const themeVersion = this.props.themeVersion || "latest";
     fetch(
-      `//cdn.jsdelivr.net/gh/arago/hiro-ui-themes@latest/dist/${theme}/colours.json`
+      `//cdn.jsdelivr.net/gh/arago/hiro-ui-themes@${themeVersion}/dist/${theme}/colours.json`
     )
       .then(res => res.json())
       .then(colours => {
