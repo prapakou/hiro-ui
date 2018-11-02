@@ -1,11 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import { Container, Icon, TopBar, HiroApp } from "./src";
-
-const dropdownOptions = [
-  { key: "profile", text: "View Profile" },
-  { key: "logout", text: "Logout" }
-];
+import { Container, HiroApp, Icon, TopBar } from "./src";
 
 const Test = ({ ready }) => {
   return (
@@ -27,7 +22,6 @@ const Test = ({ ready }) => {
 };
 
 // Render
-
 const target = document.getElementById("app");
 
 if (!target) {
