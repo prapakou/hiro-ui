@@ -26,7 +26,8 @@ type IThemeColour =
   | "veryStrongTransparentBlack"
   | "subtleTransparentWhite"
   | "transparentWhite"
-  | "strongTransparentWhite";
+  | "strongTransparentWhite"
+  | "veryStrongTransparentWhite";
 
 export interface IThemeContext {
   getColour?: (colour: IThemeColour) => string;
