@@ -1,2 +1,2 @@
 export * from "./TopBar";
-export * from "./ThemeContext";
+export * from "./HiroApp";

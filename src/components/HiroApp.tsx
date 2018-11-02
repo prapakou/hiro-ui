@@ -1,5 +1,5 @@
 import React, { Component, createContext } from "react";
-import { Helmet } from "react-helmet";
+import { Loader } from "semantic-ui-react";
 
 type IThemeColour =
   | "primaryColor"
@@ -32,11 +32,12 @@ export interface IThemeContext {
   getColour?: (colour: IThemeColour) => string;
 }
 
-interface IThemeProviderProps {
+interface IHiroAppProps {
   theme?: "portal" | "saas" | "default";
+  ready?: () => void;
 }
 
-interface IThemeProviderState {
+interface IHiroAppState {
   colours?: {
     IThemeColour: string;
   };
@@ -46,11 +47,8 @@ export const ThemeContext = createContext<IThemeContext>({});
 
 export const ThemeConsumer = ThemeContext.Consumer;
 
-export class ThemeProvider extends Component<
-  IThemeProviderProps,
-  IThemeProviderState
-> {
-  state: IThemeProviderState = {};
+export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
+  state: IHiroAppState = {};
 
   componentDidMount() {
     const theme = this.props.theme || "default";
@@ -63,6 +61,8 @@ export class ThemeProvider extends Component<
       });
   }
 
+  onLoad = () => this.props.ready && this.props.ready();
+
   getColour = (colour: IThemeColour) =>
     this.state.colours ? this.state.colours[colour] || "black" : "black";
 
@@ -72,13 +72,12 @@ export class ThemeProvider extends Component<
         getColour: this.state.colours ? this.getColour : undefined
       }}
     >
-      <Helmet>
-        <link
-          rel="stylesheet"
-          href={`//cdn.jsdelivr.net/gh/arago/hiro-ui-themes@latest/dist/${this
-            .props.theme || "default"}/semantic.min.css`}
-        />
-      </Helmet>
+      <link
+        rel="stylesheet"
+        href={`//cdn.jsdelivr.net/gh/arago/hiro-ui-themes@latest/dist/${this
+          .props.theme || "default"}/semantic.min.css`}
+        onLoad={this.onLoad}
+      />
       {this.props.children}
     </ThemeContext.Provider>
   );
