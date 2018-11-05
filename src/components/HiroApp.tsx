@@ -4,6 +4,8 @@ import { Loader } from "semantic-ui-react";
 type IThemeColour =
   | "primaryColor"
   | "secondaryColor"
+  | "primaryText"
+  | "secondaryText"
   | "lightPrimaryColor"
   | "lightSecondaryColor"
   | "pageBackground"
