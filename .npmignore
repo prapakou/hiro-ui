@@ -4,3 +4,6 @@ build/
 index.html
 index.tsx
 yarn-error.log
+tslint.json
+tsconfig.json
+yarn.lock
