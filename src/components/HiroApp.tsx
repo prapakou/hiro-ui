@@ -58,7 +58,7 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
     const theme = this.props.theme || "default";
     const themeVersion = this.props.themeVersion || "latest";
     fetch(
-      `//cdn.jsdelivr.net/gh/arago/hiro-ui-themes@${themeVersion}/dist/${theme}/colours.json`
+      `http://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
     )
       .then(res => res.json())
       .then(colours => {
@@ -71,19 +71,23 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
   getColour = (colour: IThemeColour) =>
     this.state.colours ? this.state.colours[colour] || "black" : "black";
 
-  render = () => (
-    <ThemeContext.Provider
-      value={{
-        getColour: this.state.colours ? this.getColour : undefined
-      }}
-    >
-      <link
-        rel="stylesheet"
-        href={`//cdn.jsdelivr.net/gh/arago/hiro-ui-themes@latest/dist/${this
-          .props.theme || "default"}/semantic.min.css`}
-        onLoad={this.onLoad}
-      />
-      {this.props.children}
-    </ThemeContext.Provider>
-  );
+  render = () => {
+    const theme = this.props.theme || "default";
+    const themeVersion = this.props.themeVersion || "latest";
+
+    return (
+      <ThemeContext.Provider
+        value={{
+          getColour: this.state.colours ? this.getColour : undefined
+        }}
+      >
+        <link
+          rel="stylesheet"
+          href={`http://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
+          onLoad={this.onLoad}
+        />
+        {this.props.children}
+      </ThemeContext.Provider>
+    );
+  };
 }
