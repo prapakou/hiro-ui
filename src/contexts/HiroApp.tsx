@@ -57,7 +57,7 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
     const theme = this.props.theme || "default";
     const themeVersion = this.props.themeVersion || "latest";
     fetch(
-      `http://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
+      `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
     )
       .then(res => res.json())
       .then(colours => {
@@ -82,7 +82,7 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
       >
         <link
           rel="stylesheet"
-          href={`http://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
+          href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
           onLoad={this.onLoad}
         />
         {this.props.children}
