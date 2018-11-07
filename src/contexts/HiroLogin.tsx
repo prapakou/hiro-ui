@@ -13,15 +13,15 @@ interface IState {
   orm?: any;
 }
 
-export interface IAuthContext {
+interface IHiroLoginContext {
   me?: any;
   orm?: any;
   token?: string;
 }
 
-const Context = createContext<IAuthContext>({});
+export const HiroLoginContext = createContext<IHiroLoginContext>({});
 
-export default class AuthProvider extends Component<IProps, IState> {
+export class HiroLogin extends Component<IProps, IState> {
   private cancel?: () => void;
   private auth: Auth;
 
@@ -96,7 +96,7 @@ export default class AuthProvider extends Component<IProps, IState> {
     }
 
     return (
-      <Context.Provider
+      <HiroLoginContext.Provider
         value={{
           me: this.state.me,
           orm: this.state.orm,
@@ -104,9 +104,9 @@ export default class AuthProvider extends Component<IProps, IState> {
         }}
       >
         {children}
-      </Context.Provider>
+      </HiroLoginContext.Provider>
     );
   };
 }
 
-export const AuthConsumer = Context.Consumer;
+export const HiroLoginConsumer = HiroLoginContext.Consumer;

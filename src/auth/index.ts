@@ -5,7 +5,7 @@ import mappings from "hiro-graph-orm-mappings";
 export interface IAuthConfig {
   api: string;
   url: string;
-  clienId: string;
+  clientId: string;
 }
 
 interface IToken {

@@ -1,5 +1,4 @@
 import React, { Component, createContext } from "react";
-import { Loader } from "semantic-ui-react";
 
 type IThemeColour =
   | "primaryColor"
