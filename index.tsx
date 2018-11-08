@@ -13,7 +13,7 @@ const Test = ({ ready }) => {
             { key: "profile", text: "View Profile" },
             { key: "logout", text: "Logout" }
           ]}
-          items={[{ key: "licenses", contents: "Licenses" }]}
+          items={[{ to: "licenses", title: "Licenses" }]}
           trigger={<Icon name="user" />}
         />
         <Container>Test</Container>
