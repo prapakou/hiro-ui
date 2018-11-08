@@ -4,15 +4,7 @@ import { Container, HiroApp, HiroLoginContext, Icon, TopBar } from "./src";
 
 const Test = ({ ready }) => {
   return (
-    <HiroApp
-      ready={ready}
-      config={{
-        api: "https://stagegraph.arago.co",
-        clientId: "cjn03dcm90ouch324bogp0jrx",
-        url: "https://stagegraph.arago.co/api/6/auth/ui/"
-      }}
-      login
-    >
+    <HiroApp ready={ready}>
       <Container fluid>
         <TopBar
           title="Test Page"
@@ -21,6 +13,7 @@ const Test = ({ ready }) => {
             { key: "profile", text: "View Profile" },
             { key: "logout", text: "Logout" }
           ]}
+          items={[{ key: "licenses", contents: "Licenses" }]}
           trigger={<Icon name="user" />}
         />
         <Container>Test</Container>
