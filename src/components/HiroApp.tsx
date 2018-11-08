@@ -69,7 +69,7 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
     return (
       <ThemeContext.Provider
         value={{
-          getColour: this.state.colours ? this.getColour : undefined
+          getColour: this.state.colours ? this.getColour : () => "transparent"
         }}
       >
         <link

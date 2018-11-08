@@ -31,7 +31,9 @@ export type IThemeColour =
   | "veryStrongTransparentWhite";
 
 export interface IThemeContext {
-  getColour?: (colour: IThemeColour) => string;
+  getColour: (colour: IThemeColour) => string;
 }
 
-export const ThemeContext = createContext<IThemeContext>({});
+export const ThemeContext = createContext<IThemeContext>({
+  getColour: () => "transparent"
+});
