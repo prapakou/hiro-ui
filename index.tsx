@@ -10,10 +10,10 @@ const Test = ({ ready }) => {
           title="Test Page"
           logo="https://hiro.arago.co/app/images/favicon/android-icon-192x192.png"
           options={[
-            { key: "profile", text: "View Profile" },
-            { key: "logout", text: "Logout" }
+            { key: "profile", title: "View Profile" },
+            { key: "logout", title: "Logout" }
           ]}
-          items={[{ to: "licenses", title: "Licenses" }]}
+          items={[{ key: "licenses", contents: "Licenses" }]}
           trigger={<Icon name="user" />}
         />
         <Container>Test</Container>

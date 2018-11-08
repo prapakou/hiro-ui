@@ -5,8 +5,8 @@ interface ITopBarProps {
   title: string;
 
   items?: {
-    title: string;
-    to: string;
+    key: string;
+    contents: string;
   }[];
   logo?: string;
   trigger?: React.ReactNode;
@@ -32,8 +32,8 @@ export const TopBar = ({
       </Menu.Item>
       {items &&
         items.map(i => (
-          <Menu.Item link to={i.to} key={i.to}>
-            {i.title}
+          <Menu.Item link key={i.key}>
+            {i.contents}
           </Menu.Item>
         ))}
       {options && trigger && (
