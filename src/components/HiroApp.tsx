@@ -8,7 +8,6 @@ interface IHiroAppProps {
   themeVersion?: string;
   ready?: () => void;
   orm?: any;
-  me?: any;
   config?: IAuthConfig;
   login?: boolean;
 }
@@ -17,14 +16,15 @@ interface IHiroAppState {
   colours?: {
     IThemeColour: string;
   };
+  me?: any;
 }
 
 export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
   state: IHiroAppState = {};
 
   componentDidMount() {
-    const theme = this.props.theme || "default";
-    const themeVersion = this.props.themeVersion || "latest";
+    const { orm, theme = "default", themeVersion = "latest" } = this.props;
+
     fetch(
       `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
     )
@@ -32,6 +32,10 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
       .then(colours => {
         this.setState({ colours });
       });
+
+    if (orm) {
+      orm.person().then(me => this.setState({ me }));
+    }
   }
 
   onLoad = () => this.props.ready && this.props.ready();
@@ -45,16 +49,16 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
       config,
       children,
       orm,
-      me,
       theme = "default",
       themeVersion = "latest"
     } = this.props;
+    const { me } = this.state;
 
     let content = children;
 
     if (login && config) {
       content = <HiroLogin config={config}>{children}</HiroLogin>;
-    } else if (orm && me) {
+    } else if (orm) {
       content = (
         <HiroLoginContext.Provider value={{ orm, me }}>
           {children}
