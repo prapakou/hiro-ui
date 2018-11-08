@@ -1,43 +1,16 @@
-import React, { Component, createContext } from "react";
-
-type IThemeColour =
-  | "primaryColor"
-  | "secondaryColor"
-  | "primaryText"
-  | "secondaryText"
-  | "lightPrimaryColor"
-  | "lightSecondaryColor"
-  | "pageBackground"
-  | "red"
-  | "orange"
-  | "yellow"
-  | "olive"
-  | "green"
-  | "teal"
-  | "blue"
-  | "violet"
-  | "purple"
-  | "pink"
-  | "brown"
-  | "grey"
-  | "black"
-  | "subtleTransparentBlack"
-  | "transparentBlack"
-  | "strongTransparentBlack"
-  | "veryStrongTransparentBlack"
-  | "subtleTransparentWhite"
-  | "transparentWhite"
-  | "strongTransparentWhite"
-  | "veryStrongTransparentWhite";
-
-export interface IThemeContext {
-  getColour?: (colour: IThemeColour) => string;
-}
+import React, { Component } from "react";
+import { IAuthConfig } from "../auth";
+import { HiroLoginContext, IThemeColour, ThemeContext } from "../contexts";
+import { HiroLogin } from "./HiroLogin";
 
 interface IHiroAppProps {
   theme?: "portal" | "saas" | "default";
   themeVersion?: string;
   ready?: () => void;
+  orm?: any;
+  me?: any;
+  config?: IAuthConfig;
+  login?: boolean;
 }
 
 interface IHiroAppState {
@@ -45,10 +18,6 @@ interface IHiroAppState {
     IThemeColour: string;
   };
 }
-
-export const ThemeContext = createContext<IThemeContext>({});
-
-export const ThemeConsumer = ThemeContext.Consumer;
 
 export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
   state: IHiroAppState = {};
@@ -71,8 +40,27 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
     this.state.colours ? this.state.colours[colour] || "black" : "black";
 
   render = () => {
-    const theme = this.props.theme || "default";
-    const themeVersion = this.props.themeVersion || "latest";
+    const {
+      login,
+      config,
+      children,
+      orm,
+      me,
+      theme = "default",
+      themeVersion = "latest"
+    } = this.props;
+
+    let content = children;
+
+    if (login && config) {
+      content = <HiroLogin config={config}>{children}</HiroLogin>;
+    } else if (orm && me) {
+      content = (
+        <HiroLoginContext.Provider value={{ orm, me }}>
+          {children}
+        </HiroLoginContext.Provider>
+      );
+    }
 
     return (
       <ThemeContext.Provider
@@ -85,7 +73,7 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
           href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
           onLoad={this.onLoad}
         />
-        {this.props.children}
+        {content}
       </ThemeContext.Provider>
     );
   };
