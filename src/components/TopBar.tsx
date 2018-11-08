@@ -30,12 +30,7 @@ export const TopBar = ({
           {title}
         </span>
       </Menu.Item>
-      {items &&
-        items.map(i => (
-          <Menu.Item as="a" key={i.key}>
-            {i.contents}
-          </Menu.Item>
-        ))}
+      {items && items.map(i => <Menu.Item key={i.key}>{i.contents}</Menu.Item>)}
       {options && trigger && (
         <Menu.Menu position="right">
           <Dropdown
