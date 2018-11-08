@@ -6,7 +6,7 @@ interface ITopBarProps {
 
   items?: {
     key: string;
-    contents: string;
+    contents: React.ReactNode;
   }[];
   logo?: string;
   trigger?: React.ReactNode;
