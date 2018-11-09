@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Loader } from "semantic-ui-react";
+
 import { Auth, IAuthConfig } from "../auth";
 import { HiroLoginContext } from "../contexts";
 

@@ -13,9 +13,9 @@
   "scripts": {
     "start": "parcel index.html --out-dir build",
     "test": "echo \"no tests\"",
-    "build": "rm -r dist | true && tsc",
-    "lint": "tslint -p tsconfig.json",
-    "preversion": "yarn test && yarn lint && yarn build",
+    "build": "yarn lint && rm -r dist | true && tsc",
+    "lint": "tslint -p tsconfig.json --fix",
+    "preversion": "yarn test && yarn build",
     "postversion": "git add -A . && git push && git push --tags"
   },
   "devDependencies": {
