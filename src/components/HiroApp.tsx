@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { BrowserRouter } from "react-router-dom";
+
 import { IAuthConfig } from "../auth";
 import { HiroLoginContext, IThemeColour, ThemeContext } from "../contexts";
+
 import { HiroLogin } from "./HiroLogin";
 
 interface IHiroAppProps {
@@ -67,18 +70,20 @@ export class HiroApp extends Component<IHiroAppProps, IHiroAppState> {
     }
 
     return (
-      <ThemeContext.Provider
-        value={{
-          getColour: this.state.colours ? this.getColour : () => "transparent"
-        }}
-      >
-        <link
-          rel="stylesheet"
-          href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
-          onLoad={this.onLoad}
-        />
-        {content}
-      </ThemeContext.Provider>
+      <BrowserRouter>
+        <ThemeContext.Provider
+          value={{
+            getColour: this.state.colours ? this.getColour : () => "transparent"
+          }}
+        >
+          <link
+            rel="stylesheet"
+            href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
+            onLoad={this.onLoad}
+          />
+          {content}
+        </ThemeContext.Provider>
+      </BrowserRouter>
     );
   };
 }

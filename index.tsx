@@ -1,10 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
-import { Container, HiroApp, HiroLoginContext, Icon, TopBar } from "./src";
+import { Route } from "react-router-dom";
+
+import { Container, HiroApp, Icon, TopBar } from "./src";
 
 const Test = ({ ready }) => {
   return (
-    <HiroApp ready={ready}>
+    <HiroApp ready={ready} theme="portal">
       <Container fluid>
         <TopBar
           title="Test Page"
@@ -13,13 +15,15 @@ const Test = ({ ready }) => {
             { key: "profile", title: "View Profile" },
             { key: "logout", title: "Logout" }
           ]}
-          items={[{ key: "licenses", contents: "Licenses" }]}
+          navigation={[
+            { href: "/", contents: "Home" },
+            { href: "/page1", contents: "Page 1" }
+          ]}
           trigger={<Icon name="user" />}
         />
         <Container>Test</Container>
-        <HiroLoginContext.Consumer>
-          {context => <h1>Hello world!</h1>}
-        </HiroLoginContext.Consumer>
+        <Route path="/" component={() => <h1>Hello world!</h1>} exact />
+        <Route path="/page1" component={() => <h1>Hello page1!</h1>} exact />
       </Container>
     </HiroApp>
   );
