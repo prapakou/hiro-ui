@@ -13,9 +13,7 @@
         "module-source-path": "full",
         "named-imports-order": "case-insensitive"
       }
-    },
-    "no-unused-variable": true,
-    "no-unused-expression": true
+    }
   },
   "rulesDirectory": [],
   "linterOptions": {

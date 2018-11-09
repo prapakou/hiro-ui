@@ -10,7 +10,9 @@
     "downlevelIteration": true,
     "strict": true,
     "noImplicitAny": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": ["./src"],
   "exclude": ["node_modules", "**/__tests__/*"]
