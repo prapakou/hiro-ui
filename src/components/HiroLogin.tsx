@@ -1,6 +1,8 @@
-import React, { Component, createContext } from "react";
+import React, { Component } from "react";
 import { Loader } from "semantic-ui-react";
+
 import { Auth, IAuthConfig } from "../auth";
+import { HiroLoginContext } from "../contexts";
 
 interface IProps {
   config: IAuthConfig;
@@ -12,14 +14,6 @@ interface IState {
   me?: any;
   orm?: any;
 }
-
-interface IHiroLoginContext {
-  me?: any;
-  orm?: any;
-  token?: string;
-}
-
-export const HiroLoginContext = createContext<IHiroLoginContext>({});
 
 export class HiroLogin extends Component<IProps, IState> {
   private cancel?: () => void;
@@ -108,5 +102,3 @@ export class HiroLogin extends Component<IProps, IState> {
     );
   };
 }
-
-export const HiroLoginConsumer = HiroLoginContext.Consumer;
