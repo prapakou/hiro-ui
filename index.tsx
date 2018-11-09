@@ -6,7 +6,7 @@ import { Container, HiroApp, Icon, TopBar } from "./src";
 
 const Test = ({ ready }) => {
   return (
-    <HiroApp ready={ready} theme="portal">
+    <HiroApp ready={ready} theme="portal" themeVersion="1.0.17">
       <Container fluid>
         <TopBar
           title="Test Page"

@@ -33,9 +33,9 @@ export const TopBar = ({
       </Menu.Item>
       {navigation &&
         navigation.map(n => (
-          <Menu.Item key={n.href} link>
-            <Link to={n.href}>{n.contents}</Link>
-          </Menu.Item>
+          <Link to={n.href} key={n.href} className="link item">
+            {n.contents}
+          </Link>
         ))}
       {options && trigger && (
         <Menu.Menu position="right">
