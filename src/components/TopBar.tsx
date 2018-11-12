@@ -1,5 +1,6 @@
+import cs from "classnames";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import {
   Container,
   Dropdown,
@@ -9,7 +10,7 @@ import {
   Menu
 } from "semantic-ui-react";
 
-interface ITopBarProps {
+interface ITopBarProps extends RouteComponentProps {
   title: string;
 
   search?: Array<{
@@ -28,58 +29,69 @@ interface ITopBarProps {
   color?: import("semantic-ui-react").SemanticCOLORS;
 }
 
-export const TopBar = ({
-  navigation,
-  logo,
-  options,
-  trigger,
-  title,
-  search,
-  searchProps,
-  color = "black"
-}: ITopBarProps) => {
-  const showDropdown = !!options && !!trigger;
-  const showSearch = !!search && !!searchProps;
+export const TopBar = withRouter(
+  ({
+    navigation,
+    logo,
+    options,
+    trigger,
+    title,
+    search,
+    searchProps,
+    color = "black",
+    location
+  }: ITopBarProps) => {
+    const showDropdown = !!options && !!trigger;
+    const showSearch = !!search && !!searchProps;
 
-  return (
-    <Menu>
-      <Container>
-        <Menu.Item header>
-          <span>
-            {logo && <Image size="mini" src={logo} spaced="right" alt="logo" />}
-            {title}
-          </span>
-        </Menu.Item>
-        {navigation &&
-          navigation.map(n => (
-            <Link to={n.href} key={n.href} className="link item">
-              {n.contents}
-            </Link>
-          ))}
-        {(showSearch || showDropdown) && (
-          <Menu.Menu position="right">
-            {search && (
-              <Menu.Item>
+    return (
+      <Menu>
+        <Container>
+          <Menu.Item header>
+            <span>
+              {logo && (
+                <Image size="mini" src={logo} spaced="right" alt="logo" />
+              )}
+              {title}
+            </span>
+          </Menu.Item>
+          {navigation &&
+            navigation.map(n => (
+              <Link
+                to={n.href}
+                key={n.href}
+                className={cs("link", "item", {
+                  active: n.href === location.pathname
+                })}
+              >
+                {n.contents}
+              </Link>
+            ))}
+          {(showSearch || showDropdown) && (
+            <Menu.Menu position="right">
+              {search && (
+                <Menu.Item>
+                  <Dropdown
+                    placeholder="State"
+                    search
+                    selection
+                    options={search}
+                    {...searchProps}
+                  />
+                </Menu.Item>
+              )}
+              {showDropdown && (
                 <Dropdown
-                  placeholder="State"
-                  search
-                  selection
-                  options={search}
-                  {...searchProps}
+                  item
+                  options={options}
+                  trigger={trigger}
+                  icon={<Icon name="caret down" size="large" color={color} />}
                 />
-              </Menu.Item>
-            )}
-            {showDropdown && (
-              <Dropdown
-                item
-                options={options}
-                trigger={trigger}
-                icon={<Icon name="caret down" size="large" color={color} />}
-              />
-            )}
-          </Menu.Menu>
-        )}
-      </Container>
-    </Menu>
-  );
-};
+              )}
+            </Menu.Menu>
+          )}
+        </Container>
+      </Menu>
+    );
+  }
+);

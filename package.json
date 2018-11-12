@@ -32,6 +32,7 @@
     "typescript": "^3.1.5"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "hiro-graph-implicit-oauth": "^1.1.1",
     "hiro-graph-orm": "^1.0.4",
     "hiro-graph-orm-mappings": "^1.0.1",
