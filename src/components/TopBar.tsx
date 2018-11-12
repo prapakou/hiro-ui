@@ -1,4 +1,4 @@
-import cs from "classnames";
+import cx from "classnames";
 import React from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import {
@@ -60,7 +60,7 @@ export const TopBar = withRouter(
               <Link
                 to={n.href}
                 key={n.href}
-                className={cs("link", "item", {
+                className={cx("link", "item", {
                   active: n.href === location.pathname
                 })}
               >
