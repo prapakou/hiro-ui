@@ -12,14 +12,16 @@ const Test = ({ ready }) => {
           title="Test Page"
           logo="https://hiro.arago.co/app/images/favicon/android-icon-192x192.png"
           options={[
-            { key: "profile", title: "View Profile" },
-            { key: "logout", title: "Logout" }
+            { key: "profile", text: "View Profile" },
+            { key: "logout", text: "Logout" }
           ]}
           navigation={[
             { href: "/", contents: "Home" },
             { href: "/page1", contents: "Page 1" }
           ]}
           trigger={<Icon name="user" />}
+          search={[{ key: 1, value: 1, text: 1 }]}
+          searchProps={{ onChange: console.log }}
         />
         <Container>Test</Container>
         <Route path="/" component={() => <h1>Hello world!</h1>} exact />
