@@ -46,7 +46,7 @@ export const TopBar = withRouter(
 
     return (
       <Menu>
-        <Container>
+        <Container fluid>
           <Menu.Item header>
             <span>
               {logo && (
