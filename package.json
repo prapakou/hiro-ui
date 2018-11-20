@@ -11,7 +11,7 @@
     "url": "https://github.com/arago/hiro-ui"
   },
   "scripts": {
-    "start": "parcel index.html --out-dir build",
+    "start": "parcel index.html --out-dir build -p 3000",
     "test": "echo \"no tests\"",
     "build": "yarn lint && rm -r dist | true && tsc",
     "lint": "tslint -p tsconfig.json --fix",
