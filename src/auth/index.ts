@@ -79,7 +79,7 @@ export class Auth {
       const success = await this.login();
 
       if (success) {
-        return { ok, token, orm, me };
+        window.location.reload();
       } else {
         console.error("Failed to login");
       }

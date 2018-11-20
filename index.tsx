@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { render } from "react-dom";
 import { Route } from "react-router-dom";
 
-import { Container, HiroApp, Icon, TopBar, HiroLoginContext } from "./src";
+import { Container, HiroApp, Icon, TopBar } from "./src";
 import { HiroAppStore } from "./src/stores";
 
 const TestToken = () => {

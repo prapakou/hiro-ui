@@ -46,10 +46,6 @@ export const HiroApp = ({
         setColours(c);
       });
 
-    if (orm) {
-      orm.person().then(m => setMe(m));
-    }
-
     return () => (cancel = true);
   }, []);
 
