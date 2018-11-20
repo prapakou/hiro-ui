@@ -1,9 +1,6 @@
 const store = new Map();
 export const HiroAppStore = {
-  get: (key: "token" | "orm" | "me" | string) => {
-    return store.get(key);
-  },
-  set: (key, value) => {
-    return store.set(key, value);
-  }
+  get: (key: "token" | "orm" | "me" | string) => store.get(key),
+  has: store.has,
+  set: store.set
 };
