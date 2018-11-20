@@ -13,7 +13,7 @@
   "scripts": {
     "start": "parcel index.html --out-dir build -p 3000",
     "test": "echo \"no tests\"",
-    "build": "yarn lint && rm -r dist | true && tsc",
+    "build": "yarn lint && rm -r dist .cache | true && tsc",
     "lint": "tslint -p tsconfig.json --fix",
     "preversion": "yarn test && yarn build",
     "postversion": "git add -A . && git push && git push --tags"
