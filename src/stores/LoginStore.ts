@@ -6,31 +6,47 @@ export interface ILoginStore {
   token?: string;
   orm?: any;
   me?: any;
+  updated?: Date;
 }
 
 export class LoginStore extends Container<ILoginStore> {
   auth?: Auth;
   state: ILoginStore = {};
+  authConfig?: any;
+  config?: any;
+  orm?: any;
+  constructor(authConfig, config, orm) {
+    super();
+    this.authConfig = authConfig;
+    this.config = config;
+    this.orm = orm;
+  }
 
   getToken() {
     return this.state.token;
   }
 
-  ensureLogin(authConfig, config, orm) {
-    console.log("Ensuring login...");
-    if (orm && config) {
-      orm.person().then(me => this.setState({ orm, me, token: config.token }));
+  ensureLogin() {
+    if (this.orm && this.config) {
+      this.orm.person().then(me =>
+        this.setState({
+          me,
+          orm: this.orm,
+          token: this.config.token,
+          updated: new Date()
+        })
+      );
 
       return;
     }
 
-    if (!authConfig) {
+    if (!this.authConfig) {
       console.warn("Config required to check login");
       return;
     }
 
     if (!this.auth) {
-      this.auth = new Auth(authConfig);
+      this.auth = new Auth(this.authConfig);
     }
 
     this.auth.isLoggedIn().then(async res => {
@@ -41,7 +57,7 @@ export class LoginStore extends Container<ILoginStore> {
       }
 
       if (!this.auth) {
-        this.auth = new Auth(authConfig);
+        this.auth = new Auth(this.authConfig);
       }
 
       const res2 = await this.auth.login();

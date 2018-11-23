@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "unstated";
 
 import { IAuthConfig } from "../auth";
-import { ThemeNames } from "../stores";
+import { LoginStore, ThemeNames, ThemeStore } from "../stores";
 
 import { Root } from "./Root";
 
@@ -26,20 +26,19 @@ export const HiroApp = ({
   config,
   orm
 }: IHiroAppProps) => (
-  <Provider>
+  <Provider
+    inject={[
+      new ThemeStore(theme, themeVersion),
+      new LoginStore(authConfig, config, orm)
+    ]}
+  >
     <link
       rel="stylesheet"
       href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
       onLoad={() => ready && ready()}
     />
 
-    <Root
-      authConfig={authConfig}
-      config={config}
-      orm={orm}
-      theme={theme}
-      themeVersion={themeVersion}
-    >
+    <Root>
       <BrowserRouter>{children}</BrowserRouter>
     </Root>
   </Provider>

@@ -37,10 +37,19 @@ export interface IThemeStore {
 
 export class ThemeStore extends Container<IThemeStore> {
   state: IThemeStore = {};
+  theme: ThemeNames;
+  themeVersion: string;
+  constructor(theme?: ThemeNames, themeVersion?: string) {
+    super();
+    this.theme = theme || "default";
+    this.themeVersion = themeVersion || "latest";
+  }
 
-  load(theme: ThemeNames = "default", themeVersion: string = "latest") {
+  load() {
     fetch(
-      `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
+      `https://dtlv35ikt30on.cloudfront.net/${this.themeVersion}/${
+        this.theme
+      }/colours.json`
     )
       .then(res => res.json())
       .then(colours => {

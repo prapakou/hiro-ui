@@ -1,14 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import { Route } from "react-router-dom";
+import UNSTATED from "unstated-debug";
 
-import { Container, HiroApp, Icon, LoginStore, subscribe, TopBar } from "./src";
+UNSTATED.logStateChanges = true;
+
+import {
+  Container,
+  Header,
+  HiroApp,
+  Icon,
+  Label,
+  LoginStore,
+  Segment,
+  subscribe,
+  TopBar
+} from "./src";
 
 const TestText = subscribe({ store: LoginStore })(
   ({ text, store }: { text: string; store: LoginStore }) => {
-    console.log(store.state);
+    const [me, setMe] = useState({});
+    const token = store.getToken();
 
-    return <h2>{text}</h2>;
+    useEffect(() => {
+      console.debug("Test: mount");
+      store.state.orm.person().then(setMe);
+
+      const i = setInterval(() => {
+        console.debug("Test: orm");
+        store.state.orm.person().then(setMe);
+      }, 3000);
+
+      return () => clearInterval(i);
+    }, []);
+
+    // @ts-ignore
+    const sub = me && me.get ? me.get("email") : "";
+
+    return (
+      <Segment>
+        <Header content={text} subheader={"Welcome " + sub} />
+        <Label content="Token" detail={token.substr(0, 50) + "..."} />
+      </Segment>
+    );
   }
 );
 
