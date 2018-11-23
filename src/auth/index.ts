@@ -18,6 +18,7 @@ interface ILoginResult {
   token: string;
   me?: void | any;
   orm?: any;
+  updated: Date;
 }
 type AuthCallback = (err: Error, token: any) => void;
 
@@ -48,7 +49,8 @@ const doAuth = (f: (callback: AuthCallback) => void): Promise<ILoginResult> => {
         me,
         ok: !err && !!accessToken && !!me,
         orm,
-        token: accessToken
+        token: accessToken,
+        updated: new Date()
       });
     });
   });
