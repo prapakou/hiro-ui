@@ -1,6 +1,7 @@
 import { Container } from "unstated";
 
-export type IThemeColour =
+export type ThemeNames = "portal" | "saas" | "default";
+export type ThemeColours =
   | "primaryColor"
   | "secondaryColor"
   | "primaryText"
@@ -37,10 +38,7 @@ export interface IThemeStore {
 export class ThemeStore extends Container<IThemeStore> {
   state: IThemeStore = {};
 
-  load(
-    theme: "portal" | "saas" | "default" = "default",
-    themeVersion: string = "latest"
-  ) {
+  load(theme: ThemeNames = "default", themeVersion: string = "latest") {
     fetch(
       `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
     )
@@ -50,7 +48,7 @@ export class ThemeStore extends Container<IThemeStore> {
       });
   }
 
-  getColour(colour: IThemeColour) {
+  getColour(colour: ThemeColours) {
     return this.state.colours ? this.state.colours[colour] || "black" : "black";
   }
 }

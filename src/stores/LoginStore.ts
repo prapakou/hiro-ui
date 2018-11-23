@@ -10,23 +10,17 @@ export interface ILoginStore {
 
 export class LoginStore extends Container<ILoginStore> {
   auth?: Auth;
-  constructor() {
-    super();
-    this.state = { token: "test1" };
-  }
-
-  setToken(token: string) {
-    console.log("setting token to", token);
-    return this.setState({ token });
-  }
+  state: ILoginStore = {};
 
   getToken() {
     return this.state.token;
   }
 
   ensureLogin(authConfig, config, orm) {
+    console.log("Ensuring login...");
     if (orm && config) {
       orm.person().then(me => this.setState({ orm, me, token: config.token }));
+
       return;
     }
 

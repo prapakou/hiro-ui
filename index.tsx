@@ -2,11 +2,15 @@ import React from "react";
 import { render } from "react-dom";
 import { Route } from "react-router-dom";
 
-import { Container, HiroApp, Icon, TopBar } from "./src";
+import { Container, HiroApp, Icon, LoginStore, subscribe, TopBar } from "./src";
 
-const TestText = ({ text }) => {
-  return <h2>{text}</h2>;
-};
+const TestText = subscribe({ store: LoginStore })(
+  ({ text, store }: { text: string; store: LoginStore }) => {
+    console.log(store.state);
+
+    return <h2>{text}</h2>;
+  }
+);
 
 const Test = ({ ready }) => {
   return (
@@ -18,7 +22,6 @@ const Test = ({ ready }) => {
         clientId: "cjn03dcm90ouch324bogp0jrx",
         url: "https://stagegraph.arago.co/api/6/auth/ui/"
       }}
-      login
     >
       <Container fluid>
         <TopBar
@@ -34,7 +37,7 @@ const Test = ({ ready }) => {
           ]}
           trigger={<Icon name="user" />}
           search={[{ key: 1, value: 1, text: 1 }]}
-          searchProps={{ onChange: console.log }}
+          searchProps={{ onChange: () => console.log("onChange") }}
         />
 
         <Route

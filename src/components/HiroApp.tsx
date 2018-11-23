@@ -3,17 +3,17 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "unstated";
 
 import { IAuthConfig } from "../auth";
+import { ThemeNames } from "../stores";
 
 import { Root } from "./Root";
 
 interface IHiroAppProps {
-  theme?: "portal" | "saas" | "default";
+  theme?: ThemeNames;
   themeVersion?: string;
   ready?: () => void;
   orm?: any;
   authConfig?: IAuthConfig;
   config?: any;
-  login?: boolean;
   children: any;
 }
 
@@ -32,6 +32,7 @@ export const HiroApp = ({
       href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
       onLoad={() => ready && ready()}
     />
+
     <Root
       authConfig={authConfig}
       config={config}

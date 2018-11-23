@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Loader } from "semantic-ui-react";
 
 import { LoginStore } from "../stores/LoginStore";
-import { ThemeStore } from "../stores/ThemeStore";
+import { ThemeNames, ThemeStore } from "../stores/ThemeStore";
 import subscribe from "../subscribe";
 
 interface IHiroLogin {
@@ -12,35 +12,42 @@ interface IHiroLogin {
   authConfig?: any;
   config?: any;
   orm?: any;
-  theme?: any;
-  themeVersion?: any;
+  theme?: ThemeNames;
+  themeVersion?: string;
 }
 
 export const Root = subscribe({
   loginStore: LoginStore,
   themeStore: ThemeStore
 })(
-  class Content extends React.Component<IHiroLogin> {
-    componentDidMount() {
-      const { loginStore, authConfig, config, orm } = this.props;
+  ({
+    authConfig,
+    config,
+    loginStore,
+    orm,
+    theme,
+    themeStore,
+    themeVersion,
+    children
+  }: IHiroLogin) => {
+    useEffect(
+      () => {
+        loginStore.ensureLogin(authConfig, config, orm);
+      },
+      [children]
+    );
 
-      loginStore.ensureLogin(authConfig, config, orm);
+    useEffect(
+      () => {
+        themeStore.load(theme, themeVersion);
+      },
+      [theme, themeVersion]
+    );
+
+    if (!loginStore.state.me || !loginStore.state.token) {
+      return <Loader active size="huge" content="Logging in..." />;
     }
 
-    componentWillReceiveProps(nextProps) {
-      const { loginStore, authConfig, config, orm } = nextProps;
-
-      loginStore.ensureLogin(authConfig, config, orm);
-    }
-
-    render() {
-      const { children, loginStore } = this.props;
-
-      if (!loginStore.state.me || !loginStore.state.token) {
-        return <Loader active size="huge" content="Logging in..." />;
-      }
-
-      return <>{children}</>;
-    }
+    return <>{children}</>;
   }
 );
