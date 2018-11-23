@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Loader } from "semantic-ui-react";
 
 import { LoginStore } from "../stores/LoginStore";
@@ -34,7 +34,11 @@ export const Root = subscribe({
     }
 
     render() {
-      const { children } = this.props;
+      const { children, loginStore } = this.props;
+
+      if (!loginStore.state.me || !loginStore.state.token) {
+        return <Loader active size="huge" content="Logging in..." />;
+      }
 
       return <>{children}</>;
     }
