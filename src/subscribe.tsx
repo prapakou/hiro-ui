@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, ContainerType, Subscribe } from "unstated";
 
-interface ISubscribe {
+export interface ISubscribe {
   [name: string]: Container<any> | ContainerType<any>;
 }
 
