@@ -26,7 +26,7 @@ export class AuthStore extends Container<IAuthStore> {
     return this.state.token;
   }
 
-  ensureLogin() {
+  async ensureLogin() {
     if (this.orm && this.config) {
       this.orm.person().then(me =>
         this.setState({
@@ -41,16 +41,15 @@ export class AuthStore extends Container<IAuthStore> {
     }
 
     if (!this.authConfig) {
-      console.warn("Config required to check login");
-      return;
+      return "Config required to check login";
     }
 
     if (!this.auth) {
       this.auth = new Auth(this.authConfig);
     }
 
-    this.auth.isLoggedIn().then(async res => {
-      this.setState(res);
+    return this.auth.isLoggedIn().then(async res => {
+      await this.setState(res);
 
       if (res.ok) {
         return;
@@ -65,7 +64,7 @@ export class AuthStore extends Container<IAuthStore> {
       if (res2.ok) {
         window.location.reload();
       } else {
-        console.error("Failed to login!");
+        return "Failed to login!";
       }
     });
   }
