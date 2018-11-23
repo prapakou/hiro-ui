@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import UNSTATED from "unstated-debug";
 
 UNSTATED.logStateChanges = true;
+UNSTATED.isCollapsed = true;
 
 import {
   AuthStore,
@@ -11,7 +12,6 @@ import {
   Header,
   HiroApp,
   Image,
-  Label,
   Segment,
   subscribe,
   TopBar
@@ -23,15 +23,7 @@ const TestText = subscribe({ store: AuthStore })(
     const token = store.getToken();
 
     useEffect(() => {
-      console.debug("Test: mount");
       store.state.orm.person().then(setMe);
-
-      const i = setInterval(() => {
-        console.debug("Test: orm");
-        store.state.orm.person().then(setMe);
-      }, 3000);
-
-      return () => clearInterval(i);
     }, []);
 
     // @ts-ignore
@@ -40,7 +32,7 @@ const TestText = subscribe({ store: AuthStore })(
     return (
       <Segment>
         <Header content={text} subheader={"Welcome " + sub} />
-        <Label content="Token" detail={token.substr(0, 50) + "..."} />
+        <Header content="Token" subheader={token} />
       </Segment>
     );
   }
