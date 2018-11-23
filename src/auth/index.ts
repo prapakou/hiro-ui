@@ -2,8 +2,6 @@ import { Popup } from "hiro-graph-implicit-oauth";
 import HiroGraphOrm from "hiro-graph-orm";
 import mappings from "hiro-graph-orm-mappings";
 
-import { HiroAppStore } from "../stores";
-
 export interface IAuthConfig {
   api: string;
   url: string;
@@ -20,6 +18,7 @@ interface ILoginResult {
   token: string;
   me?: void | any;
   orm?: any;
+  updated: Date;
 }
 type AuthCallback = (err: Error, token: any) => void;
 
@@ -50,7 +49,8 @@ const doAuth = (f: (callback: AuthCallback) => void): Promise<ILoginResult> => {
         me,
         ok: !err && !!accessToken && !!me,
         orm,
-        token: accessToken
+        token: accessToken,
+        updated: new Date()
       });
     });
   });
@@ -67,23 +67,7 @@ export class Auth {
   }
 
   isLoggedIn = () => {
-    return doAuth(this.check).then(async ({ ok, token, orm, me }) => {
-      HiroAppStore.set("token", token);
-      HiroAppStore.set("orm", orm);
-      HiroAppStore.set("me", me);
-
-      if (ok) {
-        return { ok, token, orm, me };
-      }
-
-      const success = await this.login();
-
-      if (success) {
-        return { ok, token, orm, me };
-      } else {
-        console.error("Failed to login");
-      }
-    });
+    return doAuth(this.check);
   };
 
   login = () => {

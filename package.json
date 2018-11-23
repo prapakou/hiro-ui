@@ -13,15 +13,15 @@
   "scripts": {
     "start": "parcel index.html --out-dir build -p 3000",
     "test": "echo \"no tests\"",
-    "build": "yarn lint && rm -r dist | true && tsc",
+    "build": "yarn lint && rm -r dist .cache | true && tsc",
     "lint": "tslint -p tsconfig.json --fix",
     "preversion": "yarn test && yarn build",
     "postversion": "git add -A . && git push && git push --tags"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
-    "@types/classnames": "^2.2.6",
     "@babel/plugin-transform-runtime": "^7.1.0",
+    "@types/classnames": "^2.2.6",
     "@types/react": "^16.7.3",
     "@types/react-dom": "^16.0.9",
     "@types/react-router-dom": "^4.3.1",
@@ -30,7 +30,8 @@
     "sass": "^1.14.3",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.1.5"
+    "typescript": "^3.1.5",
+    "unstated-debug": "^0.3.2"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -40,7 +41,8 @@
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0",
     "react-router-dom": "^4.3.1",
-    "semantic-ui-react": "^0.83.0"
+    "semantic-ui-react": "^0.83.0",
+    "unstated": "^2.1.1"
   },
   "publishConfig": {
     "access": "public"

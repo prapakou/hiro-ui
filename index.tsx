@@ -1,15 +1,51 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import { Route } from "react-router-dom";
+import UNSTATED from "unstated-debug";
 
-import { Container, HiroApp, Icon, TopBar, HiroLoginContext } from "./src";
-import { HiroAppStore } from "./src/stores";
+UNSTATED.logStateChanges = true;
+UNSTATED.isCollapsed = true;
 
-const TestToken = () => {
-  const token = HiroAppStore.get("token");
+import {
+  AuthStore,
+  Container,
+  Header,
+  HiroApp,
+  Image,
+  Segment,
+  subscribe,
+  TopBar
+} from "./src";
 
-  return <h2>{token}</h2>;
-};
+const TestText = subscribe({ store: AuthStore })(
+  ({ text, store }: { text: string; store: AuthStore }) => {
+    const [me, setMe] = useState({});
+    const token = store.getToken();
+
+    useEffect(() => {
+      store.state.orm.person().then(setMe);
+    }, []);
+
+    // @ts-ignore
+    const sub = me && me.get ? me.get("email") : "";
+
+    return (
+      <Segment>
+        <Header content={text} subheader={"Welcome " + sub} />
+        <Header content="Token" subheader={token} />
+      </Segment>
+    );
+  }
+);
+
+const Avatar = subscribe({ store: AuthStore })(
+  ({ store }: { store: AuthStore }) => {
+    const src = store.state.me
+      ? `https://stagegraph.arago.co/${store.state.me.get("_id")}/picture`
+      : "";
+    return <Image avatar circular src={src} bordered />;
+  }
+);
 
 const Test = ({ ready }) => {
   return (
@@ -21,7 +57,6 @@ const Test = ({ ready }) => {
         clientId: "cjn03dcm90ouch324bogp0jrx",
         url: "https://stagegraph.arago.co/api/6/auth/ui/"
       }}
-      login
     >
       <Container fluid>
         <TopBar
@@ -35,15 +70,30 @@ const Test = ({ ready }) => {
             { href: "/", contents: "Home" },
             { href: "/page1", contents: "Page 1" }
           ]}
-          trigger={<Icon name="user" />}
+          trigger={<Avatar />}
           search={[{ key: 1, value: 1, text: 1 }]}
-          searchProps={{ onChange: console.log }}
+          searchProps={{ onChange: () => console.log("onChange") }}
+          color="orange"
         />
-        <Container>
-          Test <TestToken />
-        </Container>
-        <Route path="/" component={() => <h1>Hello world!</h1>} exact />
-        <Route path="/page1" component={() => <h1>Hello page1!</h1>} exact />
+
+        <Route
+          path="/"
+          component={() => (
+            <Container>
+              <TestText text="Hello world!" />
+            </Container>
+          )}
+          exact
+        />
+        <Route
+          path="/page1"
+          component={() => (
+            <Container>
+              <TestText text="Hello world again!" />
+            </Container>
+          )}
+          exact
+        />
       </Container>
     </HiroApp>
   );
