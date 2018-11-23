@@ -3,12 +3,9 @@ import { render } from "react-dom";
 import { Route } from "react-router-dom";
 
 import { Container, HiroApp, Icon, TopBar } from "./src";
-import { HiroAppStore } from "./src/stores";
 
 const TestToken = () => {
-  const token = HiroAppStore.get("token");
-
-  return <h2>{token}</h2>;
+  return <h2>Test</h2>;
 };
 
 const Test = ({ ready }) => {
@@ -39,10 +36,16 @@ const Test = ({ ready }) => {
           search={[{ key: 1, value: 1, text: 1 }]}
           searchProps={{ onChange: console.log }}
         />
-        <Container>
-          Test <TestToken />
-        </Container>
-        <Route path="/" component={() => <h1>Hello world!</h1>} exact />
+
+        <Route
+          path="/"
+          component={() => (
+            <Container>
+              <TestToken />
+            </Container>
+          )}
+          exact
+        />
         <Route path="/page1" component={() => <h1>Hello page1!</h1>} exact />
       </Container>
     </HiroApp>
