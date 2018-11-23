@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "unstated";
 
 import { IAuthConfig } from "../auth";
-import { LoginStore, ThemeNames, ThemeStore } from "../stores";
+import { AuthStore, ThemeNames, ThemeStore } from "../stores";
 
 import { Root } from "./Root";
 
@@ -29,7 +29,7 @@ export const HiroApp = ({
   <Provider
     inject={[
       new ThemeStore(theme, themeVersion),
-      new LoginStore(authConfig, config, orm)
+      new AuthStore(authConfig, config, orm)
     ]}
   >
     <link

@@ -6,19 +6,19 @@ import UNSTATED from "unstated-debug";
 UNSTATED.logStateChanges = true;
 
 import {
+  AuthStore,
   Container,
   Header,
   HiroApp,
-  Icon,
+  Image,
   Label,
-  LoginStore,
   Segment,
   subscribe,
   TopBar
 } from "./src";
 
-const TestText = subscribe({ store: LoginStore })(
-  ({ text, store }: { text: string; store: LoginStore }) => {
+const TestText = subscribe({ store: AuthStore })(
+  ({ text, store }: { text: string; store: AuthStore }) => {
     const [me, setMe] = useState({});
     const token = store.getToken();
 
@@ -46,6 +46,15 @@ const TestText = subscribe({ store: LoginStore })(
   }
 );
 
+const Avatar = subscribe({ store: AuthStore })(
+  ({ store }: { store: AuthStore }) => {
+    const src = store.state.me
+      ? `https://stagegraph.arago.co/${store.state.me.get("_id")}/picture`
+      : "";
+    return <Image avatar circular src={src} bordered />;
+  }
+);
+
 const Test = ({ ready }) => {
   return (
     <HiroApp
@@ -69,9 +78,10 @@ const Test = ({ ready }) => {
             { href: "/", contents: "Home" },
             { href: "/page1", contents: "Page 1" }
           ]}
-          trigger={<Icon name="user" />}
+          trigger={<Avatar />}
           search={[{ key: 1, value: 1, text: 1 }]}
           searchProps={{ onChange: () => console.log("onChange") }}
+          color="orange"
         />
 
         <Route

@@ -2,16 +2,16 @@ import { Container } from "unstated";
 
 import { Auth } from "../auth";
 
-export interface ILoginStore {
+export interface IAuthStore {
   token?: string;
   orm?: any;
   me?: any;
   updated?: Date;
 }
 
-export class LoginStore extends Container<ILoginStore> {
+export class AuthStore extends Container<IAuthStore> {
   auth?: Auth;
-  state: ILoginStore = {};
+  state: IAuthStore = {};
   authConfig?: any;
   config?: any;
   orm?: any;

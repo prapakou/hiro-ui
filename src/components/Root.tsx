@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 import { Loader } from "semantic-ui-react";
 
-import { LoginStore, ThemeStore } from "../stores";
+import { AuthStore, ThemeStore } from "../stores";
 
 import subscribe from "../subscribe";
 
 interface IHiroLogin {
   children: any;
-  loginStore: LoginStore;
+  authStore: AuthStore;
   themeStore: ThemeStore;
 }
 
 export const Root = subscribe({
-  loginStore: LoginStore,
+  authStore: AuthStore,
   themeStore: ThemeStore
-})(({ loginStore, themeStore, children }: IHiroLogin) => {
+})(({ authStore, themeStore, children }: IHiroLogin) => {
   useEffect(
     () => {
-      loginStore.ensureLogin();
+      authStore.ensureLogin();
     },
     [children]
   );
@@ -26,7 +26,7 @@ export const Root = subscribe({
     themeStore.load();
   }, []);
 
-  if (!loginStore.state.me || !loginStore.state.token) {
+  if (!authStore.state.me || !authStore.state.token) {
     return <Loader active size="huge" content="Logging in..." />;
   }
 

@@ -1,2 +1,2 @@
-export * from "./LoginStore";
+export * from "./AuthStore";
 export * from "./ThemeStore";
