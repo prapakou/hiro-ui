@@ -4,8 +4,8 @@ import { Route } from "react-router-dom";
 
 import { Container, HiroApp, Icon, TopBar } from "./src";
 
-const TestToken = () => {
-  return <h2>Test</h2>;
+const TestText = ({ text }) => {
+  return <h2>{text}</h2>;
 };
 
 const Test = ({ ready }) => {
@@ -41,12 +41,20 @@ const Test = ({ ready }) => {
           path="/"
           component={() => (
             <Container>
-              <TestToken />
+              <TestText text="Hello world!" />
             </Container>
           )}
           exact
         />
-        <Route path="/page1" component={() => <h1>Hello page1!</h1>} exact />
+        <Route
+          path="/page1"
+          component={() => (
+            <Container>
+              <TestText text="Hello world again!" />
+            </Container>
+          )}
+          exact
+        />
       </Container>
     </HiroApp>
   );

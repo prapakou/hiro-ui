@@ -20,74 +20,23 @@ export const Root = subscribe({
   loginStore: LoginStore,
   themeStore: ThemeStore
 })(
-  ({
-    authConfig,
-    children,
-    config,
-    loginStore,
-    orm,
-    theme,
-    themeStore,
-    themeVersion
-  }: IHiroLogin) => {
-    console.log(loginStore.state);
+  class Content extends React.Component<IHiroLogin> {
+    componentDidMount() {
+      const { loginStore, authConfig, config, orm } = this.props;
 
-    useEffect(() => {
       loginStore.ensureLogin(authConfig, config, orm);
-    }, []);
-
-    useEffect(() => {
-      themeStore.load(theme, themeVersion);
-    }, []);
-
-    if (!loginStore.state.me) {
-      return <Loader active size="huge" content="Logging in..." />;
     }
 
-    return <>{children}</>;
+    componentWillReceiveProps(nextProps) {
+      const { loginStore, authConfig, config, orm } = nextProps;
+
+      loginStore.ensureLogin(authConfig, config, orm);
+    }
+
+    render() {
+      const { children } = this.props;
+
+      return <>{children}</>;
+    }
   }
 );
-/*
-export class HiroLogin extends React.Component<IHiroLogin> {
-  componentDidMount() {
-    const { store } = this.props;
-
-    store.setToken("test2");
-  }
-
-  componentWillReceiveProps(nextProps, oldProps) {
-    console.log(nextProps, oldProps);
-  }
-
-  render() {
-    console.log(this.props.store.state);
-    return <>{this.props.children}</>;
-  }
-}
-*/
-/*
-
-const Content = ({ loginStore, children }) => {
-  console.log(loginStore.state);
-
-  return (
-    <>
-      <p>{loginStore.getToken()}</p>
-      <Button
-        onClick={() => loginStore.setToken("test2")}
-        content="Set token"
-      />
-    </>
-  );
-};
-
-export const HiroLogin2 = ({ children, authConfig, orm, config }) => {
-  return (
-    <Subscribe to={[LoginStore, TestStore]}>
-      {(loginStore: LoginStore) => (
-        <Content loginStore={loginStore} children={children} />
-      )}
-    </Subscribe>
-  );
-};
-*/

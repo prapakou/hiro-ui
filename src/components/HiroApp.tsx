@@ -26,22 +26,20 @@ export const HiroApp = ({
   config,
   orm
 }: IHiroAppProps) => (
-  <BrowserRouter>
-    <Provider>
-      <link
-        rel="stylesheet"
-        href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
-        onLoad={() => ready && ready()}
-      />
-      <Root
-        authConfig={authConfig}
-        config={config}
-        orm={orm}
-        theme={theme}
-        themeVersion={themeVersion}
-      >
-        {children}
-      </Root>
-    </Provider>
-  </BrowserRouter>
+  <Provider>
+    <link
+      rel="stylesheet"
+      href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
+      onLoad={() => ready && ready()}
+    />
+    <Root
+      authConfig={authConfig}
+      config={config}
+      orm={orm}
+      theme={theme}
+      themeVersion={themeVersion}
+    >
+      <BrowserRouter>{children}</BrowserRouter>
+    </Root>
+  </Provider>
 );
