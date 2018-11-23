@@ -56,7 +56,20 @@ export const Root = subscribe({
   return (
     <>
       {children}
-      {error && <Message content={error} error />}
+      {error && (
+        <Message
+          header="Error"
+          content={error}
+          error
+          style={{
+            backgroundColor: "mistyrose",
+            bottom: 0,
+            left: 0,
+            position: "fixed",
+            right: 0
+          }}
+        />
+      )}
     </>
   );
 });
