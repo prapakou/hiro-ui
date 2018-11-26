@@ -45,7 +45,7 @@ export class ThemeStore extends Container<IThemeStore> {
     this.themeVersion = themeVersion || "latest";
   }
 
-  load() {
+  load = () => {
     fetch(
       `https://dtlv35ikt30on.cloudfront.net/${this.themeVersion}/${
         this.theme
@@ -55,9 +55,9 @@ export class ThemeStore extends Container<IThemeStore> {
       .then(colours => {
         this.setState({ colours });
       });
-  }
+  };
 
-  getColour(colour: ThemeColours) {
+  getColour = (colour: ThemeColours) => {
     return this.state.colours ? this.state.colours[colour] || "black" : "black";
-  }
+  };
 }

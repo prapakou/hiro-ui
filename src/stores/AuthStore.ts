@@ -22,11 +22,11 @@ export class AuthStore extends Container<IAuthStore> {
     this.orm = orm;
   }
 
-  getToken() {
+  getToken = () => {
     return this.state.token;
-  }
+  };
 
-  async ensureLogin() {
+  ensureLogin = async () => {
     if (this.orm && this.config) {
       this.orm.person().then(me =>
         this.setState({
@@ -67,5 +67,5 @@ export class AuthStore extends Container<IAuthStore> {
         return "Failed to login!";
       }
     });
-  }
+  };
 }
