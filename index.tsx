@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { render } from "react-dom";
 import { Route } from "react-router-dom";
-import UNSTATED from "unstated-debug";
 
-UNSTATED.logStateChanges = true;
-UNSTATED.isCollapsed = true;
-
-import {
-  AuthStore,
-  Container,
-  Header,
-  HiroApp,
-  Image,
-  Segment,
-  subscribe,
-  TopBar
-} from "./src";
+import { Container, Header, HiroApp, Image, Segment, TopBar } from "./src";
 import { authStore } from "./src/streams";
 
 const TestText = ({ text }) => {
