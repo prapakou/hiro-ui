@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Loader, Message } from "semantic-ui-react";
 
 import { IAuthConfig } from "../auth";
-import { authStore, errorStore, themeStore } from "../streams";
+import { authStore, errorStore, themeStore } from "../stores";
 
 interface IHiroAppProps {
   theme?: "portal" | "saas" | "default";

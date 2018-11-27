@@ -10,7 +10,7 @@ import {
   Menu
 } from "semantic-ui-react";
 
-import { themeStore } from "../streams";
+import { themeStore } from "../stores";
 
 interface ITopBarProps extends RouteComponentProps {
   title: string;
