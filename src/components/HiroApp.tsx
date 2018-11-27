@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "unstated";
+import { Loader, Message } from "semantic-ui-react";
 
 import { IAuthConfig } from "../auth";
-import { AuthStore, ThemeNames, ThemeStore } from "../stores";
-
-import { Root } from "./Root";
+import { authStore, errorStore, themeStore } from "../streams";
 
 interface IHiroAppProps {
-  theme?: ThemeNames;
-  themeVersion?: string;
+  theme?: "portal" | "saas" | "default";
+  themeVersion?: string | "latest";
   ready?: () => void;
   orm?: any;
   authConfig?: IAuthConfig;
@@ -20,21 +18,54 @@ interface IHiroAppProps {
 export const HiroApp = ({
   children,
   ready,
-  theme = "default",
-  themeVersion = "latest",
+  theme,
+  themeVersion,
   authConfig,
   config,
   orm
-}: IHiroAppProps) => (
-  <>
-    <link
-      rel="stylesheet"
-      href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
-      onLoad={() => ready && ready()}
-    />
+}: IHiroAppProps) => {
+  const { me, token } = authStore.getters.useAuth();
 
-    <Root authConfig={authConfig} config={config} orm={orm}>
+  useEffect(() => {
+    themeStore.actions.loadThemes(theme, themeVersion);
+    authStore.actions.ensureLogin(authConfig, config, orm);
+
+    const i = setInterval(() => {
+      authStore.actions.ensureLogin(authConfig, config, orm);
+    }, 30000);
+
+    return () => clearInterval(i);
+  }, []);
+
+  const error = errorStore.getters.useError();
+
+  if (!me || !token) {
+    return <Loader active size="huge" content="Logging in..." />;
+  }
+
+  return (
+    <>
+      <link
+        rel="stylesheet"
+        href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
+        onLoad={() => ready && ready()}
+      />
+
       <BrowserRouter>{children}</BrowserRouter>
-    </Root>
-  </>
-);
+      {error && (
+        <Message
+          header="Error"
+          content={error.message}
+          error
+          style={{
+            backgroundColor: "mistyrose",
+            bottom: 0,
+            left: 0,
+            position: "fixed",
+            right: 0
+          }}
+        />
+      )}
+    </>
+  );
+};

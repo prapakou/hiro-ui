@@ -2,7 +2,7 @@ import { BehaviorSubject } from "rxjs";
 
 import { Auth } from "../auth";
 
-import { createSubscribedState } from "./_helpers";
+import { createSubscribedState } from "../helpers";
 
 interface IAuthState {
   token?: string;
@@ -15,6 +15,7 @@ const auth$ = new BehaviorSubject<IAuthState>({});
 let auth;
 
 const ensureLogin = async (authConfig, config, orm) => {
+  console.log("ensureLogin");
   if (orm && config) {
     orm.person().then(me =>
       auth$.next({

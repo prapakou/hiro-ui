@@ -1,6 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 
-import { createSubscribedState } from "./_helpers";
+import { createSubscribedState } from "../helpers";
+
 import { errorStore } from "./errors";
 
 type ThemeColours =
@@ -43,8 +44,10 @@ interface IThemeState {
 
 const theme$ = new BehaviorSubject<IThemeState>({ colours: {} });
 
-const loadThemes = () => {
-  fetch(`https://dtlv35ikt30on.cloudfront.net/latest/default/colours.json`)
+const loadThemes = (theme = "latest", themeVersion = "default") => {
+  fetch(
+    `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
+  )
     .then(res => res.json())
     .then(colours => {
       theme$.next({ colours });
