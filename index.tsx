@@ -16,36 +16,27 @@ import {
   subscribe,
   TopBar
 } from "./src";
+import { authStore } from "./src/streams";
 
-const TestText = subscribe({ store: AuthStore })(
-  ({ text, store }: { text: string; store: AuthStore }) => {
-    const [me, setMe] = useState({});
-    const token = store.getToken();
+const TestText = ({ text }) => {
+  const { me, token } = authStore.getters.useAuth();
 
-    useEffect(() => {
-      store.state.orm.person().then(setMe);
-    }, []);
+  // @ts-ignore
+  const sub = me && me.get ? me.get("email") : "";
 
-    // @ts-ignore
-    const sub = me && me.get ? me.get("email") : "";
+  return (
+    <Segment>
+      <Header content={text} subheader={"Welcome " + sub} />
+      <Header content="Token" subheader={token} />
+    </Segment>
+  );
+};
 
-    return (
-      <Segment>
-        <Header content={text} subheader={"Welcome " + sub} />
-        <Header content="Token" subheader={token} />
-      </Segment>
-    );
-  }
-);
-
-const Avatar = subscribe({ store: AuthStore })(
-  ({ store }: { store: AuthStore }) => {
-    const src = store.state.me
-      ? `https://stagegraph.arago.co/${store.state.me.get("_id")}/picture`
-      : "";
-    return <Image avatar circular src={src} bordered />;
-  }
-);
+const Avatar = () => {
+  const { me } = authStore.getters.useAuth();
+  const src = me ? `https://stagegraph.arago.co/${me.get("_id")}/picture` : "";
+  return <Image avatar circular src={src} bordered />;
+};
 
 const Test = ({ ready }) => {
   return (

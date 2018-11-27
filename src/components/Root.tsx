@@ -1,55 +1,35 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Loader, Message } from "semantic-ui-react";
 
-import { AuthStore, ThemeStore } from "../stores";
-
-import subscribe from "../subscribe";
+import { authStore, errorStore, themeStore } from "../streams";
 
 interface IHiroLogin {
   children: any;
-  authStore: AuthStore;
-  themeStore: ThemeStore;
+  authConfig?: any;
+  config?: any;
+  orm?: any;
 }
 
-export const Root = subscribe({
-  authStore: AuthStore,
-  themeStore: ThemeStore
-})(({ authStore, themeStore, children }: IHiroLogin) => {
-  const isCheckingLogin = useRef(false);
-  const [error, setError] = useState<string | undefined>(undefined);
-
-  const ensureLogin = useCallback(
-    () =>
-      // Don't check if we're already checking
-      authStore.ensureLogin().then(e => {
-        // Check to avoid un-needed re-render
-        if (e) {
-          setError(e);
-        }
-        isCheckingLogin.current = false;
-      }),
-    []
-  );
+export const Root = ({ children, authConfig, config, orm }: IHiroLogin) => {
+  const { me, token } = authStore.getters.useAuth();
 
   useEffect(() => {
-    ensureLogin();
+    authStore.actions.ensureLogin(authConfig, config, orm);
 
     const i = setInterval(() => {
-      if (isCheckingLogin.current) {
-        return;
-      }
-
-      ensureLogin();
+      authStore.actions.ensureLogin(authConfig, config, orm);
     }, 30000);
 
     return () => clearInterval(i);
   }, []);
 
   useEffect(() => {
-    themeStore.load();
+    themeStore.actions.loadThemes();
   }, []);
 
-  if (!authStore.state.me || !authStore.state.token) {
+  const error = errorStore.getters.useError();
+
+  if (!me || !token) {
     return <Loader active size="huge" content="Logging in..." />;
   }
 
@@ -59,7 +39,7 @@ export const Root = subscribe({
       {error && (
         <Message
           header="Error"
-          content={error}
+          content={error.message}
           error
           style={{
             backgroundColor: "mistyrose",
@@ -72,4 +52,4 @@ export const Root = subscribe({
       )}
     </>
   );
-});
+};

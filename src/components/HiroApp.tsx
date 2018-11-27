@@ -26,20 +26,15 @@ export const HiroApp = ({
   config,
   orm
 }: IHiroAppProps) => (
-  <Provider
-    inject={[
-      new ThemeStore(theme, themeVersion),
-      new AuthStore(authConfig, config, orm)
-    ]}
-  >
+  <>
     <link
       rel="stylesheet"
       href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
       onLoad={() => ready && ready()}
     />
 
-    <Root>
+    <Root authConfig={authConfig} config={config} orm={orm}>
       <BrowserRouter>{children}</BrowserRouter>
     </Root>
-  </Provider>
+  </>
 );

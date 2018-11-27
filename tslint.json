@@ -13,7 +13,8 @@
         "module-source-path": "full",
         "named-imports-order": "case-insensitive"
       }
-    }
+    },
+    "max-classes-per-file": false
   },
   "rulesDirectory": [],
   "linterOptions": {
