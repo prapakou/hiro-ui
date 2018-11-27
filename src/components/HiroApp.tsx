@@ -18,8 +18,8 @@ interface IHiroAppProps {
 export const HiroApp = ({
   children,
   ready,
-  theme,
-  themeVersion,
+  theme = "default",
+  themeVersion = "latest",
   authConfig,
   config,
   orm
