@@ -9,7 +9,7 @@ const TestText = ({ text }) => {
   const { me, token } = authStore.getters.useAuth();
   const theme = themeStore.getters.useTheme();
 
-  const color = themeStore.helpers.getColours(theme, "blue");
+  const color = themeStore.helpers.getColour(theme, "blue");
 
   console.log(color);
 

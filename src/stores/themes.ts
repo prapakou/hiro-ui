@@ -61,7 +61,7 @@ const loadTheme = (
     .catch(errorStore.actions.setError);
 };
 
-const getColours = (themes: IThemeState, colour: ThemeColours) => {
+const getColour = (themes: IThemeState, colour: ThemeColours) => {
   return themes.colours[colour];
 };
 
@@ -71,6 +71,6 @@ export const themeStore = {
     useTheme: createStateGetter<IThemeState>(theme$)
   },
   helpers: {
-    getColours
+    getColour
   }
 };
