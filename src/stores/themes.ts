@@ -52,7 +52,6 @@ const loadTheme = (
   theme: ThemeNames = "default",
   themeVersion: ThemeVersions = "latest"
 ) => {
-  console.log(theme, themeVersion);
   fetch(
     `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
   )
