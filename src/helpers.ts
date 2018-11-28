@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BehaviorSubject } from "rxjs";
 
-export const createSubscribedState = <T>(target: BehaviorSubject<T>) => () => {
+export const createStateGetter = <T>(target: BehaviorSubject<T>) => () => {
   const [render, setRender] = useState(false);
 
   useEffect(() => {

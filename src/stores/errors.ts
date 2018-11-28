@@ -1,6 +1,6 @@
 import { BehaviorSubject } from "rxjs";
 
-import { createSubscribedState } from "../helpers";
+import { createStateGetter } from "../helpers";
 
 type ErrorState = Error | undefined;
 
@@ -15,6 +15,6 @@ export const errorStore = {
     setError
   },
   getters: {
-    useError: createSubscribedState<ErrorState>(error$)
+    useError: createStateGetter<ErrorState>(error$)
   }
 };

@@ -3,10 +3,15 @@ import { render } from "react-dom";
 import { Route } from "react-router-dom";
 
 import { Container, Header, HiroApp, Image, Segment, TopBar } from "./src";
-import { authStore } from "./src/stores";
+import { authStore, themeStore } from "./src/stores";
 
 const TestText = ({ text }) => {
   const { me, token } = authStore.getters.useAuth();
+  const themes = themeStore.getters.useThemes();
+
+  const color = themeStore.helpers.getColours(themes, "blue");
+
+  console.log(color);
 
   // @ts-ignore
   const sub = me && me.get ? me.get("email") : "";
@@ -14,7 +19,7 @@ const TestText = ({ text }) => {
   return (
     <Segment>
       <Header content={text} subheader={"Welcome " + sub} />
-      <Header content="Token" subheader={token} />
+      <Header content="Token" subheader={token} style={{ color }} />
     </Segment>
   );
 };

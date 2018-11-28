@@ -2,7 +2,7 @@ import { BehaviorSubject } from "rxjs";
 
 import { Auth } from "../auth";
 
-import { createSubscribedState } from "../helpers";
+import { createStateGetter } from "../helpers";
 
 interface IAuthState {
   token?: string;
@@ -62,6 +62,6 @@ export const authStore = {
     ensureLogin
   },
   getters: {
-    useAuth: createSubscribedState<IAuthState>(auth$)
+    useAuth: createStateGetter<IAuthState>(auth$)
   }
 };

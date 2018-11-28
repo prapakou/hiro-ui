@@ -1,6 +1,6 @@
 import { BehaviorSubject } from "rxjs";
 
-import { createSubscribedState } from "../helpers";
+import { createStateGetter } from "../helpers";
 
 import { errorStore } from "./errors";
 
@@ -55,7 +55,16 @@ const loadThemes = (theme = "latest", themeVersion = "default") => {
     .catch(errorStore.actions.setError);
 };
 
+const getColours = (state: IThemeState, colour: ThemeColours) => {
+  return state.colours[colour];
+};
+
 export const themeStore = {
   actions: { loadThemes },
-  getters: { useThemes: createSubscribedState<IThemeState>(theme$) }
+  getters: {
+    useThemes: createStateGetter<IThemeState>(theme$)
+  },
+  helpers: {
+    getColours
+  }
 };
