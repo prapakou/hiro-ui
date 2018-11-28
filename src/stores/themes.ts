@@ -1,10 +1,11 @@
+import { useCallback } from "react";
 import { BehaviorSubject } from "rxjs";
 
 import { createStateGetter } from "../helpers";
 
 import { errorStore } from "./errors";
 
-type ThemeColours =
+export type ThemeColours =
   | "primaryColor"
   | "secondaryColor"
   | "primaryText"
@@ -51,6 +52,7 @@ const loadTheme = (
   theme: ThemeNames = "default",
   themeVersion: ThemeVersions = "latest"
 ) => {
+  console.log(theme, themeVersion);
   fetch(
     `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
   )
@@ -61,16 +63,16 @@ const loadTheme = (
     .catch(errorStore.actions.setError);
 };
 
-const getColour = (themes: IThemeState, colour: ThemeColours) => {
-  return themes.colours[colour];
-};
+const useTheme = createStateGetter<IThemeState>(theme$);
 
 export const themeStore = {
   actions: { loadTheme },
   getters: {
-    useTheme: createStateGetter<IThemeState>(theme$)
-  },
-  helpers: {
-    getColour
+    useColour: () => {
+      const theme = useTheme();
+      return useCallback((colour: ThemeColours) => theme.colours[colour], [
+        theme
+      ]);
+    }
   }
 };
