@@ -7,9 +7,9 @@ import { authStore, themeStore } from "./src/stores";
 
 const TestText = ({ text }) => {
   const { me, token } = authStore.getters.useAuth();
-  const themes = themeStore.getters.useThemes();
+  const theme = themeStore.getters.useTheme();
 
-  const color = themeStore.helpers.getColours(themes, "blue");
+  const color = themeStore.helpers.getColours(theme, "blue");
 
   console.log(color);
 

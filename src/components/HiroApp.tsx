@@ -33,7 +33,7 @@ export const HiroApp = ({
   const { me, token } = authStore.getters.useAuth();
 
   useEffect(() => {
-    themeStore.actions.loadThemes(theme, themeVersion);
+    themeStore.actions.loadTheme(theme, themeVersion);
     authStore.actions.ensureLogin(authConfig, config, orm);
 
     const i = setInterval(() => {

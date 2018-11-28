@@ -47,7 +47,7 @@ export type ThemeNames = "portal" | "saas" | "default";
 
 const theme$ = new BehaviorSubject<IThemeState>({ colours: {} });
 
-const loadThemes = (
+const loadTheme = (
   theme: ThemeNames = "default",
   themeVersion: ThemeVersions = "latest"
 ) => {
@@ -66,9 +66,9 @@ const getColours = (themes: IThemeState, colour: ThemeColours) => {
 };
 
 export const themeStore = {
-  actions: { loadThemes },
+  actions: { loadTheme },
   getters: {
-    useThemes: createStateGetter<IThemeState>(theme$)
+    useTheme: createStateGetter<IThemeState>(theme$)
   },
   helpers: {
     getColours
