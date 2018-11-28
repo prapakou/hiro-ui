@@ -44,7 +44,10 @@ interface IThemeState {
 
 const theme$ = new BehaviorSubject<IThemeState>({ colours: {} });
 
-const loadThemes = (theme = "latest", themeVersion = "default") => {
+const loadThemes = (
+  theme: string = "default",
+  themeVersion: string | "latest" = "latest"
+) => {
   fetch(
     `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
   )
@@ -55,8 +58,8 @@ const loadThemes = (theme = "latest", themeVersion = "default") => {
     .catch(errorStore.actions.setError);
 };
 
-const getColours = (state: IThemeState, colour: ThemeColours) => {
-  return state.colours[colour];
+const getColours = (themes: IThemeState, colour: ThemeColours) => {
+  return themes.colours[colour];
 };
 
 export const themeStore = {
