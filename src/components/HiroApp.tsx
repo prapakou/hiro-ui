@@ -3,11 +3,17 @@ import { BrowserRouter } from "react-router-dom";
 import { Loader, Message } from "semantic-ui-react";
 
 import { IAuthConfig } from "../auth";
-import { authStore, errorStore, themeStore } from "../stores";
+import {
+  authStore,
+  errorStore,
+  ThemeNames,
+  themeStore,
+  ThemeVersions
+} from "../stores";
 
 interface IHiroAppProps {
-  theme?: "portal" | "saas" | "default";
-  themeVersion?: string | "latest";
+  theme?: ThemeNames;
+  themeVersion?: ThemeVersions;
   ready?: () => void;
   orm?: any;
   authConfig?: IAuthConfig;
@@ -18,8 +24,8 @@ interface IHiroAppProps {
 export const HiroApp = ({
   children,
   ready,
-  theme = "default",
-  themeVersion = "latest",
+  theme,
+  themeVersion,
   authConfig,
   config,
   orm

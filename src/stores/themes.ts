@@ -38,6 +38,9 @@ interface IThemeState {
   colours: { [key in ThemeColours]: string } | {};
 }
 
+export type ThemeVersions = string | "latest";
+export type ThemeNames = "portal" | "saas" | "default";
+
 /*
  * ThemeStore -->
  */
@@ -45,8 +48,8 @@ interface IThemeState {
 const theme$ = new BehaviorSubject<IThemeState>({ colours: {} });
 
 const loadThemes = (
-  theme: string = "default",
-  themeVersion: string | "latest" = "latest"
+  theme: ThemeNames = "default",
+  themeVersion: ThemeVersions = "latest"
 ) => {
   fetch(
     `https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/colours.json`
