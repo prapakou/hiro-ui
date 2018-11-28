@@ -53,7 +53,8 @@ export const HiroApp = ({
     <>
       <link
         rel="stylesheet"
-        href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
+        href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion ||
+          "latest"}/${theme || "default"}/semantic.min.css`}
         onLoad={() => ready && ready()}
       />
 
