@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import { Route } from "react-router-dom";
 
 import { Container, Header, HiroApp, Image, Segment, TopBar } from "./src";
-import { authStore } from "./src/streams";
+import { authStore } from "./src/stores";
 
 const TestText = ({ text }) => {
   const { me, token } = authStore.getters.useAuth();

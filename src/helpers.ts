@@ -6,13 +6,11 @@ export const createSubscribedState = <T>(target: BehaviorSubject<T>) => () => {
 
   useEffect(() => {
     const sub = target.subscribe({
-      next: () => {
-        setRender(!render);
-      }
+      next: () => setRender(!render)
     });
 
-    return () => sub.unsubscribe;
+    return () => sub.unsubscribe();
   }, []);
 
-  return target.value;
+  return target.getValue();
 };

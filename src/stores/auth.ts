@@ -15,7 +15,6 @@ const auth$ = new BehaviorSubject<IAuthState>({});
 let auth;
 
 const ensureLogin = async (authConfig, config, orm) => {
-  console.log("ensureLogin");
   if (orm && config) {
     orm.person().then(me =>
       auth$.next({
