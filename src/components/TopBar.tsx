@@ -10,8 +10,6 @@ import {
   Menu
 } from "semantic-ui-react";
 
-import { themeStore } from "../stores";
-
 interface ITopBarProps extends RouteComponentProps {
   title: string;
 
@@ -45,9 +43,6 @@ export const TopBar = withRouter(
   }: ITopBarProps) => {
     const showDropdown = !!options && !!trigger;
     const showSearch = !!search && !!searchProps;
-
-    const themes = themeStore.getters.useThemes();
-    console.log("themes", themes);
 
     return (
       <Menu>
