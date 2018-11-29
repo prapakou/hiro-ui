@@ -62,6 +62,7 @@ export const authStore = {
     ensureLogin
   },
   getters: {
+    getToken: () => auth$.getValue().token,
     useAuth: createStateGetter<IAuthState>(auth$)
   }
 };
