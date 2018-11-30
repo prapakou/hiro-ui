@@ -6,13 +6,10 @@ type ErrorState = Error | undefined;
 
 const error$ = new BehaviorSubject<ErrorState>(undefined);
 
-const setError = (e: Error) => {
-  error$.next(e);
-};
-
 export const errorStore = {
   actions: {
-    setError
+    clearError: () => error$.next(undefined),
+    setError: (e: Error) => error$.next(e)
   },
   getters: {
     useError: createStateGetter<ErrorState>(error$)
