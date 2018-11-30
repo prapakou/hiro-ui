@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Loader, Message } from "semantic-ui-react";
+import { Loader } from "semantic-ui-react";
 
 import { IAuthConfig } from "../auth";
 import {
@@ -10,6 +10,8 @@ import {
   themeStore,
   ThemeVersions
 } from "../stores";
+
+import { ErrorBar } from "./ErrorBar";
 
 interface IHiroAppProps {
   theme?: ThemeNames;
@@ -35,6 +37,7 @@ export const HiroApp = ({
   useEffect(() => {
     themeStore.actions.loadTheme(theme, themeVersion);
     authStore.actions.ensureLogin(authConfig, config, orm);
+    errorStore.actions.setError(new TypeError("Boom!"));
 
     const i = setInterval(() => {
       authStore.actions.ensureLogin(authConfig, config, orm);
@@ -59,20 +62,7 @@ export const HiroApp = ({
       />
 
       <BrowserRouter>{children}</BrowserRouter>
-      {error && (
-        <Message
-          header="Error"
-          content={error.message}
-          error
-          style={{
-            backgroundColor: "mistyrose",
-            bottom: 0,
-            left: 0,
-            position: "fixed",
-            right: 0
-          }}
-        />
-      )}
+      {error && <ErrorBar error={error} />}
     </>
   );
 };
