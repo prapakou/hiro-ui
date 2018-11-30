@@ -19,6 +19,7 @@ export const ErrorBar = ({ error }: { error: Error }) => (
         icon="close"
         color="red"
         floated="right"
+        compact
         onClick={() => errorStore.actions.clearError()}
       />
     </Rail>
