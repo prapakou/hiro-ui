@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Loader } from "semantic-ui-react";
 
@@ -32,7 +32,16 @@ export const HiroApp = ({
   config,
   orm
 }: IHiroAppProps) => {
+  const [loading, setLoading] = useState(true);
   const { me, token } = authStore.getters.useAuth();
+  const error = errorStore.getters.useError();
+
+  const setReady = useCallback(() => {
+    if (ready) {
+      ready();
+    }
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
     themeStore.actions.loadTheme(theme, themeVersion);
@@ -45,10 +54,15 @@ export const HiroApp = ({
     return () => clearInterval(i);
   }, []);
 
-  const error = errorStore.getters.useError();
+  let body = <Loader active size="huge" content="Logging in..." />;
 
-  if (!me || !token) {
-    return <Loader active size="huge" content="Logging in..." />;
+  if (me && token && !loading) {
+    body = (
+      <>
+        <BrowserRouter>{children}</BrowserRouter>
+        {error && <ErrorBar error={error} />}
+      </>
+    );
   }
 
   return (
@@ -57,11 +71,10 @@ export const HiroApp = ({
         rel="stylesheet"
         href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion ||
           "latest"}/${theme || "default"}/semantic.min.css`}
-        onLoad={() => ready && ready()}
+        onLoad={setReady}
       />
 
-      <BrowserRouter>{children}</BrowserRouter>
-      {error && <ErrorBar error={error} />}
+      {body}
     </>
   );
 };
