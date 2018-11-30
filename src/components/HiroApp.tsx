@@ -37,7 +37,6 @@ export const HiroApp = ({
   useEffect(() => {
     themeStore.actions.loadTheme(theme, themeVersion);
     authStore.actions.ensureLogin(authConfig, config, orm);
-    errorStore.actions.setError(new TypeError("Boom!"));
 
     const i = setInterval(() => {
       authStore.actions.ensureLogin(authConfig, config, orm);
