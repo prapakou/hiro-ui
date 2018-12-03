@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Loader } from "semantic-ui-react";
 

@@ -1,8 +1,9 @@
 import { BehaviorSubject } from "rxjs";
 
 import { Auth } from "../auth";
-
 import { createStateGetter } from "../helpers";
+
+import { errorStore } from "./errors";
 
 interface IAuthState {
   token?: string;
@@ -11,10 +12,26 @@ interface IAuthState {
   updated?: Date;
 }
 
+type AuthKeys = "authConfig" | "config" | "orm";
+
+const store = new Map<AuthKeys, any>();
 const auth$ = new BehaviorSubject<IAuthState>({});
 let auth;
 
-const ensureLogin = async (authConfig, config, orm) => {
+const getOrSet = (key: AuthKeys, value: any) => {
+  if (store.has(key) && !value) {
+    return store.get(key);
+  }
+
+  store.set(key, value);
+  return value;
+};
+
+const ensureLogin = async (newAuthConfig?, newConfig?, newOrm?) => {
+  const orm = getOrSet("orm", newOrm);
+  const config = getOrSet("config", newConfig);
+  const authConfig = getOrSet("authConfig", newAuthConfig);
+
   if (orm && config) {
     orm.person().then(me =>
       auth$.next({
@@ -25,11 +42,12 @@ const ensureLogin = async (authConfig, config, orm) => {
       })
     );
 
-    return;
+    return true;
   }
 
   if (!authConfig) {
-    return "Config required to check login";
+    errorStore.actions.setError(new Error("Config required to check login"));
+    return false;
   }
 
   if (!auth) {
@@ -40,7 +58,7 @@ const ensureLogin = async (authConfig, config, orm) => {
     await auth$.next(res);
 
     if (res.ok) {
-      return;
+      return true;
     }
 
     if (!auth) {
@@ -52,7 +70,8 @@ const ensureLogin = async (authConfig, config, orm) => {
     if (res2.ok) {
       window.location.reload();
     } else {
-      return "Failed to login!";
+      errorStore.actions.setError(new Error("Failed to login!"));
+      return false;
     }
   });
 };
@@ -62,7 +81,14 @@ export const authStore = {
     ensureLogin
   },
   getters: {
-    getToken: () => auth$.getValue().token,
+    getToken: async () => {
+      const ok = await ensureLogin();
+      if (ok) {
+        return auth$.getValue().token;
+      }
+
+      return;
+    },
     useAuth: createStateGetter<IAuthState>(auth$)
   }
 };
