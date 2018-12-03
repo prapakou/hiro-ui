@@ -63,6 +63,8 @@ export const HiroApp = ({
         {error && <ErrorBar error={error} />}
       </>
     );
+  } else if (error) {
+    body = <ErrorBar error={error} />;
   }
 
   return (

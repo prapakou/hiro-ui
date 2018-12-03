@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { render } from "react-dom";
 import { Route } from "react-router-dom";
 
@@ -21,6 +21,20 @@ const TestText = ({ text }) => {
       <Header content={text} subheader={"Welcome " + sub} />
       <Header content="Token" subheader={token} style={{ color }} />
     </Segment>
+  );
+};
+
+const TestToken = () => {
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    authStore.getters.getToken().then(setToken);
+  }, []);
+
+  return (
+    <p>
+      <b>Get Token:</b> {token}
+    </p>
   );
 };
 
@@ -64,6 +78,7 @@ const Test = ({ ready }) => {
           component={() => (
             <Container>
               <TestText text="Hello world!" />
+              <TestToken />
             </Container>
           )}
           exact

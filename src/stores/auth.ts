@@ -1,10 +1,12 @@
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
+import { catchError, filter, switchMap, tap } from "rxjs/operators";
 
 import { Auth } from "../auth";
 import { createStateGetter } from "../helpers";
 
 import { errorStore } from "./errors";
 
+// Types
 interface IAuthState {
   token?: string;
   orm?: any;
@@ -12,12 +14,15 @@ interface IAuthState {
   updated?: Date;
 }
 
+interface IAuthCheck {
+  authConfig?: any;
+  config?: any;
+  orm?: any;
+}
+
 type AuthKeys = "authConfig" | "config" | "orm";
 
-const store = new Map<AuthKeys, any>();
-const auth$ = new BehaviorSubject<IAuthState>({});
-let auth;
-
+// Helpers
 const getOrSet = (key: AuthKeys, value: any) => {
   if (store.has(key) && !value) {
     return store.get(key);
@@ -27,53 +32,67 @@ const getOrSet = (key: AuthKeys, value: any) => {
   return value;
 };
 
+// Stores
+const store = new Map<AuthKeys, any>();
+const authCheck$ = new Subject<IAuthCheck>();
+const auth$ = new BehaviorSubject<IAuthState>({});
+let busy = false;
+
+let auth;
+
+class LoginError extends Error {
+  constructor(...params) {
+    super(...params);
+    this.name = "LoginError";
+  }
+}
+
+// Subscriptions
+authCheck$
+  .pipe(
+    filter(() => !busy),
+    tap(() => (busy = true)),
+    filter(v => !!v.authConfig || (!!v.config && !!v.orm)),
+    switchMap(async v => {
+      console.log("ENSURING LOGIN", 2);
+      if (v.orm && v.config) {
+        const me = await v.orm.person();
+        return { me, orm: v.orm, token: v.config.token, updated: new Date() };
+      }
+
+      if (!auth) {
+        auth = new Auth(v.authConfig);
+      }
+
+      const res = await auth.isLoggedIn();
+
+      if (res.ok) {
+        return res;
+      }
+
+      const res2 = await auth.login();
+      if (res2.ok) {
+        window.location.reload();
+        return res2;
+      } else {
+        throw new LoginError("Failed to login!");
+      }
+    }),
+    catchError(err => {
+      errorStore.actions.setError(err);
+      return [{}];
+    }),
+    tap(() => (busy = false))
+  )
+  .subscribe(auth$);
+
 const ensureLogin = async (newAuthConfig?, newConfig?, newOrm?) => {
   const orm = getOrSet("orm", newOrm);
   const config = getOrSet("config", newConfig);
   const authConfig = getOrSet("authConfig", newAuthConfig);
 
-  if (orm && config) {
-    orm.person().then(me =>
-      auth$.next({
-        me,
-        orm,
-        token: config.token,
-        updated: new Date()
-      })
-    );
-
-    return true;
-  }
-
-  if (!authConfig) {
-    errorStore.actions.setError(new Error("Config required to check login"));
-    return false;
-  }
-
-  if (!auth) {
-    auth = new Auth(authConfig);
-  }
-
-  return auth.isLoggedIn().then(async res => {
-    await auth$.next(res);
-
-    if (res.ok) {
-      return true;
-    }
-
-    if (!auth) {
-      auth = new Auth(authConfig);
-    }
-
-    const res2 = await auth.login();
-
-    if (res2.ok) {
-      window.location.reload();
-    } else {
-      errorStore.actions.setError(new Error("Failed to login!"));
-      return false;
-    }
-  });
+  console.log("ENSURING LOGIN", newAuthConfig, authConfig);
+  authCheck$.next({ orm, config, authConfig });
 };
 
 export const authStore = {
@@ -81,13 +100,14 @@ export const authStore = {
     ensureLogin
   },
   getters: {
-    getToken: async () => {
-      const ok = await ensureLogin();
-      if (ok) {
-        return auth$.getValue().token;
-      }
-
-      return;
+    getToken: () => {
+      return new Promise<string>((resolve, reject) => {
+        ensureLogin();
+        auth$.subscribe({
+          error: reject,
+          next: v => resolve(v.token)
+        });
+      });
     },
     useAuth: createStateGetter<IAuthState>(auth$)
   }
