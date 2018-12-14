@@ -1,16 +1,20 @@
 import { BehaviorSubject, Subject } from "rxjs";
 import { catchError, filter, switchMap, throttleTime } from "rxjs/operators";
 
+import { GraphVertex } from "@hiro-graph/orm";
+import { IAuthAccount } from "@hiro-graph/orm-mappings";
+
 import { Auth } from "../auth";
 import { createStateGetter } from "../helpers";
+import { Orm } from "../typings";
 
 import { errorStore } from "./errors";
 
 // Types
 interface IAuthState {
   token?: string;
-  orm?: any;
-  me?: any;
+  orm?: Orm;
+  me?: GraphVertex<IAuthAccount>;
   updated?: Date;
 }
 

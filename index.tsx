@@ -1,24 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import { Route } from "react-router-dom";
+
+import { IAuthAccount, IAuthOrganization } from "@hiro-graph/orm-mappings";
 
 import { Container, Header, HiroApp, Image, Segment, TopBar } from "./src";
 import { authStore, themeStore } from "./src/stores";
 
 const TestText = ({ text }) => {
-  const { me, token } = authStore.getters.useAuth();
+  const { token, orm } = authStore.getters.useAuth();
   const getColour = themeStore.getters.useColour();
 
   const color = getColour("blue");
 
   console.log(color);
 
-  // @ts-ignore
-  const sub = me && me.get ? me.get("email") : "";
+  orm
+    .me<IAuthAccount>()
+    .then(me => me.fetchVertices(["orgs"]))
+    .then(me => me.getVertices<IAuthOrganization>("orgs"))
+    .then(orgs => orgs.map(o => o.get("_id")));
+
+  orm.AuthTeam.findById("1").then(team => team.get("name"));
+  orm.AuthTeam.findById(["2", "3"]).then(teams =>
+    teams.map(t => t.get("name"))
+  );
 
   return (
     <Segment>
-      <Header content={text} subheader={"Welcome " + sub} />
+      <Header content={text} />
       <Header content="Token" subheader={token} style={{ color }} />
     </Segment>
   );
@@ -48,11 +58,12 @@ const Test = ({ ready }) => {
   return (
     <HiroApp
       ready={ready}
-      theme="portal"
+      theme="saas"
       authConfig={{
-        api: "https://stagegraph.arago.co",
-        clientId: "cjn03dcm90ouch324bogp0jrx",
-        url: "https://stagegraph.arago.co/api/6/auth/ui/"
+        api: "https://ec2-52-48-15-160.eu-west-1.compute.amazonaws.com:8443",
+        clientId: "cjpjqr72w03gd8318pgmt0co6",
+        url:
+          "https://ec2-52-48-15-160.eu-west-1.compute.amazonaws.com:8443/api/6/auth/ui/"
       }}
     >
       <Container fluid>

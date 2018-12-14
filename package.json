@@ -11,7 +11,7 @@
     "url": "https://github.com/arago/hiro-ui"
   },
   "scripts": {
-    "start": "parcel index.html --out-dir build -p 3000",
+    "start": "parcel index.html --out-dir build -p 80",
     "test": "echo \"no tests\"",
     "build": "yarn lint && rm -r dist .cache | true && tsc",
     "lint": "tslint -p tsconfig.json --fix",
@@ -33,10 +33,10 @@
     "typescript": "^3.1.5"
   },
   "dependencies": {
+    "@hiro-graph/orm": "^1.0.4",
+    "@hiro-graph/orm-mappings": "^2.0.1",
     "classnames": "^2.2.6",
     "hiro-graph-implicit-oauth": "^1.1.1",
-    "hiro-graph-orm": "^1.0.4",
-    "hiro-graph-orm-mappings": "^1.0.1",
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0",
     "react-router-dom": "^4.3.1",
