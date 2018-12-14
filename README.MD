@@ -4,7 +4,7 @@ This project is a wrapper for [Semantic UI React](https://react.semantic-ui.com/
 
 Usage is identical, and theming continues to work - with themes managed [here](https://github.com/arago/hiro-ui-themes).
 
-# Usage
+## Usage
 
 The package should be installed directly from npm:
 
@@ -12,11 +12,23 @@ The package should be installed directly from npm:
 yarn add @hiro-graph/ui
 ```
 
-# Development
+```tsx
+// App.tsx
+import { HiroApp } from "@hiro-graph/ui";
+import React from "react";
+
+export default (props: IAppProps) => (
+  <HiroApp theme="default" {...props}>
+    Hello world!
+  </HiroApp>
+);
+```
+
+## Development
 
 `index.tsx` and `index.html` are available for development using [Parcel](https://parceljs.org/). Parcel will automatically handle adding of additionald dependencies.
 
-```
+```bash
 yarn start
 ```
 

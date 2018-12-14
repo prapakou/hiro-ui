@@ -4,12 +4,21 @@ import { Route } from "react-router-dom";
 
 import { IAuthAccount, IAuthOrganization } from "@hiro-graph/orm-mappings";
 
-import { Container, Header, HiroApp, Image, Segment, TopBar } from "./src";
+import {
+  Container,
+  Header,
+  HiroApp,
+  Image,
+  List,
+  Segment,
+  TopBar
+} from "./src";
 import { authStore, themeStore } from "./src/stores";
 
-const TestText = ({ text }) => {
+const TestText = ({ text }: { text: string }) => {
   const { token, orm } = authStore.getters.useAuth();
   const getColour = themeStore.getters.useColour();
+  const [orgs, setOrgs] = useState<string[]>([]);
 
   const color = getColour("blue");
 
@@ -19,17 +28,19 @@ const TestText = ({ text }) => {
     .me<IAuthAccount>()
     .then(me => me.fetchVertices(["orgs"]))
     .then(me => me.getVertices<IAuthOrganization>("orgs"))
-    .then(orgs => orgs.map(o => o.get("_id")));
-
-  orm.AuthTeam.findById("1").then(team => team.get("name"));
-  orm.AuthTeam.findById(["2", "3"]).then(teams =>
-    teams.map(t => t.get("name"))
-  );
+    .then(myOrgs => myOrgs.map(o => o.get("name")))
+    .then(setOrgs);
 
   return (
     <Segment>
       <Header content={text} />
       <Header content="Token" subheader={token} style={{ color }} />
+      <List>
+        <List.Header>Your Orgs</List.Header>
+        {orgs.map(o => (
+          <List.Item>{o}</List.Item>
+        ))}
+      </List>
     </Segment>
   );
 };
