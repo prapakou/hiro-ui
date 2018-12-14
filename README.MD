@@ -12,6 +12,8 @@ The package should be installed directly from npm:
 yarn add @hiro-graph/ui
 ```
 
+Usage of `HiroApp` component injects themes and authentication support to your application:
+
 ```tsx
 // App.tsx
 import { HiroApp } from "@hiro-graph/ui";
@@ -21,6 +23,20 @@ export default (props: IAppProps) => (
   <HiroApp theme="default" {...props}>
     Hello world!
   </HiroApp>
+);
+```
+
+Usage with [hiro-sdk](https://www.npmjs.com/package/hiro-sdk) as follows:
+
+```tsx
+import { initSdk } from "hiro-sdk";
+import React from "react";
+import { render } from "react-dom";
+
+import App from "./src/App";
+
+initSdk().then(({ ready, orm, config }) =>
+  render(<App ready={ready} orm={orm} config={config} />, target)
 );
 ```
 
