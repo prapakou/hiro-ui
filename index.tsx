@@ -1,61 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import { Route } from "react-router-dom";
-import UNSTATED from "unstated-debug";
 
-UNSTATED.logStateChanges = true;
-UNSTATED.isCollapsed = true;
+import { IAuthAccount, IAuthOrganization } from "@hiro-graph/orm-mappings";
 
-import {
-  AuthStore,
-  Container,
-  Header,
-  HiroApp,
-  Image,
-  Segment,
-  subscribe,
-  TopBar
-} from "./src";
+import { Container, Header, HiroApp, Image, Segment, TopBar } from "./src";
+import { authStore, themeStore } from "./src/stores";
 
-const TestText = subscribe({ store: AuthStore })(
-  ({ text, store }: { text: string; store: AuthStore }) => {
-    const [me, setMe] = useState({});
-    const token = store.getToken();
+const TestText = ({ text }) => {
+  const { token, orm } = authStore.getters.useAuth();
+  const getColour = themeStore.getters.useColour();
 
-    useEffect(() => {
-      store.state.orm.person().then(setMe);
-    }, []);
+  const color = getColour("blue");
 
-    // @ts-ignore
-    const sub = me && me.get ? me.get("email") : "";
+  console.log(color);
 
-    return (
-      <Segment>
-        <Header content={text} subheader={"Welcome " + sub} />
-        <Header content="Token" subheader={token} />
-      </Segment>
-    );
-  }
-);
+  orm
+    .me<IAuthAccount>()
+    .then(me => me.fetchVertices(["orgs"]))
+    .then(me => me.getVertices<IAuthOrganization>("orgs"))
+    .then(orgs => orgs.map(o => o.get("_id")));
 
-const Avatar = subscribe({ store: AuthStore })(
-  ({ store }: { store: AuthStore }) => {
-    const src = store.state.me
-      ? `https://stagegraph.arago.co/${store.state.me.get("_id")}/picture`
-      : "";
-    return <Image avatar circular src={src} bordered />;
-  }
-);
+  orm.AuthTeam.findById("1").then(team => team.get("name"));
+  orm.AuthTeam.findById(["2", "3"]).then(teams =>
+    teams.map(t => t.get("name"))
+  );
+
+  return (
+    <Segment>
+      <Header content={text} />
+      <Header content="Token" subheader={token} style={{ color }} />
+    </Segment>
+  );
+};
+
+const TestToken = () => {
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    authStore.getters.getToken().then(setToken);
+  }, []);
+
+  return (
+    <p>
+      <b>Get Token:</b> {token}
+    </p>
+  );
+};
+
+const Avatar = () => {
+  const { me } = authStore.getters.useAuth();
+  const src = me ? `https://stagegraph.arago.co/${me.get("_id")}/picture` : "";
+  return <Image avatar circular src={src} bordered />;
+};
 
 const Test = ({ ready }) => {
   return (
     <HiroApp
       ready={ready}
-      theme="portal"
+      theme="saas"
       authConfig={{
-        api: "https://stagegraph.arago.co",
-        clientId: "cjn03dcm90ouch324bogp0jrx",
-        url: "https://stagegraph.arago.co/api/6/auth/ui/"
+        api: "https://ec2-52-48-15-160.eu-west-1.compute.amazonaws.com:8443",
+        clientId: "cjpjqr72w03gd8318pgmt0co6",
+        url:
+          "https://ec2-52-48-15-160.eu-west-1.compute.amazonaws.com:8443/api/6/auth/ui/"
       }}
     >
       <Container fluid>
@@ -81,6 +89,7 @@ const Test = ({ ready }) => {
           component={() => (
             <Container>
               <TestText text="Hello world!" />
+              <TestToken />
             </Container>
           )}
           exact

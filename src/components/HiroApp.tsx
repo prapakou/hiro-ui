@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "unstated";
+import { Loader } from "semantic-ui-react";
 
 import { IAuthConfig } from "../auth";
-import { AuthStore, ThemeNames, ThemeStore } from "../stores";
+import {
+  authStore,
+  errorStore,
+  ThemeNames,
+  themeStore,
+  ThemeVersions
+} from "../stores";
 
-import { Root } from "./Root";
+import { ErrorBar } from "./ErrorBar";
 
 interface IHiroAppProps {
   theme?: ThemeNames;
-  themeVersion?: string;
+  themeVersion?: ThemeVersions;
   ready?: () => void;
   orm?: any;
   authConfig?: IAuthConfig;
@@ -20,26 +26,57 @@ interface IHiroAppProps {
 export const HiroApp = ({
   children,
   ready,
-  theme = "default",
-  themeVersion = "latest",
+  theme,
+  themeVersion,
   authConfig,
   config,
   orm
-}: IHiroAppProps) => (
-  <Provider
-    inject={[
-      new ThemeStore(theme, themeVersion),
-      new AuthStore(authConfig, config, orm)
-    ]}
-  >
-    <link
-      rel="stylesheet"
-      href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion}/${theme}/semantic.min.css`}
-      onLoad={() => ready && ready()}
-    />
+}: IHiroAppProps) => {
+  const [loading, setLoading] = useState(true);
+  const { me, token } = authStore.getters.useAuth();
+  const error = errorStore.getters.useError();
 
-    <Root>
-      <BrowserRouter>{children}</BrowserRouter>
-    </Root>
-  </Provider>
-);
+  const setReady = useCallback(() => {
+    if (ready) {
+      ready();
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    themeStore.actions.loadTheme(theme, themeVersion);
+    authStore.actions.ensureLogin(authConfig, config, orm);
+
+    const i = setInterval(() => {
+      authStore.actions.ensureLogin(authConfig, config, orm);
+    }, 30000);
+
+    return () => clearInterval(i);
+  }, []);
+
+  let body = <Loader active size="huge" content="Logging in..." />;
+
+  if (me && token && !loading) {
+    body = (
+      <>
+        <BrowserRouter>{children}</BrowserRouter>
+        {error && <ErrorBar error={error} />}
+      </>
+    );
+  } else if (error) {
+    body = <ErrorBar error={error} />;
+  }
+
+  return (
+    <>
+      <link
+        rel="stylesheet"
+        href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion ||
+          "latest"}/${theme || "default"}/semantic.min.css`}
+        onLoad={setReady}
+      />
+
+      {body}
+    </>
+  );
+};
