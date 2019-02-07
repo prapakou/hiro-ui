@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs";
 
-export const createStateGetter = <T>(target: BehaviorSubject<T>) => () => {
-  const [render, setRender] = useState(false);
+export const createObserver = <T>(target: Observable<T>, initial: T) => () => {
+  const [value, setValue] = useState(initial);
 
   useEffect(() => {
     const sub = target.subscribe({
-      next: () => setRender(!render)
+      next: v => setValue(v)
     });
 
     return () => sub.unsubscribe();
   }, []);
 
-  return target.getValue();
+  return value;
 };

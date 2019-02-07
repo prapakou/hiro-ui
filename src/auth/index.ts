@@ -1,5 +1,5 @@
-import HiroGraphOrm, { GraphVertex } from "@hiro-graph/orm";
-import mappings, { IAuthAccount } from "@hiro-graph/orm-mappings";
+import HiroGraphOrm from "@hiro-graph/orm";
+import mappings, { AuthAccountVertex } from "@hiro-graph/orm-mappings";
 import { Popup } from "hiro-graph-implicit-oauth";
 
 import { Orm } from "../typings";
@@ -20,7 +20,7 @@ interface IToken {
 interface ILoginResult {
   ok: boolean;
   token: string;
-  me?: void | GraphVertex<IAuthAccount>;
+  me?: void | AuthAccountVertex;
   orm?: void | Orm;
   updated: Date;
 }
@@ -32,7 +32,7 @@ const doAuth = (
   return new Promise(resolve => {
     f(async (err, token: IToken) => {
       // @ts-ignore
-      let me: void | GraphVertex<IAuthAccount>;
+      let me: void | AuthAccountVertex;
       let orm: void | Orm;
 
       const accessToken = (token || {}).accessToken;
@@ -48,7 +48,7 @@ const doAuth = (
           mappings
         ) as Orm;
 
-        me = await orm.me<IAuthAccount>().catch(console.error);
+        me = await orm.me<AuthAccountVertex>().catch(console.error);
       }
 
       return resolve({

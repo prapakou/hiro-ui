@@ -3,7 +3,7 @@ import { BehaviorSubject } from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { distinctUntilChanged, filter, switchMap } from "rxjs/operators";
 
-import { createStateGetter } from "../helpers";
+import { createObserver } from "../helpers";
 
 export type ThemeColours =
   | "primaryColor"
@@ -61,7 +61,7 @@ themeRequest$
       (a, b) => a.theme === b.theme && a.themeVersion === b.themeVersion
     ),
     switchMap(r =>
-      ajax.getJSON(
+      ajax.getJSON<ColourListType>(
         `https://dtlv35ikt30on.cloudfront.net/${r.themeVersion}/${
           r.theme
         }/colours.json`
@@ -75,7 +75,7 @@ const loadTheme = (
   themeVersion: ThemeVersions = "latest"
 ) => themeRequest$.next({ theme, themeVersion });
 
-const useTheme = createStateGetter<ColourListType>(theme$);
+const useTheme = createObserver<ColourListType>(theme$, undefined);
 
 export const themeStore = {
   actions: { loadTheme },

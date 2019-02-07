@@ -11,7 +11,7 @@
     "url": "https://github.com/arago/hiro-ui"
   },
   "scripts": {
-    "start": "parcel index.html --out-dir build -p 80",
+    "start": "parcel index.html --out-dir build -p 8080",
     "test": "echo \"no tests\"",
     "build": "yarn lint && rm -rf dist .cache | true && tsc",
     "lint": "tslint -p tsconfig.json --fix",
@@ -19,29 +19,29 @@
     "postversion": "git add -A . && git push && git push --tags"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.5",
-    "@babel/plugin-transform-runtime": "^7.1.0",
-    "@types/classnames": "^2.2.6",
-    "@types/react": "^16.7.3",
-    "@types/react-dom": "^16.0.9",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@types/classnames": "^2.2.7",
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
     "@types/react-router-dom": "^4.3.1",
     "json5": "^2.1.0",
-    "parcel-bundler": "^1.10.3",
-    "sass": "^1.14.3",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.1.5"
+    "parcel-bundler": "^1.11.0",
+    "sass": "^1.17.0",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3.1"
   },
   "dependencies": {
-    "@hiro-graph/orm": "^1.0.4",
-    "@hiro-graph/orm-mappings": "^2.0.1",
+    "@hiro-graph/orm": "^1.0.36",
+    "@hiro-graph/orm-mappings": "^2.0.16",
     "classnames": "^2.2.6",
     "hiro-graph-implicit-oauth": "^1.1.1",
-    "react": "^16.7.0-alpha.0",
-    "react-dom": "^16.7.0-alpha.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-router-dom": "^4.3.1",
-    "rxjs": "^6.3.3",
-    "semantic-ui-react": "^0.83.0"
+    "rxjs": "^6.4.0",
+    "semantic-ui-react": "^0.85.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,11 +1,9 @@
+import { AuthAccountVertex } from "@hiro-graph/orm-mappings";
 import { BehaviorSubject, Subject } from "rxjs";
 import { catchError, filter, switchMap, throttleTime } from "rxjs/operators";
 
-import { GraphVertex } from "@hiro-graph/orm";
-import { IAuthAccount } from "@hiro-graph/orm-mappings";
-
 import { Auth } from "../auth";
-import { createStateGetter } from "../helpers";
+import { createObserver } from "../helpers";
 import { Orm } from "../typings";
 
 import { errorStore } from "./errors";
@@ -14,7 +12,7 @@ import { errorStore } from "./errors";
 interface IAuthState {
   token?: string;
   orm?: Orm;
-  me?: GraphVertex<IAuthAccount>;
+  me?: AuthAccountVertex;
   updated?: Date;
 }
 
@@ -108,6 +106,6 @@ export const authStore = {
         });
       });
     },
-    useAuth: createStateGetter<IAuthState>(auth$)
+    useAuth: createObserver<IAuthState>(auth$, {})
   }
 };

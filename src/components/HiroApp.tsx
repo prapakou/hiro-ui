@@ -1,40 +1,33 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Loader } from "semantic-ui-react";
+import { Container, Loader } from "semantic-ui-react";
 
 import { IAuthConfig } from "../auth";
-import {
-  authStore,
-  errorStore,
-  ThemeNames,
-  themeStore,
-  ThemeVersions
-} from "../stores";
+import { authStore, errorStore } from "../stores";
 
 import { ErrorBar } from "./ErrorBar";
+import { HiroStyle, IThemeOptions } from "./HiroStyle";
 
-interface IHiroAppProps {
-  theme?: ThemeNames;
-  themeVersion?: ThemeVersions;
+type HiroAppProps = {
   ready?: () => void;
   orm?: any;
   authConfig?: IAuthConfig;
   config?: any;
   children: any;
-}
+} & IThemeOptions;
 
 export const HiroApp = ({
   children,
   ready,
-  theme,
-  themeVersion,
   authConfig,
   config,
-  orm
-}: IHiroAppProps) => {
+  orm,
+  theme,
+  themeVersion
+}: HiroAppProps) => {
   const [loading, setLoading] = useState(true);
-  const { me, token } = authStore.getters.useAuth();
   const error = errorStore.getters.useError();
+  const hasAuth = !!authConfig || (!!config && !!orm);
 
   const setReady = useCallback(() => {
     if (ready) {
@@ -44,39 +37,42 @@ export const HiroApp = ({
   }, []);
 
   useEffect(() => {
-    themeStore.actions.loadTheme(theme, themeVersion);
-    authStore.actions.ensureLogin(authConfig, config, orm);
-
-    const i = setInterval(() => {
+    if (hasAuth) {
       authStore.actions.ensureLogin(authConfig, config, orm);
-    }, 30000);
 
-    return () => clearInterval(i);
+      const i = setInterval(() => {
+        authStore.actions.ensureLogin(authConfig, config, orm);
+      }, 30000);
+
+      if (!theme) {
+        setReady();
+      }
+
+      return () => clearInterval(i);
+    }
+
+    if (!theme) {
+      setReady();
+    }
   }, []);
 
-  let body = <Loader active size="huge" content="Logging in..." />;
-
-  if (me && token && !loading) {
-    body = (
-      <>
-        <BrowserRouter>{children}</BrowserRouter>
-        {error && <ErrorBar error={error} />}
-      </>
-    );
-  } else if (error) {
-    body = <ErrorBar error={error} />;
-  }
-
   return (
-    <>
-      <link
-        rel="stylesheet"
-        href={`https://dtlv35ikt30on.cloudfront.net/${themeVersion ||
-          "latest"}/${theme || "default"}/semantic.min.css`}
-        onLoad={setReady}
-      />
-
-      {body}
-    </>
+    <BrowserRouter>
+      <Container fluid>
+        {theme && (
+          <HiroStyle
+            theme={theme}
+            themeVersion={themeVersion}
+            onLoad={setReady}
+          />
+        )}
+        {loading ? (
+          <Loader active size="huge" content="Logging in..." />
+        ) : (
+          children
+        )}
+        {error && <ErrorBar error={error} />}
+      </Container>
+    </BrowserRouter>
   );
 };

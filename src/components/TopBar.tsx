@@ -1,5 +1,5 @@
 import cx from "classnames";
-import React from "react";
+import React, { useState } from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import {
   Container,
@@ -43,7 +43,6 @@ export const TopBar = withRouter(
   }: ITopBarProps) => {
     const showDropdown = !!options && !!trigger;
     const showSearch = !!search && !!searchProps;
-
     return (
       <Menu>
         <Container fluid>

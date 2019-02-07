@@ -1,6 +1,6 @@
 import { BehaviorSubject } from "rxjs";
 
-import { createStateGetter } from "../helpers";
+import { createObserver } from "../helpers";
 
 type ErrorState = Error | undefined;
 
@@ -12,6 +12,6 @@ export const errorStore = {
     setError: (e: Error) => error$.next(e)
   },
   getters: {
-    useError: createStateGetter<ErrorState>(error$)
+    useError: createObserver<ErrorState>(error$, undefined)
   }
 };
