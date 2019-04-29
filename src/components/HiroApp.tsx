@@ -2,10 +2,12 @@ import React, { useCallback, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Container, Loader } from "semantic-ui-react";
 
-import { errorStore } from "../stores";
-
 import { ErrorBar } from "./ErrorBar";
 import { HiroStyle, IThemeOptions } from "./HiroStyle";
+import { StoreContext } from "redux-react-hook";
+import { useErrorDispatch, init } from "../stores";
+
+const store = init();
 
 type HiroAppProps = {
   ready?: () => void;
@@ -13,6 +15,13 @@ type HiroAppProps = {
   children?: any;
   fluid?: boolean;
 } & IThemeOptions;
+
+const Test = () => {
+  const { setError } = useErrorDispatch();
+  setError({ message: "Test error" });
+
+  return null;
+};
 
 export const HiroApp = ({
   children,
@@ -22,7 +31,6 @@ export const HiroApp = ({
   fluid
 }: HiroAppProps) => {
   const [loading, setLoading] = useState(true);
-  const error = errorStore.getters.useError();
 
   const setReady = useCallback(() => {
     if (ready) {
@@ -38,16 +46,19 @@ export const HiroApp = ({
   );
 
   return (
-    <BrowserRouter>
-      <Container fluid={fluid}>
-        <HiroStyle
-          theme={theme}
-          themeVersion={themeVersion}
-          onLoad={setReady}
-        />
-        {content}
-        {error && <ErrorBar error={error} />}
-      </Container>
-    </BrowserRouter>
+    <StoreContext.Provider value={store}>
+      <BrowserRouter>
+        <Container fluid={fluid}>
+          <Test />
+          <HiroStyle
+            theme={theme}
+            themeVersion={themeVersion}
+            onLoad={setReady}
+          />
+          {content}
+          <ErrorBar />
+        </Container>
+      </BrowserRouter>
+    </StoreContext.Provider>
   );
 };
