@@ -1,15 +1,22 @@
-import { handleActions, combineActions } from "redux-actions";
-import { themeRequest, themeSuccess, themeError } from "./actions";
+import { createReducer } from "typesafe-actions";
+import { ThemeStateType, ThemeActionsType } from "./constants";
 
-export const themeReducer = handleActions(
-  {
-    [themeRequest.toString()]: (_, { payload }) => ({
-      ...payload
-    }),
-    [combineActions(themeSuccess, themeError).toString()]: (
-      state,
-      { payload }
-    ) => ({ ...state, ...payload })
-  },
-  {}
-);
+export const themeReducer = createReducer<ThemeStateType, ThemeActionsType>({})
+  .handleAction(
+    "THEME_REQUEST",
+    (
+      _,
+      { payload: { theme = "default" as const, themeVersion = "latest" } }
+    ) => ({
+      theme,
+      themeVersion
+    })
+  )
+  .handleAction("THEME_SUCCESS", (state, { payload }) => ({
+    ...state,
+    ...payload
+  }))
+  .handleAction("THEME_ERROR", (state, { payload }) => ({
+    ...state,
+    ...payload
+  }));

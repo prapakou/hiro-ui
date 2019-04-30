@@ -4,43 +4,43 @@ import { take, put } from "redux-saga/effects";
 import { HiroApp, init, Loader } from "../src";
 
 import { storiesOf } from "@storybook/react";
-import { createAction, handleActions } from "redux-actions";
 import { get } from "lodash-es";
 import { useMappedState, useDispatch } from "redux-react-hook";
+import {
+  createStandardAction,
+  ActionType,
+  createReducer
+} from "typesafe-actions";
 
-const sayHelloAction = createAction("SAY_HELLO", (message: string) => ({
-  message
-}));
-const updateCountAction = createAction("UPDATE_COUNT", (count: number) => ({
-  count
-}));
+const sayHelloAction = createStandardAction("SAY_HELLO")<string>();
+const updateCountAction = createStandardAction("UPDATE_COUNT")<number>();
 
-const reducer = handleActions(
+export interface IHelloState {
+  message?: string;
+  count?: number;
+}
+export type HelloActionsType = ActionType<
+  typeof sayHelloAction | typeof updateCountAction
+>;
+
+const reducer = createReducer<IHelloState, HelloActionsType>(
+  { message: "", count: 0 },
   {
-    [sayHelloAction.toString()]: (store, { payload }) => {
-      return {
-        ...store,
-        message: store["message"] + payload.message
-      };
-    },
-    [updateCountAction.toString()]: (store, { payload }) => {
-      return {
-        ...store,
-        count: store["count"] + payload.count
-      };
-    }
-  },
-  {
-    message: "",
-    count: 0
+    SAY_HELLO: (state, { payload }) => ({
+      ...state,
+      message: state.message + payload
+    }),
+    UPDATE_COUNT: (state, { payload }) => ({
+      ...state,
+      count: state.count + payload
+    })
   }
 );
 
 function* handleHello() {
   while (true) {
     const { payload } = yield take(sayHelloAction);
-    const { message } = payload;
-    const words = message.split(" ").filter(Boolean);
+    const words = payload.split(" ").filter(Boolean);
 
     yield put(updateCountAction(words.length));
   }

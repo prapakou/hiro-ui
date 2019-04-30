@@ -1,3 +1,5 @@
+import { ActionType } from "typesafe-actions";
+
 export const THEME_NAMESPACE = "theme";
 
 export type ThemeColours =
@@ -45,9 +47,10 @@ export interface IThemeError {
   error: Error;
 }
 
+export type ThemeVersions = string | "latest";
+export type ThemeNames = "portal" | "saas" | "default";
+
 export type ThemeStateType = Partial<
   IThemeRequest & IThemeSuccess & IThemeError
 >;
-
-export type ThemeVersions = string | "latest";
-export type ThemeNames = "portal" | "saas" | "default";
+export type ThemeActionsType = ActionType<typeof import("./actions")>;

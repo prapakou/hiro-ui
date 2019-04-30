@@ -1,10 +1,11 @@
-import { handleActions, combineActions } from "redux-actions";
-import { errorSet, errorClear } from "./actions";
+import { createReducer } from "typesafe-actions";
+import { ErrorActionsType, ErrorStateType } from "./constants";
 
-export const errorReducer = handleActions(
-  {
-    [combineActions(errorSet, errorClear).toString()]: (_, { payload }) =>
-      payload
-  },
+export const errorReducer = createReducer<ErrorStateType, ErrorActionsType>(
   null
-);
+)
+  .handleAction("ERROR_SET", (_, { payload: { name = "Error", message } }) => ({
+    name,
+    message
+  }))
+  .handleAction("ERROR_CLEAR", () => null);

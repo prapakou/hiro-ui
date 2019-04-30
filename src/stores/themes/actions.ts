@@ -1,14 +1,11 @@
-import { createActions } from "redux-actions";
+import { createStandardAction } from "typesafe-actions";
+
 import { IThemeRequest, IThemeSuccess, IThemeError } from "./constants";
 
-export const { themeRequest, themeSuccess, themeError } = createActions({
-  THEME_REQUEST: ({
-    theme = "default",
-    themeVersion = "latest"
-  }: IThemeRequest) => ({
-    theme,
-    themeVersion
-  }),
-  THEME_SUCCESS: ({ colours }: IThemeSuccess) => ({ colours }),
-  THEME_ERROR: ({ error }: IThemeError) => ({ error })
-});
+export const themeRequest = createStandardAction("THEME_REQUEST")<
+  IThemeRequest
+>();
+export const themeSuccess = createStandardAction("THEME_SUCCESS")<
+  IThemeSuccess
+>();
+export const themeError = createStandardAction("THEME_ERROR")<IThemeError>();
