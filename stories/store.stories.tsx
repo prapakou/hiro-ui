@@ -89,29 +89,28 @@ const Test2 = () => {
   return <p>Words: {count}</p>;
 };
 
-storiesOf("Global store", module).add("Init", () => {
-  const store = init();
+storiesOf("Global store", module)
+  .add("Init", () => {
+    const store = init();
 
-  return <HiroApp store={store}>Hello world!</HiroApp>;
-});
+    return <HiroApp store={store}>Hello world!</HiroApp>;
+  })
+  .add("Init - Reducers", () => {
+    const store = init({ testReducer: reducer });
 
-storiesOf("Global store", module).add("Init - Reducers", () => {
-  const store = init({ testReducer: reducer });
+    return (
+      <HiroApp store={store}>
+        <Test />
+      </HiroApp>
+    );
+  })
+  .add("Init - Saga", () => {
+    const store = init({ testReducer: reducer }, [handleHello]);
 
-  return (
-    <HiroApp store={store}>
-      <Test />
-    </HiroApp>
-  );
-});
-
-storiesOf("Global store", module).add("Init - Saga", () => {
-  const store = init({ testReducer: reducer }, [handleHello]);
-
-  return (
-    <HiroApp store={store}>
-      <Test />
-      <Test2 />
-    </HiroApp>
-  );
-});
+    return (
+      <HiroApp store={store}>
+        <Test />
+        <Test2 />
+      </HiroApp>
+    );
+  });

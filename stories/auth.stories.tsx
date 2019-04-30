@@ -21,8 +21,8 @@ const Hello = () => {
       setName(name);
       setLoading(false);
     })
-    .catch(err => {
-      action("Failed to get profile")(err);
+    .catch((err: Error) => {
+      action("Failed to get profile")(err.message);
       setLoading(false);
     });
 
@@ -31,12 +31,14 @@ const Hello = () => {
   );
 };
 
+const token =
+  "mCcQQ4RSRKZxIHSP0N1FW6p7dsID7pFZ2wtsAwye3TyhMAkCAffQZGcgSE4YCnZSRP0UZCSQPpCNP0pWGHo8hJDP4E7LIqMS3VqILtO7qX1JsVrHYdkBRZq8khhjCwxl";
+
 storiesOf("Auth", module).add("Orm", () => (
   <HiroApp
     auth={{
       endpoint: "https://eu-stagegraph.arago.co",
-      token:
-        "eljS6BcEwWLs0lR6VeLBagGw3jZd6E23am087HYLd52BxthStFXqhfJnHrDT4LNz8PL5PcabbYzbwFRs8Ni97fAB663Y8c1OLSb9URkERahFsjbswWAmmwbN3tzVFYny"
+      token
     }}
   >
     <Hello />
