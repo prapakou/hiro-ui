@@ -1,36 +1,35 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
+import { Store } from "redux";
 import { BrowserRouter } from "react-router-dom";
 import { Container, Loader } from "semantic-ui-react";
 
 import { ErrorBar } from "./ErrorBar";
 import { HiroStyle, IThemeOptions } from "./HiroStyle";
 import { StoreContext } from "redux-react-hook";
-import { useErrorDispatch, init } from "../stores";
-
-const store = init();
+import { init } from "../stores";
 
 type HiroAppProps = {
   ready?: () => void;
   config?: any;
   children?: any;
   fluid?: boolean;
+  store?: Store;
 } & IThemeOptions;
-
-const Test = () => {
-  const { setError } = useErrorDispatch();
-  setError({ message: "Test error" });
-
-  return null;
-};
 
 export const HiroApp = ({
   children,
   ready,
   theme,
   themeVersion,
-  fluid
+  fluid,
+  store
 }: HiroAppProps) => {
   const [loading, setLoading] = useState(true);
+  let rootStore = store;
+
+  if (!rootStore) {
+    rootStore = init();
+  }
 
   const setReady = useCallback(() => {
     if (ready) {
@@ -46,10 +45,9 @@ export const HiroApp = ({
   );
 
   return (
-    <StoreContext.Provider value={store}>
+    <StoreContext.Provider value={rootStore}>
       <BrowserRouter>
         <Container fluid={fluid}>
-          <Test />
           <HiroStyle
             theme={theme}
             themeVersion={themeVersion}

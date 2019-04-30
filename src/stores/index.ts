@@ -3,7 +3,7 @@ import {
   combineReducers,
   compose,
   createStore,
-  ReducersMapObject
+  Reducer
 } from "redux";
 import createSagaMiddleware, { Saga } from "redux-saga";
 import { all, fork } from "redux-saga/effects";
@@ -20,7 +20,7 @@ function* mainSaga() {
   yield all([fork(handleThemes)]);
 }
 
-export function init(reducers?: ReducersMapObject, sagas?: Saga[]) {
+export function init(reducers?: { [index: string]: Reducer }, sagas?: Saga[]) {
   // Combine built-in reducers with exeternal ones
   const rootReducer = combineReducers({
     [HIRO_NAMESPACE]: combineReducers({

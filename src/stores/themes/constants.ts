@@ -45,5 +45,9 @@ export interface IThemeError {
   error: Error;
 }
 
+export type ThemeStateType = Partial<
+  IThemeRequest & IThemeSuccess & IThemeError
+>;
+
 export type ThemeVersions = string | "latest";
 export type ThemeNames = "portal" | "saas" | "default";
