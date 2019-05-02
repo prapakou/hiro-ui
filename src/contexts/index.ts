@@ -1,6 +1,5 @@
 import { createContext } from "react";
 import { ORM } from "@hiro-graph/orm";
-
 import {
   MappedTypes,
   VertexLookup,
@@ -11,9 +10,9 @@ export type Orm = {
   me(): Promise<AuthAccountVertex>;
 } & ORM<MappedTypes, typeof VertexLookup>;
 
-export interface IAuthContext {
+export interface AuthContext {
   token?: string;
   orm?: Orm;
 }
 
-export const AuthContext = createContext<IAuthContext>({});
+export const HiroAuthContext = createContext<AuthContext>({});

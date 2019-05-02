@@ -13,43 +13,43 @@ import {
 } from "semantic-ui-react";
 import { Location } from "history";
 
-export interface INavItem {
+export interface NavItem {
   href: string;
   contents: React.ReactNode;
 }
 
-export interface ISearchItem {
+export interface SearchItem {
   key: string | number;
   text: string | number;
   value: string | number;
 }
 
-export interface ISearchProps {
-  options: ISearchItem[];
+export interface TopBarSearchProps {
+  options: SearchItem[];
   onChange: DropdownProps["onChange"];
 }
 
-export interface IDropdownProps {
+export interface TopBarDropdownProps {
   options: DropdownItemProps[];
   color: SemanticCOLORS;
   trigger?: React.ReactNode;
 }
 
-export interface ITopBarProps extends RouteComponentProps {
+export interface TopBarProps extends RouteComponentProps {
   title: string;
   logo?: string;
 
-  navigation?: INavItem[];
-  dropdown?: IDropdownProps;
-  search?: ISearchProps;
+  navigation?: NavItem[];
+  dropdown?: TopBarDropdownProps;
+  search?: TopBarSearchProps;
 }
 
 const renderLogo = (logo: string) => (
   <Image size="mini" src={logo} spaced="right" alt="logo" />
 );
 
-const renderNav = (navigation: INavItem[], location: Location) => {
-  const className = (n: INavItem) =>
+const renderNav = (navigation: NavItem[], location: Location) => {
+  const className = (n: NavItem) =>
     cx("link", "item", {
       active: n.href === location.pathname
     });
@@ -61,7 +61,7 @@ const renderNav = (navigation: INavItem[], location: Location) => {
   ));
 };
 
-const renderSearch = ({ options, onChange }: ISearchProps) => (
+const renderSearch = ({ options, onChange }: TopBarSearchProps) => (
   <Menu.Item>
     <Dropdown
       placeholder="State"
@@ -77,7 +77,7 @@ const renderDropDown = ({
   options,
   trigger,
   color = "black"
-}: IDropdownProps) => (
+}: TopBarDropdownProps) => (
   <Dropdown
     item
     options={options}
@@ -87,7 +87,7 @@ const renderDropDown = ({
 );
 
 export const TopBar = withRouter(
-  ({ navigation, logo, title, search, dropdown, location }: ITopBarProps) => {
+  ({ navigation, logo, title, search, dropdown, location }: TopBarProps) => {
     const showMenu = search || dropdown;
 
     let menu: React.ReactNode;

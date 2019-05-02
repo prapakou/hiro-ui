@@ -1,4 +1,5 @@
 import { createReducer } from "typesafe-actions";
+
 import { ThemeStateType, ThemeActionsType } from "./constants";
 
 export const themeReducer = createReducer<ThemeStateType, ThemeActionsType>({})

@@ -1,13 +1,15 @@
 import { take, call, put } from "redux-saga/effects";
 import fetch from "node-fetch";
+
+import { errorSet } from "../errors";
+
 import {
   ThemeNames,
   ThemeVersions,
   ColourListType,
-  IThemeRequest
+  ThemeRequest
 } from "./constants";
 import { themeRequest, themeSuccess, themeError } from "./actions";
-import { errorSet } from "../errors";
 
 const fetchColours = (
   theme: ThemeNames,
@@ -20,14 +22,14 @@ const fetchColours = (
 export function* handleThemes() {
   while (true) {
     const { payload } = yield take(themeRequest);
-    const { theme, themeVersion } = payload as IThemeRequest;
+    const { theme, themeVersion } = payload as ThemeRequest;
 
     try {
       const colours = yield call(fetchColours, theme, themeVersion);
       yield put(themeSuccess({ colours }));
     } catch (error) {
       yield put(themeError({ error }));
-      yield put(errorSet({ error }));
+      yield put(errorSet(error));
     }
   }
 }

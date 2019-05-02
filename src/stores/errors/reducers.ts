@@ -1,4 +1,5 @@
 import { createReducer } from "typesafe-actions";
+
 import { ErrorActionsType, ErrorStateType } from "./constants";
 
 export const errorReducer = createReducer<ErrorStateType, ErrorActionsType>(

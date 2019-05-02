@@ -1,8 +1,10 @@
 import { useCallback } from "react";
-import { get } from "lodash-es";
-import { HIRO_NAMESPACE } from "../constants";
-import { ERROR_NAMESPACE, IErrorMessage } from "./constants";
 import { useMappedState, useDispatch } from "redux-react-hook";
+import { get } from "lodash-es";
+
+import { HIRO_NAMESPACE } from "../constants";
+
+import { ERROR_NAMESPACE, ErrorMessage } from "./constants";
 import { errorSet, errorClear } from "./actions";
 
 export const useErrorState = () => {
@@ -18,10 +20,10 @@ export const useErrorDispatch = () => {
   const dispatch = useDispatch();
 
   const setError = useCallback(
-    (error: IErrorMessage) => dispatch(errorSet(error)),
-    []
+    (error: ErrorMessage) => dispatch(errorSet(error)),
+    [dispatch]
   );
-  const clearError = useCallback(() => dispatch(errorClear()), []);
+  const clearError = useCallback(() => dispatch(errorClear()), [dispatch]);
 
   return { setError, clearError };
 };

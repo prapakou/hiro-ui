@@ -3,22 +3,18 @@ import HiroGraphOrm from "@hiro-graph/orm";
 import HiroGraphMappings from "@hiro-graph/orm-mappings";
 
 import { useTokenDispatch, useToken } from "../stores/auth/hooks";
-import { AuthContext, Orm } from "../contexts";
+import { HiroAuthContext, Orm } from "../contexts";
 
-export interface IHiroAuthConfig {
+export interface HiroAuthConfig {
   token: string;
   endpoint: string;
 }
-
-const safeMappings = HiroGraphMappings.filter(
-  m => m.name !== "AutomationVariable"
-);
 
 export const HiroAuth = ({
   config,
   children
 }: {
-  config: IHiroAuthConfig;
+  config: HiroAuthConfig;
   children: any;
 }) => {
   const { setToken } = useTokenDispatch();
@@ -28,14 +24,18 @@ export const HiroAuth = ({
   useEffect(() => {
     if (config.token) {
       setToken(config.token);
-      setOrm(new HiroGraphOrm(config, safeMappings) as Orm);
+      setOrm(new HiroGraphOrm(config, HiroGraphMappings) as Orm);
     }
-  }, [config]);
+  }, [config, setToken]);
 
   const value = {
     token: currentToken,
     orm
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <HiroAuthContext.Provider value={value}>
+      {children}
+    </HiroAuthContext.Provider>
+  );
 };

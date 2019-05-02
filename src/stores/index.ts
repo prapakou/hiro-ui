@@ -1,12 +1,7 @@
-import {
-  applyMiddleware,
-  combineReducers,
-  compose,
-  createStore,
-  Reducer
-} from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import createSagaMiddleware, { Saga } from "redux-saga";
 import { all, fork } from "redux-saga/effects";
+import { Reducer } from "typesafe-actions";
 
 import { ERROR_NAMESPACE, errorReducer } from "./errors";
 import { THEME_NAMESPACE, themeReducer, handleThemes } from "./themes";
@@ -22,7 +17,10 @@ function* mainSaga() {
   yield all([fork(handleThemes)]);
 }
 
-export function init(reducers?: { [index: string]: Reducer }, sagas?: Saga[]) {
+export function init(
+  reducers?: { [index: string]: Reducer<any, any> },
+  sagas?: Saga[]
+) {
   // Combine built-in reducers with exeternal ones
   const rootReducer = combineReducers({
     [HIRO_NAMESPACE]: combineReducers({

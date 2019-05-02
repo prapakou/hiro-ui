@@ -1,19 +1,18 @@
 import React from "react";
+import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
+import { Route } from "react-router";
 
 import {
   HiroApp,
   TopBar,
   Icon,
-  IDropdownProps,
+  TopBarDropdownProps,
   Container,
-  ISearchProps
+  TopBarSearchProps
 } from "../src";
 
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import { Route } from "react-router";
-
-const dropdown: IDropdownProps = {
+const dropdown: TopBarDropdownProps = {
   options: [
     {
       text: "Logout",
@@ -22,10 +21,10 @@ const dropdown: IDropdownProps = {
     }
   ],
   trigger: <Icon name="user" />,
-  color: "red" as const
+  color: "blue" as const
 };
 
-const search: ISearchProps = {
+const search: TopBarSearchProps = {
   options: ["a", "b", "c", "d", "e"].map(l => ({
     text: l.toUpperCase(),
     value: l,

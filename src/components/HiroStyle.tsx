@@ -2,19 +2,23 @@ import React, { useEffect } from "react";
 
 import { ThemeNames, ThemeVersions, useThemeDispatch } from "../stores";
 
-export interface IThemeOptions {
+export interface ThemeOptions {
   theme?: ThemeNames;
   themeVersion?: ThemeVersions;
 }
 
-type HiroStyleProps = IThemeOptions & { onLoad: () => void };
+type HiroStyleProps = ThemeOptions & { onLoad: () => void };
 
 export const HiroStyle = (props: HiroStyleProps) => {
   const { onLoad, theme = "default", themeVersion = "latest" } = props;
 
   const { loadTheme } = useThemeDispatch();
 
-  useEffect(() => void loadTheme({ theme, themeVersion }), []);
+  useEffect(() => void loadTheme({ theme, themeVersion }), [
+    loadTheme,
+    theme,
+    themeVersion
+  ]);
 
   return (
     <link

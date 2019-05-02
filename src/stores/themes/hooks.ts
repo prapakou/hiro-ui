@@ -3,10 +3,11 @@ import { useDispatch, useMappedState } from "redux-react-hook";
 import { get } from "lodash-es";
 
 import { HIRO_NAMESPACE } from "../constants";
+
 import {
   THEME_NAMESPACE,
   ThemeColours,
-  IThemeRequest,
+  ThemeRequest,
   ThemeStateType
 } from "./constants";
 import { themeRequest } from "./actions";
@@ -37,8 +38,8 @@ export const useThemeDispatch = () => {
   const dispatch = useDispatch();
 
   const loadTheme = useCallback(
-    (theme: IThemeRequest) => dispatch(themeRequest(theme)),
-    []
+    (theme: ThemeRequest) => dispatch(themeRequest(theme)),
+    [dispatch]
   );
 
   return { loadTheme };

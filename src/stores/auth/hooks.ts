@@ -1,8 +1,10 @@
-import { AUTH_NAMESPACE, AuthStateType } from "./constants";
 import { useCallback } from "react";
 import { get } from "lodash-es";
-import { HIRO_NAMESPACE } from "../constants";
 import { useMappedState, useDispatch } from "redux-react-hook";
+
+import { HIRO_NAMESPACE } from "../constants";
+
+import { AUTH_NAMESPACE, AuthStateType } from "./constants";
 import { tokenSet, tokenClear } from "./actions";
 
 export const useToken = () => {
@@ -21,9 +23,9 @@ export const useTokenDispatch = () => {
 
   const setToken = useCallback(
     (token: string) => dispatch(tokenSet({ token })),
-    []
+    [dispatch]
   );
-  const clearToken = useCallback(() => dispatch(tokenClear()), []);
+  const clearToken = useCallback(() => dispatch(tokenClear()), [dispatch]);
 
   return { setToken, clearToken };
 };

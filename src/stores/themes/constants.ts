@@ -34,23 +34,21 @@ export type ThemeColours =
 
 export type ColourListType = { [key in ThemeColours]: string } | undefined;
 
-export interface IThemeRequest {
+export interface ThemeRequest {
   theme: ThemeNames;
   themeVersion: ThemeVersions;
 }
 
-export interface IThemeSuccess {
+export interface ThemeSuccess {
   colours: ColourListType;
 }
 
-export interface IThemeError {
+export interface ThemeError {
   error: Error;
 }
 
 export type ThemeVersions = string | "latest";
 export type ThemeNames = "portal" | "saas" | "default";
 
-export type ThemeStateType = Partial<
-  IThemeRequest & IThemeSuccess & IThemeError
->;
+export type ThemeStateType = Partial<ThemeRequest & ThemeSuccess & ThemeError>;
 export type ThemeActionsType = ActionType<typeof import("./actions")>;

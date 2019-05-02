@@ -1,11 +1,11 @@
 import { createStandardAction } from "typesafe-actions";
 
-import { IThemeRequest, IThemeSuccess, IThemeError } from "./constants";
+import { ThemeRequest, ThemeSuccess, ThemeError } from "./constants";
 
 export const themeRequest = createStandardAction("THEME_REQUEST")<
-  IThemeRequest
+  ThemeRequest
 >();
 export const themeSuccess = createStandardAction("THEME_SUCCESS")<
-  IThemeSuccess
+  ThemeSuccess
 >();
-export const themeError = createStandardAction("THEME_ERROR")<IThemeError>();
+export const themeError = createStandardAction("THEME_ERROR")<ThemeError>();

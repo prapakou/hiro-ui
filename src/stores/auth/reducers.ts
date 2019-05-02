@@ -1,5 +1,6 @@
 import { createReducer } from "typesafe-actions";
 import { omit } from "lodash-es";
+
 import { AuthStateType, AuthActionsType } from "./constants";
 
 export const authReducer = createReducer<AuthStateType, AuthActionsType>({})
@@ -7,4 +8,4 @@ export const authReducer = createReducer<AuthStateType, AuthActionsType>({})
     ...state,
     token: payload.token
   }))
-  .handleAction("TOKEN_CLEAR", (state, _) => ({ ...omit(state, ["token"]) }));
+  .handleAction("TOKEN_CLEAR", state => ({ ...omit(state, ["token"]) }));

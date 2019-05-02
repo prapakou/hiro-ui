@@ -1,5 +1,6 @@
 import { createStandardAction } from "typesafe-actions";
-import { ITokenSet } from "./constants";
 
-export const tokenSet = createStandardAction("TOKEN_SET")<ITokenSet>();
+import { TokenSet } from "./constants";
+
+export const tokenSet = createStandardAction("TOKEN_SET")<TokenSet>();
 export const tokenClear = createStandardAction("TOKEN_CLEAR")();
