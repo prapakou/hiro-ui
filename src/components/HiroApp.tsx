@@ -11,21 +11,23 @@ import { HiroStyle, ThemeOptions } from "./HiroStyle";
 import { HiroAuth, HiroAuthConfig } from "./HiroAuth";
 
 type HiroAppProps = {
-  ready?: () => void;
-  children?: any;
-  fluid?: boolean;
-  store?: Store;
   auth?: HiroAuthConfig;
+  children?: any;
+  className?: string;
+  fluid?: boolean;
+  ready?: () => void;
+  store?: Store;
 } & ThemeOptions;
 
 export const HiroApp = ({
+  auth,
   children,
-  ready,
-  theme,
-  themeVersion,
+  className,
   fluid,
+  ready,
   store,
-  auth
+  theme,
+  themeVersion
 }: HiroAppProps) => {
   const [loading, setLoading] = useState(true);
 
@@ -56,7 +58,7 @@ export const HiroApp = ({
           themeVersion={themeVersion}
           onLoad={setReady}
         />
-        <Container fluid={fluid}>
+        <Container fluid={fluid} className={className}>
           {auth ? <HiroAuth config={auth}>{content}</HiroAuth> : content}
           <ErrorBar />
         </Container>
