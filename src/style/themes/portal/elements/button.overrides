@@ -1,0 +1,52 @@
+/*******************************
+         Theme Overrides
+*******************************/
+
+.ui.compact.button {
+  background: none;
+  font-weight: @normal;
+
+  &:hover {
+    background: none;
+  }
+}
+
+.ui.compact.button.red:hover {
+  color: @lightRed;
+}
+.ui.compact.button.orange:hover {
+  color: @lightOrange;
+}
+.ui.compact.button.yellow:hover {
+  color: @lightYellow;
+}
+.ui.compact.button.olive:hover {
+  color: @lightOlive;
+}
+.ui.compact.button.green:hover {
+  color: @lightGreen;
+}
+.ui.compact.button.teal:hover {
+  color: @lightTeal;
+}
+.ui.compact.button.blue:hover {
+  color: @lightBlue;
+}
+.ui.compact.button.violet:hover {
+  color: @lightViolet;
+}
+.ui.compact.button.purple:hover {
+  color: @lightPurple;
+}
+.ui.compact.button.pink:hover {
+  color: @lightPink;
+}
+.ui.compact.button.brown:hover {
+  color: @lightBrown;
+}
+.ui.compact.button.grey:hover {
+  color: @lightGrey;
+}
+.ui.compact.button.black:hover {
+  color: @lightBlack;
+}

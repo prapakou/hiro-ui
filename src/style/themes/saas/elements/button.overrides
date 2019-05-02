@@ -1,0 +1,10 @@
+/*******************************
+         Theme Overrides
+*******************************/
+.ui.button.basic.active {
+  border-bottom: 2px solid @black;
+}
+
+.ui.button.basic {
+  border-bottom: 2px solid transparent;
+}

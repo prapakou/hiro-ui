@@ -4,11 +4,9 @@ import renderer from "react-test-renderer";
 import { HiroApp } from "../HiroApp";
 import { useErrorDispatch } from "../../stores";
 
-import { getTree } from "./helpers";
-
 test("Renders", () => {
   const component = renderer.create(<HiroApp>Test</HiroApp>);
-  const tree = getTree(component);
+  const tree = component.toJSON();
 
   expect(tree).toMatchSnapshot();
 });
@@ -26,7 +24,7 @@ test("Renders with Error", () => {
       Test <Error />
     </HiroApp>
   );
-  const tree = getTree(component);
+  const tree = component.toJSON();
 
   expect(tree).toMatchSnapshot();
 });
