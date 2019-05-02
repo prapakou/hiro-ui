@@ -1,3 +1,6 @@
 export * from "./TopBar";
 export * from "./HiroApp";
-export * from "./HiroStyle";
+
+export * from "./HiroDefaultTheme";
+export * from "./HiroPortalTheme";
+export * from "./HiroSaasTheme";

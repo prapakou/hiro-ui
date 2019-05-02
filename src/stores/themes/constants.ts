@@ -36,7 +36,6 @@ export type ColourListType = { [key in ThemeColours]: string } | undefined;
 
 export interface ThemeRequest {
   theme: ThemeNames;
-  themeVersion: ThemeVersions;
 }
 
 export interface ThemeSuccess {
@@ -47,7 +46,6 @@ export interface ThemeError {
   error: Error;
 }
 
-export type ThemeVersions = string | "latest";
 export type ThemeNames = "portal" | "saas" | "default";
 
 export type ThemeStateType = Partial<ThemeRequest & ThemeSuccess & ThemeError>;

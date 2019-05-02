@@ -1,0 +1,15 @@
+/*******************************
+         Theme Overrides
+*******************************/
+
+.ui.basic.table tbody tr td {
+  border-top: none;
+}
+
+.ui.basic.table:not(.very) thead tr th {
+  border-top: 1px solid @transparentWhite;
+}
+
+.ui.selectable.table tbody tr {
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 {
   "name": "@hiro-ui/bootstrap",
-  "version": "1.0.0-rc5",
+  "version": "1.0.0-rc6",
   "description": "React components built on Semantic UI",
   "author": "Dominic Cassidy",
   "license": "MIT",
@@ -13,7 +13,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "test": "eslint src/**/*.{ts,tsx} && jest",
-    "build": "tsc",
+    "build": "rm -r dist || true && tsc && cp -r src/style dist/style",
     "preversion": "yarn test && yarn build",
     "postversion": "git add -A . && git push && git push --tags"
   },
@@ -43,6 +43,7 @@
     "@typescript-eslint/parser": "^1.7.0",
     "babel-eslint": "10.0.1",
     "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
     "eslint": "5.16.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-prettier": "^4.2.0",
@@ -51,8 +52,12 @@
     "eslint-plugin-react": "^7.11.0",
     "eslint-plugin-react-hooks": "1.6.0",
     "jest": "^24.7.1",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^0.6.0",
     "react-test-renderer": "^16.8.6",
     "redux-mock-store": "^1.5.3",
+    "style-loader": "^0.23.1",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.5"
   },
