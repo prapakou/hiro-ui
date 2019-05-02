@@ -8,3 +8,4 @@ eslintrc.json
 .eslintignore
 tslint.json
 .vscode
+pkg
