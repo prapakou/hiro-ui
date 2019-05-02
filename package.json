@@ -1,6 +1,6 @@
 {
   "name": "@hiro-ui/bootstrap",
-  "version": "0.0.0",
+  "version": "1.0.0-rc1",
   "description": "React components built on Semantic UI",
   "author": "Dominic Cassidy",
   "license": "MIT",
@@ -86,7 +86,7 @@
   "@pika/pack": {
     "pipeline": [
       [
-        "@pika/plugin-standard-pkg",
+        "@pika/plugin-ts-standard-pkg",
         {
           "exclude": [
             "**/__tests__/*",
@@ -96,12 +96,6 @@
             ".storybook"
           ]
         }
-      ],
-      [
-        "@pika/plugin-build-node"
-      ],
-      [
-        "@pika/plugin-build-types"
       ]
     ]
   }
