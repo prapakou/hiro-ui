@@ -29,7 +29,7 @@ const execP = (cmd, msg, success) => {
 
 const toCss = (name, inputPath, outputPath) =>
   execP(
-    `yarn lessc ${inputPath} ${outputPath}`,
+    `yarn lessc ${inputPath} ${outputPath} -ru=all`,
     chalk`Building {blue ${name}} theme`
   );
 
@@ -62,7 +62,7 @@ const toJS = () => {
 
     await toCss(name, inputPath, outputPath);
 
-    const assetPath = `dist/style/themes/${name}/assets`;
+    const assetPath = `dist/style/themes/${name}`;
 
     shell.mkdir("-p", assetPath);
 
