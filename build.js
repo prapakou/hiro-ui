@@ -27,11 +27,10 @@ const execP = (cmd, msg, success) => {
   });
 };
 
-const toCss = (inputPath, outputPath) =>
+const toCss = (name, inputPath, outputPath) =>
   execP(
     `yarn lessc ${inputPath} ${outputPath}`,
-    `Building ${inputPath}`,
-    chalk`Saved {blue ${inputPath}} to {blue ${outputPath}}`
+    chalk`Building {blue ${name}} theme`
   );
 
 const toJS = () => {
@@ -61,7 +60,7 @@ const toJS = () => {
 
     shell.sed("-i", ".less", ".css", "./dist/components/HiroTheme.js");
 
-    await toCss(inputPath, outputPath);
+    await toCss(name, inputPath, outputPath);
 
     const assetPath = `dist/style/themes/${name}/assets`;
 
