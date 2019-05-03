@@ -46,7 +46,7 @@ const toJS = () => {
   await toJS();
 
   if (!fs.existsSync(styleDistFolder)) {
-    shell.mkdir("./dist/css");
+    shell.mkdir("./dist/style");
   }
 
   const files = shell.ls("src/style/*.config");
@@ -58,8 +58,15 @@ const toJS = () => {
       .shift();
     const inputPath = `${styleSrcFolder}/${name}.less`;
     const outputPath = `${styleDistFolder}/${name}.css`;
+
     shell.sed("-i", ".less", ".css", "./dist/components/HiroTheme.js");
 
     await toCss(inputPath, outputPath);
+
+    const assetPath = `dist/style/themes/${name}/assets`;
+
+    shell.mkdir("-p", assetPath);
+
+    shell.cp("-r", `src/style/themes/${name}/assets`, assetPath);
   }
 })();
