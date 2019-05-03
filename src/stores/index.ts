@@ -1,20 +1,17 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import createSagaMiddleware, { Saga } from "redux-saga";
-import { all, fork } from "redux-saga/effects";
 import { Reducer } from "typesafe-actions";
 
 import { ERROR_NAMESPACE, errorReducer } from "./errors";
-import { THEME_NAMESPACE, themeReducer, handleThemes } from "./themes";
 import { HIRO_NAMESPACE } from "./constants";
 import { AUTH_NAMESPACE } from "./auth/constants";
 import { authReducer } from "./auth";
 
 export * from "./errors";
-export * from "./themes";
 
 // Combine built-in sagas
 function* mainSaga() {
-  yield all([fork(handleThemes)]);
+  // Add sagas
 }
 
 export function init(
@@ -25,8 +22,7 @@ export function init(
   const rootReducer = combineReducers({
     [HIRO_NAMESPACE]: combineReducers({
       [AUTH_NAMESPACE]: authReducer,
-      [ERROR_NAMESPACE]: errorReducer,
-      [THEME_NAMESPACE]: themeReducer
+      [ERROR_NAMESPACE]: errorReducer
     }),
     ...reducers
   });
