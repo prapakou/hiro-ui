@@ -10,7 +10,7 @@ import {
   TopBarDropdownProps,
   Container,
   TopBarSearchProps,
-  HiroDefaultTheme as HiroTheme
+  HiroTheme
 } from "../src";
 
 const dropdown: TopBarDropdownProps = {
@@ -57,7 +57,7 @@ storiesOf("TopBar", module)
   ))
   .add("Dropdown", () => (
     <HiroApp>
-      <HiroTheme />
+      <HiroTheme.Default />
       <TopBar title="Test" dropdown={dropdown} />
       Hello world!
     </HiroApp>

@@ -13,7 +13,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "test": "eslint src/**/*.{ts,tsx} && jest",
-    "build": "rm -r dist || true && tsc && cp -r src/style dist/style",
+    "build": "node ./build.js",
     "preversion": "yarn test && yarn build",
     "postversion": "git add -A . && git push && git push --tags"
   },
@@ -34,6 +34,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.2",
     "@types/react-test-renderer": "^16.8.1",
+    "@types/shelljs": "^0.8.5",
     "@types/storybook__addon-actions": "^3.4.2",
     "@types/storybook__addon-info": "^4.1.1",
     "@types/storybook__addon-links": "^3.3.4",
@@ -43,6 +44,7 @@
     "@typescript-eslint/parser": "^1.7.0",
     "babel-eslint": "10.0.1",
     "babel-loader": "^8.0.5",
+    "chalk": "^2.4.2",
     "css-loader": "^2.1.1",
     "eslint": "5.16.0",
     "eslint-config-airbnb": "17.1.0",
@@ -55,6 +57,7 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.6.0",
+    "ora": "^3.4.0",
     "react-test-renderer": "^16.8.6",
     "redux-mock-store": "^1.5.3",
     "style-loader": "^0.23.1",
@@ -80,6 +83,7 @@
     "redux-react-hook": "^3.3.2",
     "redux-saga": "^1.0.2",
     "semantic-ui-react": "^0.86.0",
+    "shelljs": "^0.8.3",
     "typesafe-actions": "^4.2.0"
   },
   "publishConfig": {

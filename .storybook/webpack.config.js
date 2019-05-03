@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
 module.exports = ({ config, mode }) => {
   config.module.rules.push({
@@ -15,6 +16,14 @@ module.exports = ({ config, mode }) => {
   config.resolve.extensions.push(".ts", ".tsx");
 
   config.plugins.push(new MiniCssExtractPlugin());
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      "process.env": {
+        ...process.env,
+        LESS: true
+      }
+    })
+  );
 
   return config;
 };

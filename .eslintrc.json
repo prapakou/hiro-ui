@@ -31,7 +31,8 @@
           ".storybook/**",
           "stories/**",
           "tests/**",
-          "**/__tests__/**"
+          "**/__tests__/**",
+          "build.js"
         ]
       }
     ]
