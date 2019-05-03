@@ -23,7 +23,7 @@ function clean() {
 function buildLess() {
   return src("src/style/*.less")
     .pipe(filterThemes)
-    .pipe(less())
+    .pipe(less({ rewriteUrls: "all" }))
     .pipe(minifyCSS())
     .pipe(dest("dist/style"));
 }
