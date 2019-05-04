@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { ORM } from "@hiro-graph/orm";
 import {
   MappedTypes,
@@ -16,3 +16,7 @@ export interface AuthContext {
 }
 
 export const HiroAuthContext = createContext<AuthContext>({});
+
+export const useAuth = () => {
+  return useContext(HiroAuthContext);
+};
