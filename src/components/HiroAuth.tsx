@@ -5,6 +5,10 @@ import HiroGraphMappings from "@hiro-graph/orm-mappings";
 import { useTokenDispatch, useToken } from "../stores/auth/hooks";
 import { HiroAuthContext, Orm } from "../contexts";
 
+const safeMappings = HiroGraphMappings.filter(
+  m => m.name !== "AutomationVariable"
+);
+
 export interface HiroAuthConfig {
   token: string;
   endpoint: string;
@@ -24,7 +28,7 @@ export const HiroAuth = ({
   useEffect(() => {
     if (config.token) {
       setToken(config.token);
-      setOrm(new HiroGraphOrm(config, HiroGraphMappings) as Orm);
+      setOrm(new HiroGraphOrm(config, safeMappings) as Orm);
     }
   }, [config, setToken]);
 
