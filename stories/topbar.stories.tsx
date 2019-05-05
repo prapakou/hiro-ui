@@ -4,13 +4,14 @@ import { action } from "@storybook/addon-actions";
 import { Route } from "react-router";
 
 import {
-  HiroApp,
+  HiroAppRoot,
   TopBar,
   Icon,
   TopBarDropdownProps,
   Container,
   TopBarSearchProps,
-  HiroTheme
+  HiroTheme,
+  init
 } from "../src";
 
 const dropdown: TopBarDropdownProps = {
@@ -39,37 +40,39 @@ const nav = [
   { href: "/page1", contents: "Page 1" }
 ];
 
+const store = init();
+
 storiesOf("TopBar", module)
   .add("Default", () => (
-    <HiroApp>
+    <HiroAppRoot store={store}>
       <TopBar title="Test" />
       Hello world!
-    </HiroApp>
+    </HiroAppRoot>
   ))
   .add("Logo", () => (
-    <HiroApp>
+    <HiroAppRoot store={store}>
       <TopBar
         title="Test"
         logo="https://arago.co/wp-content/uploads/2017/09/about_arago_icon.png"
       />
       Hello world!
-    </HiroApp>
+    </HiroAppRoot>
   ))
   .add("Dropdown", () => (
-    <HiroApp>
+    <HiroAppRoot store={store}>
       <HiroTheme.Default />
       <TopBar title="Test" dropdown={dropdown} />
       Hello world!
-    </HiroApp>
+    </HiroAppRoot>
   ))
   .add("Search", () => (
-    <HiroApp>
+    <HiroAppRoot store={store}>
       <TopBar title="Test" search={search} />
       Hello world!
-    </HiroApp>
+    </HiroAppRoot>
   ))
   .add("Nav", () => (
-    <HiroApp>
+    <HiroAppRoot store={store}>
       <TopBar title="Test" navigation={nav} />
 
       <Route
@@ -82,10 +85,10 @@ storiesOf("TopBar", module)
         component={() => <Container>Hello world 2</Container>}
         exact
       />
-    </HiroApp>
+    </HiroAppRoot>
   ))
   .add("All", () => (
-    <HiroApp>
+    <HiroAppRoot store={store}>
       <TopBar
         title="Test"
         navigation={nav}
@@ -104,5 +107,5 @@ storiesOf("TopBar", module)
         component={() => <Container>Hello world 2</Container>}
         exact
       />
-    </HiroApp>
+    </HiroAppRoot>
   ));
