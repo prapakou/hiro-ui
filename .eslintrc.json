@@ -24,6 +24,7 @@
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
     "no-void": "off",
+    "no-console": "off",
     "import/named": "off",
     "import/order": ["error", { "newlines-between": "always" }],
     "import/no-extraneous-dependencies": [

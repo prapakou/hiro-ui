@@ -25,5 +25,11 @@ export interface AuthContext {
 export const HiroGraphContext = createContext<AuthContext>({});
 
 export const useGraph = () => {
-  return useContext(HiroGraphContext);
+  const state = useContext(HiroGraphContext);
+
+  if (process.env.NODE_ENV === "development" && !state.token) {
+    console.warn("HiroGraph: No token found. ORM will not be available");
+  }
+
+  return state;
 };
