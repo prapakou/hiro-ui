@@ -40,7 +40,6 @@ export class HiroApp {
     }
 
     ReactDOM.render(
-      // @ts-ignore
       <HiroAppRoot store={store} auth={authConfig}>
         {children}
       </HiroAppRoot>,
