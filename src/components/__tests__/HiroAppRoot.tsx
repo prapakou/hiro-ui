@@ -1,11 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import { HiroApp } from "../HiroApp";
+import { HiroAppRoot } from "../HiroAppRoot";
 import { useErrorDispatch } from "../../stores";
 
 test("Renders", () => {
-  const component = renderer.create(<HiroApp>Test</HiroApp>);
+  const component = renderer.create(<HiroAppRoot>Test</HiroAppRoot>);
   const tree = component.toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -20,9 +20,9 @@ const Error = () => {
 
 test("Renders with Error", () => {
   const component = renderer.create(
-    <HiroApp>
+    <HiroAppRoot>
       Test <Error />
-    </HiroApp>
+    </HiroAppRoot>
   );
   const tree = component.toJSON();
 

@@ -1026,7 +1026,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
   integrity sha512-n/VQ4mbfr81aqkx/XmVicOLjviMuy02eenSdJY33SVA7S2J42EU0P1H0mOogfYedb3wXA0d/LVtBrgTSm04WEA==
 
-"@hiro-graph/client@^1.2.1":
+"@hiro-graph/client@^1.2.1", "@hiro-graph/client@^1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@hiro-graph/client/-/client-1.2.2.tgz#0715b8a3db09ef146520a8413b07a073f2f7d381"
   integrity sha512-+IIkoTAawHzvq+OlfpRNO60o4FLio7mGto9+RdHHcGFfhBs2g8f2zvpDZFqbLB6ecF0JJnH2ds/lVlhQyUnhQA==
@@ -1095,6 +1095,14 @@
     lodash.isplainobject "^4.0.6"
     redux "^4.0.0"
     reselect "^4.0.0"
+
+"@hiro-ui/sdk@^1.0.0-rc4":
+  version "1.0.0-rc4"
+  resolved "https://registry.yarnpkg.com/@hiro-ui/sdk/-/sdk-1.0.0-rc4.tgz#ccbfe463fa6717112b896cdaab68e617526c1253"
+  integrity sha512-Xwgg/8AUesa5wV38ckMZOcd3zRf2nKyfOEHh6qFELpg6WfzaQnx4P/k4mciwlLaV94k7hx3Fm0aNmKHaB/rpQg==
+  dependencies:
+    "@hiro-graph/client" "^1.2.2"
+    qs "^6.5.2"
 
 "@jest/console@^24.7.1":
   version "24.7.1"

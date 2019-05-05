@@ -15,6 +15,7 @@ function* mainSaga() {
 }
 
 export function init(
+  state?: any,
   reducers?: { [index: string]: Reducer<any, any> },
   sagas?: Saga[]
 ) {
@@ -34,6 +35,7 @@ export function init(
   // Create store
   const store = createStore(
     rootReducer,
+    state,
     /* preloadedState, */
     composeEnhancers(applyMiddleware(sagaMiddleware))
   );
