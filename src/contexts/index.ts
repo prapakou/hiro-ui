@@ -15,8 +15,8 @@ export interface AuthContext {
   orm?: Orm;
 }
 
-export const HiroAuthContext = createContext<AuthContext>({});
+export const HiroGraphContext = createContext<AuthContext>({});
 
-export const useAuth = () => {
-  return useContext(HiroAuthContext);
+export const useGraph = () => {
+  return useContext(HiroGraphContext);
 };

@@ -5,8 +5,7 @@ import { Reducer } from "typesafe-actions";
 import { Saga } from "redux-saga";
 
 import { init } from "../stores";
-import { HiroAppRoot } from "../components";
-import { HiroAuthConfig } from "../components/HiroAuth";
+import { HiroAppRoot, HiroGraphConfig } from "../components";
 
 interface HiroAppParams {
   config?: SdkConfig;
@@ -31,7 +30,7 @@ export class HiroApp {
     const { ready, state, token, graphUrl } = await initSdk(this.config);
     const store = init(state, this.reducers, this.sagas);
 
-    let authConfig: HiroAuthConfig | undefined;
+    let authConfig: HiroGraphConfig | undefined;
 
     if (token && graphUrl) {
       authConfig = {
@@ -39,8 +38,6 @@ export class HiroApp {
         token
       };
     }
-
-    console.log("STATE", state, token, graphUrl);
 
     ReactDOM.render(
       // @ts-ignore

@@ -5,10 +5,10 @@ import { Container } from "semantic-ui-react";
 import { StoreContext } from "redux-react-hook";
 
 import { ErrorBar } from "./ErrorBar";
-import { HiroAuth, HiroAuthConfig } from "./HiroAuth";
+import { HiroGraph, HiroGraphConfig } from "./HiroGraph";
 
 interface HiroAppRootProps {
-  auth?: HiroAuthConfig;
+  auth?: HiroGraphConfig;
   children?: any;
   className?: string;
   fluid?: boolean;
@@ -26,7 +26,7 @@ export const HiroAppRoot: React.FC<HiroAppRootProps> = ({
   <BrowserRouter>
     <StoreContext.Provider value={store}>
       <Container fluid={fluid} className={className}>
-        {auth ? <HiroAuth config={auth}>{children}</HiroAuth> : children}
+        {auth ? <HiroGraph config={auth}>{children}</HiroGraph> : children}
         <ErrorBar />
       </Container>
     </StoreContext.Provider>
