@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HiroGraphOrm from "@hiro-graph/orm";
 import HiroGraphMappings from "@hiro-graph/orm-mappings";
 
-import { useTokenDispatch, useToken } from "../stores/auth/hooks";
+import { useTokenDispatch, useToken } from "../stores";
 import { HiroGraphContext, Orm } from "../contexts";
 
 const safeMappings = HiroGraphMappings.filter(

@@ -4,16 +4,16 @@ import { useMappedState, useDispatch } from "redux-react-hook";
 
 import { HIRO_NAMESPACE } from "../constants";
 
-import { AUTH_NAMESPACE, AuthStateType } from "./constants";
+import { GRAPH_NAMESPACE, GraphStateType } from "./constants";
 import { tokenSet, tokenClear } from "./actions";
 
 export const useToken = () => {
   const mapState = useCallback(
-    state => get(state, [HIRO_NAMESPACE, AUTH_NAMESPACE]),
+    state => get(state, [HIRO_NAMESPACE, GRAPH_NAMESPACE]),
     []
   );
 
-  const auth = useMappedState(mapState) as AuthStateType;
+  const auth = useMappedState(mapState) as GraphStateType;
 
   return auth.token;
 };
