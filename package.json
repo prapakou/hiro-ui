@@ -74,15 +74,13 @@
     "@hiro-graph/orm": "^1.1.1",
     "@hiro-graph/orm-mappings": "^2.2.2",
     "@hiro-graph/redux": "^1.2.1",
-    "@hiro-ui/sdk": "^1.0.0-rc4",
+    "@hiro-ui/sdk": "^1.0.0-rc5",
     "@types/redux-actions": "^2.6.0",
     "@types/redux-mock-store": "^1.0.1",
     "classnames": "^2.2.6",
     "history": "^4.9.0",
     "lodash-es": "^4.17.11",
     "node-fetch": "^2.5.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
@@ -90,6 +88,10 @@
     "redux-saga": "^1.0.2",
     "semantic-ui-react": "^0.86.0",
     "typesafe-actions": "^4.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "publishConfig": {
     "access": "public"
