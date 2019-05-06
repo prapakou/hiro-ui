@@ -2,6 +2,7 @@
 
 exports[`Error state: Add - Reducer 1`] = `
 Object {
+  "code": undefined,
   "message": "An error",
   "name": "Error",
 }

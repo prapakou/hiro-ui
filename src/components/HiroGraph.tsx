@@ -5,8 +5,8 @@ import HiroGraphMappings, {
   AuthAccountProfileVertex
 } from "@hiro-graph/orm-mappings";
 
-import { useTokenDispatch, useToken } from "../stores";
 import { HiroGraphContext, Orm, AuthMe } from "../contexts";
+import { useErrorDispatch } from "../stores";
 
 const safeMappings = HiroGraphMappings.filter(
   m => m.name !== "AutomationVariable"
@@ -17,6 +17,12 @@ export interface HiroGraphConfig {
   endpoint: string;
 }
 
+export interface FetchError {
+  name: string;
+  message: string;
+  code: number;
+}
+
 export const HiroGraph = ({
   config,
   children
@@ -24,10 +30,9 @@ export const HiroGraph = ({
   config: HiroGraphConfig;
   children: any;
 }) => {
-  const { setToken } = useTokenDispatch();
-  const currentToken = useToken();
   const [orm, setOrm] = useState<Orm>();
   const [me, setMe] = useState<AuthMe>();
+  const { setError } = useErrorDispatch();
 
   const getMe = useCallback(
     () =>
@@ -44,16 +49,23 @@ export const HiroGraph = ({
       ])
         .then(([account, profile]) => ({ account, profile }))
         .then(newMe => void setMe(newMe))
-        .catch(err => void console.error("Orm error", err)),
-    [orm]
+        .catch(({ code }: FetchError) => {
+          setError({
+            name: "Graph Error",
+            code,
+            message: `Failed to get user profile data.${
+              code === 401 ? " Please try logging in again." : ""
+            }`
+          });
+        }),
+    [orm, setError]
   );
 
   useEffect(() => {
     if (config.token) {
-      setToken(config.token);
       setOrm(new HiroGraphOrm(config, safeMappings) as Orm);
     }
-  }, [config, setToken]);
+  }, [config]);
 
   useEffect(() => {
     getMe();
@@ -66,7 +78,7 @@ export const HiroGraph = ({
   }, [getMe]);
 
   const value = {
-    token: currentToken,
+    token: config.token,
     orm,
     me
   };

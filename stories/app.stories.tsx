@@ -13,8 +13,6 @@ import {
   useGraph
 } from "../src";
 
-const token = "";
-
 const dropdown: TopBarDropdownProps = {
   options: [
     {
@@ -27,6 +25,7 @@ const dropdown: TopBarDropdownProps = {
   color: "blue" as const
 };
 
+const token = "";
 const store = init();
 
 const Hello = () => {

@@ -4,11 +4,8 @@ import { Reducer } from "typesafe-actions";
 
 import { ERROR_NAMESPACE, errorReducer } from "./errors";
 import { HIRO_NAMESPACE } from "./constants";
-import { GRAPH_NAMESPACE } from "./graph/constants";
-import { graphReducer } from "./graph";
 
 export * from "./errors";
-export * from "./graph";
 
 // Combine built-in sagas
 function* mainSaga() {
@@ -23,7 +20,6 @@ export function init(
   // Combine built-in reducers with exeternal ones
   const rootReducer = combineReducers({
     [HIRO_NAMESPACE]: combineReducers({
-      [GRAPH_NAMESPACE]: graphReducer,
       [ERROR_NAMESPACE]: errorReducer
     }),
     ...reducers
