@@ -9,7 +9,7 @@ Additionally, Hiro UI Themes are provided and work in conjunction with the under
 First create your React app using the [create-react-app](https://github.com/facebook/create-react-app) tool.
 
 ```bash
-yarn create react-app myApp --typescript
+yarn create react-app my-app --typescript
 ```
 
 Follow the given instructions.

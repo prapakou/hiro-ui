@@ -13,6 +13,28 @@ interface HiroAppParams {
   sagas?: Saga[];
 }
 
+const getConfigFromEnv = () => {
+  const graphUrl = process.env.REACT_APP_GRAPH_URL;
+  const authUrl =
+    process.env.REACT_APP_AUTH_URL || `${graphUrl}/api/6/auth/ui/`;
+  const redirectUrl =
+    process.env.REACT_APP_REDIRECT_URL || `${graphUrl}/api/6/auth/ui-redirect`;
+  const clientId = process.env.REACT_APP_CLIENT_ID;
+
+  const config = {
+    graphUrl,
+    authUrl,
+    clientId,
+    redirectUrl
+  };
+
+  if (Object.values(config).every(Boolean)) {
+    return config;
+  }
+
+  return undefined;
+};
+
 export class HiroApp {
   config?: SdkConfig;
 
@@ -24,6 +46,10 @@ export class HiroApp {
     this.config = config;
     this.reducers = reducers;
     this.sagas = sagas;
+
+    if (!config) {
+      this.config = getConfigFromEnv();
+    }
   }
 
   render = async (children: ReactNode, target: HTMLElement | null) => {
