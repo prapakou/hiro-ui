@@ -1,4 +1,4 @@
-# Hiro UI - Bootstrap [![npm (scoped)](https://img.shields.io/npm/v/@hiro-ui/bootstrap.svg)](https://www.npmjs.com/package/@hiro-ui/bootstrap)
+# Hiro UI - Bootstrap [![npm (scoped)](https://img.shields.io/npm/v/@hiro-ui/bootstrap.svg)](https://www.npmjs.com/package/@hiro-ui/bootstrap)[![Build Status](https://travis-ci.org/arago/hiro-ui.svg?branch=feature%2F1.0)](https://travis-ci.org/arago/hiro-ui)
 
 This project provides standardised components, themes and rendering for Hiro Apps.
 By rendering your React app as a Hiro App; Authentication, ORM, Redux store and Routing are all handled for you.
