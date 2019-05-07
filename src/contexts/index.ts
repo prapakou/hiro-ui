@@ -16,13 +16,13 @@ export interface AuthMe {
   profile: AuthAccountProfileVertex;
 }
 
-export interface AuthContext {
+export interface GraphContext {
   token?: string;
   orm?: Orm;
   me?: AuthMe;
 }
 
-export const HiroGraphContext = createContext<AuthContext>({});
+export const HiroGraphContext = createContext<GraphContext>({});
 
 export const useGraph = () => {
   const state = useContext(HiroGraphContext);
