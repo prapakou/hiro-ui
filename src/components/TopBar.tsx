@@ -31,7 +31,7 @@ export interface TopBarSearchProps {
 
 export interface TopBarDropdownProps {
   options: DropdownItemProps[];
-  color: SemanticCOLORS;
+  color?: SemanticCOLORS;
   trigger?: React.ReactNode;
 }
 
@@ -81,7 +81,7 @@ const renderDropDown = ({
   <Dropdown
     item
     options={options}
-    trigger={trigger}
+    trigger={trigger || " "}
     icon={<Icon name="caret down" size="large" color={color} />}
   />
 );
