@@ -5,6 +5,9 @@ stories
 .eslintrc.json
 .gitignore
 .npmignore
+.travis.yml
+gulpfile.js
 jest.config.json
 tsconfig.json
+yarn-error.log
 yarn.lock
