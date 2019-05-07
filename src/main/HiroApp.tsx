@@ -26,7 +26,7 @@ export class HiroApp {
     this.sagas = sagas;
   }
 
-  render = async (children: ReactNode, target?: HTMLElement) => {
+  render = async (children: ReactNode, target: HTMLElement | null) => {
     const { ready, state, token, graphUrl } = await initSdk(this.config);
     const store = init(state, this.reducers, this.sagas);
 
@@ -40,7 +40,6 @@ export class HiroApp {
     }
 
     ReactDOM.render(
-      // @ts-ignore
       <HiroAppRoot store={store} auth={authConfig}>
         {children}
       </HiroAppRoot>,
