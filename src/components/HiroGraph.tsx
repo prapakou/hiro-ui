@@ -6,7 +6,6 @@ import HiroGraphMappings, {
 } from "@hiro-graph/orm-mappings";
 
 import { HiroGraphContext, Orm, AuthMe } from "../contexts";
-import { useErrorDispatch } from "../stores";
 
 const safeMappings = HiroGraphMappings.filter(
   m => m.name !== "AutomationVariable"
