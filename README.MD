@@ -36,3 +36,28 @@ Last but not least, replace your DOM render call in `index.tsx`:
 -ReactDOM.render(<App />, document.getElementById('root'));
 +new HiroApp().render(<App />, document.getElementById('root'));
 ```
+
+## Graph and ORM
+
+Access to the graph requires a valid Client ID and graph URL.
+These can be set using a `.env` file in your project.
+
+1. Create a file called `.env` alongside your `package.json` file.
+2. Fill it with the following:
+
+```ini
+REACT_APP_GRAPH_URL=https://graph.arago.co
+REACT_APP_CLIENT_ID=MYCLIENTID
+```
+
+That's it! Now try starting your app again with `yarn start`.
+
+### Note
+You can optionally specificy redirect and authentication endpoints in your `.env` also.
+
+```ini
+REACT_APP_GRAPH_URL=https://graph.arago.co
+REACT_APP_AUTH_URL=https://graph.arago.co/api/6/auth/ui/
+REACT_APP_REDIRECT_URL=https://graph.arago.co/api/6/auth/ui-redirect
+REACT_APP_CLIENT_ID=MYCLIENTID
+```
