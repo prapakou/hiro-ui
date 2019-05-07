@@ -17,12 +17,6 @@ export interface HiroGraphConfig {
   endpoint: string;
 }
 
-export interface FetchError {
-  name: string;
-  message: string;
-  code: number;
-}
-
 export const HiroGraph = ({
   config,
   children
@@ -32,8 +26,6 @@ export const HiroGraph = ({
 }) => {
   const [orm, setOrm] = useState<Orm>();
   const [me, setMe] = useState<AuthMe>();
-  const { setError } = useErrorDispatch();
-
   const getMe = useCallback(
     () =>
       orm &&
@@ -49,16 +41,17 @@ export const HiroGraph = ({
       ])
         .then(([account, profile]) => ({ account, profile }))
         .then(newMe => void setMe(newMe))
-        .catch(({ code }: FetchError) => {
-          setError({
-            name: "Graph Error",
-            code,
-            message: `Failed to get user profile data.${
-              code === 401 ? " Please try logging in again." : ""
-            }`
-          });
+        .catch(() => {
+          if (process.env && process.env.NODE_ENV === "development") {
+            if (!window.sessionStorage.getItem("access_token")) {
+              return;
+            }
+
+            window.sessionStorage.removeItem("access_token");
+            window.location.reload();
+          }
         }),
-    [orm, setError]
+    [orm]
   );
 
   useEffect(() => {
