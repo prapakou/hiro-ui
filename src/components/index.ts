@@ -1,2 +1,4 @@
 export * from "./TopBar";
-export * from "./HiroApp";
+export * from "./HiroAppRoot";
+export * from "./HiroTheme";
+export * from "./HiroGraph";

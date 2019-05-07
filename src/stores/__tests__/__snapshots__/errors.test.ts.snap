@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error state: Add - Reducer 1`] = `
+Object {
+  "code": undefined,
+  "message": "An error",
+  "name": "Error",
+}
+`;
+
+exports[`Error state: Add 1`] = `
+Array [
+  Object {
+    "meta": undefined,
+    "payload": Object {
+      "message": "An error",
+    },
+    "type": "ERROR_SET",
+  },
+]
+`;
+
+exports[`Error state: Clear - Reducer 1`] = `null`;
+
+exports[`Error state: Clear 1`] = `
+Array [
+  Object {
+    "meta": undefined,
+    "payload": Object {
+      "message": "An error",
+    },
+    "type": "ERROR_SET",
+  },
+  Object {
+    "meta": undefined,
+    "payload": undefined,
+    "type": "ERROR_CLEAR",
+  },
+]
+`;

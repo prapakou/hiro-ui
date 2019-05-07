@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders 1`] = `"Test"`;
+
+exports[`Renders with Error 1`] = `
+Array [
+  "Test ",
+  <p>
+    Oh no!!
+  </p>,
+]
+`;

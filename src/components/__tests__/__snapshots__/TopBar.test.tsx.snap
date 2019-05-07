@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders 1`] = `
+<div
+  className="ui menu"
+>
+  <div
+    className="ui fluid container"
+  >
+    <div
+      className="header item"
+      onClick={[Function]}
+    >
+      <span>
+        Test
+      </span>
+    </div>
+  </div>
+</div>
+`;

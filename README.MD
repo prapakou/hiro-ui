@@ -1,76 +1,63 @@
-# Hiro UI [![npm (scoped)](https://img.shields.io/npm/v/@hiro-graph/ui.svg)](https://www.npmjs.com/package/@hiro-graph/ui)
+# Hiro UI - Bootstrap [![npm (scoped)](https://img.shields.io/npm/v/@hiro-ui/bootstrap.svg)](https://www.npmjs.com/package/@hiro-ui/bootstrap)[![Build Status](https://travis-ci.org/arago/hiro-ui.svg?branch=feature%2F1.0)](https://travis-ci.org/arago/hiro-ui)
 
-This project is a wrapper for [Semantic UI React](https://react.semantic-ui.com/), it exists so that additional components can be added if needed.
-
-Usage is identical, and theming continues to work - with themes managed [here](https://github.com/arago/hiro-ui-themes).
-
-## Requirements
-
-The upcoming React feature [hooks](https://reactjs.org/docs/hooks-overview.html) is used. Therefore React `^16.7.0-alpha.0` is required.
+This project provides standardised components, themes and rendering for Hiro Apps.
+By rendering your React app as a Hiro App; Authentication, ORM, Redux store and Routing are all handled for you.
+Additionally, Hiro UI Themes are provided and work in conjunction with the underlying Semantic UI components to provide re-usable React components.
 
 ## Usage
 
-The package should be installed directly from npm:
+First create your React app using the [create-react-app](https://github.com/facebook/create-react-app) tool.
 
 ```bash
-yarn add @hiro-graph/ui
+yarn create react-app my-app --typescript
 ```
 
-Usage of `HiroApp` component injects themes and authentication support to your application:
+Follow the given instructions.
 
-```tsx
-// App.tsx
-import { HiroApp } from "@hiro-graph/ui";
-import React from "react";
-
-export default (props: IAppProps) => (
-  <HiroApp theme="default" {...props}>
-    Hello world!
-  </HiroApp>
-);
-```
-
-Usage with [hiro-sdk](https://www.npmjs.com/package/hiro-sdk) as follows:
-
-```tsx
-import { initSdk } from "hiro-sdk";
-import React from "react";
-import { render } from "react-dom";
-
-import App from "./src/App";
-
-initSdk().then(({ ready, orm, config }) =>
-  render(<App ready={ready} orm={orm} config={config} />, target)
-);
-```
-
-## Stores
-
-Stores are prodived for data access, these use React [hooks](https://reactjs.org/docs/hooks-overview.html) and [RxJS](https://rxjs-dev.firebaseapp.com/) for data management.
-
-- `authStore`: Authentication data (such as `token`, and `orm` access).
-- `themeStore`: Current colour values of theme provided as JSON from CDN.
-- `errorStore`: Global error setting and clearing. Value is overlayed on screen automatically.
-
-The naming convention of `getters` and `actions` are used. e.g. `authStore.actions.ensureLogin()` or `authstore.getters.useAuth()`.
-Getters with the naming convention `useXXX` are hooks, and should be used as such.
-
-For example:
-
-```js
-// Hook to get colours. Once colours are loaded, the hook will force a component re-render
-const getColour = themeStore.getters.useColour();
-
-// Safely get colour from current data.
-const blue = getColour("blue");
-```
-
-## Development
-
-`index.tsx` and `index.html` are available for development using [Parcel](https://parceljs.org/). Parcel will automatically handle adding of additionald dependencies.
+Secondly, add `@hiro-ui/bootstrap` as a dependency:
 
 ```bash
-yarn start
+yarn add @hiro-ui/bootstrap
 ```
 
-Publishing and versioning (i.e. `npm version patch`) should be handled through npm.
+Last but not least, replace your DOM render call in `index.tsx`:
+
+```diff
+--- a/src/index.tsx
++++ b/src/index.tsx
+@@ -1,10 +1,10 @@
+ import React from 'react';
+-import ReactDOM from 'react-dom';
++import { HiroApp } from '@hiro-ui/bootstrap';
+ import './index.css';
+ import App from './App';
+ import * as serviceWorker from './serviceWorker';
+ 
+-ReactDOM.render(<App />, document.getElementById('root'));
++new HiroApp().render(<App />, document.getElementById('root'));
+```
+
+## Graph and ORM
+
+Access to the graph requires a valid Client ID and graph URL.
+These can be set using a `.env` file in your project.
+
+1. Create a file called `.env` alongside your `package.json` file.
+2. Fill it with the following:
+
+```ini
+REACT_APP_GRAPH_URL=https://graph.arago.co
+REACT_APP_CLIENT_ID=MYCLIENTID
+```
+
+That's it! Now try starting your app again with `yarn start`.
+
+### Note
+You can optionally specificy redirect and authentication endpoints in your `.env` also.
+
+```ini
+REACT_APP_GRAPH_URL=https://graph.arago.co
+REACT_APP_AUTH_URL=https://graph.arago.co/api/6/auth/ui/
+REACT_APP_REDIRECT_URL=https://graph.arago.co/api/6/auth/ui-redirect
+REACT_APP_CLIENT_ID=MYCLIENTID
+```
