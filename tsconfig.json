@@ -8,7 +8,6 @@
     "jsx": "react",
     "declaration": true,
     "outDir": "./dist",
-    "downlevelIteration": true,
     "strict": true,
     "noImplicitAny": false,
     "esModuleInterop": true,

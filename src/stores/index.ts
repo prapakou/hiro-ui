@@ -1,26 +1,36 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import createSagaMiddleware, { Saga } from "redux-saga";
+import { fork } from "redux-saga/effects";
 import { Reducer } from "typesafe-actions";
+
+import { Orm } from "../contexts";
 
 import { ERROR_NAMESPACE, errorReducer } from "./errors";
 import { HIRO_NAMESPACE } from "./constants";
+import { GRAPH_NAMESPACE, handleGraphRequests, graphReducer } from "./graph";
 
 export * from "./errors";
+export * from "./graph";
 
 // Combine built-in sagas
-function* mainSaga() {
-  // Add sagas
+function* mainSaga(orm?: Orm) {
+  console.log("ORM", orm);
+  yield fork(handleGraphRequests, orm);
 }
 
-export function init(
-  state?: any,
-  reducers?: { [index: string]: Reducer<any, any> },
-  sagas?: Saga[]
-) {
+export interface StoreInit {
+  state?: any;
+  reducers?: { [index: string]: Reducer<any, any> };
+  sagas?: Saga[];
+  orm?: Orm;
+}
+
+export function init({ state, reducers, sagas, orm }: StoreInit = {}) {
   // Combine built-in reducers with exeternal ones
   const rootReducer = combineReducers({
     [HIRO_NAMESPACE]: combineReducers({
-      [ERROR_NAMESPACE]: errorReducer
+      [ERROR_NAMESPACE]: errorReducer,
+      [GRAPH_NAMESPACE]: graphReducer
     }),
     ...reducers
   });
@@ -38,7 +48,7 @@ export function init(
   );
 
   // Run built-in saga
-  sagaMiddleware.run(mainSaga);
+  sagaMiddleware.run(mainSaga, orm);
 
   // Run external sagas
   if (sagas) {

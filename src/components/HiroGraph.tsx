@@ -1,29 +1,17 @@
 import React, { useEffect, useState, useCallback } from "react";
-import HiroGraphOrm from "@hiro-graph/orm";
-import HiroGraphMappings, {
+import {
   AuthAccountVertex,
   AuthAccountProfileVertex
 } from "@hiro-graph/orm-mappings";
 
 import { HiroGraphContext, Orm, AuthMe } from "../contexts";
 
-const safeMappings = HiroGraphMappings.filter(
-  m => m.name !== "AutomationVariable"
-);
-
 export interface HiroGraphConfig {
   token: string;
   endpoint: string;
 }
 
-export const HiroGraph = ({
-  config,
-  children
-}: {
-  config: HiroGraphConfig;
-  children: any;
-}) => {
-  const [orm, setOrm] = useState<Orm>();
+export const HiroGraph = ({ orm, children }: { orm: Orm; children: any }) => {
   const [me, setMe] = useState<AuthMe>();
   const getMe = useCallback(
     () =>
@@ -54,12 +42,6 @@ export const HiroGraph = ({
   );
 
   useEffect(() => {
-    if (config.token) {
-      setOrm(new HiroGraphOrm(config, safeMappings) as Orm);
-    }
-  }, [config]);
-
-  useEffect(() => {
     getMe();
 
     const i = setInterval(() => {
@@ -70,7 +52,6 @@ export const HiroGraph = ({
   }, [getMe]);
 
   const value = {
-    token: config.token,
     orm,
     me
   };

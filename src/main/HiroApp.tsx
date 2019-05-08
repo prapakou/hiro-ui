@@ -1,11 +1,18 @@
 import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { SdkConfig, initSdk } from "@hiro-ui/sdk";
+import HiroGraphOrm from "@hiro-graph/orm";
+import HiroGraphMappings from "@hiro-graph/orm-mappings";
 import { Reducer } from "typesafe-actions";
 import { Saga } from "redux-saga";
 
 import { init } from "../stores";
-import { HiroAppRoot, HiroGraphConfig } from "../components";
+import { HiroAppRoot } from "../components";
+import { Orm } from "../contexts";
+
+const safeMappings = HiroGraphMappings.filter(
+  m => m.name !== "AutomationVariable"
+);
 
 interface HiroAppParams {
   config?: SdkConfig;
@@ -54,19 +61,28 @@ export class HiroApp {
 
   render = async (children: ReactNode, target: HTMLElement | null) => {
     const { ready, state, token, graphUrl } = await initSdk(this.config);
-    const store = init(state, this.reducers, this.sagas);
 
-    let authConfig: HiroGraphConfig | undefined;
+    let orm: Orm | undefined;
 
     if (token && graphUrl) {
-      authConfig = {
-        endpoint: graphUrl,
-        token
-      };
+      orm = new HiroGraphOrm(
+        {
+          endpoint: graphUrl,
+          token
+        },
+        safeMappings
+      ) as Orm;
     }
 
+    const store = init({
+      state,
+      reducers: this.reducers,
+      sagas: this.sagas,
+      orm
+    });
+
     ReactDOM.render(
-      <HiroAppRoot store={store} auth={authConfig}>
+      <HiroAppRoot store={store} orm={orm}>
         {children}
       </HiroAppRoot>,
       target,

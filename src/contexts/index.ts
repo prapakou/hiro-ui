@@ -27,8 +27,8 @@ export const HiroGraphContext = createContext<GraphContext>({});
 export const useGraph = () => {
   const state = useContext(HiroGraphContext);
 
-  if (process.env.NODE_ENV === "development" && !state.token) {
-    console.warn("HiroGraph: No token found. ORM will not be available");
+  if (process.env.NODE_ENV === "development" && !state.orm) {
+    console.warn("HiroGraph: ORM not available, check token");
   }
 
   return state;

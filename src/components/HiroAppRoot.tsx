@@ -3,23 +3,25 @@ import { Store } from "redux";
 import { BrowserRouter } from "react-router-dom";
 import { StoreContext } from "redux-react-hook";
 
+import { Orm } from "../contexts";
+
 import { ErrorBar } from "./ErrorBar";
-import { HiroGraph, HiroGraphConfig } from "./HiroGraph";
+import { HiroGraph } from "./HiroGraph";
 
 interface HiroAppRootProps {
   store: Store;
-  auth?: HiroGraphConfig;
+  orm?: Orm;
   children?: any;
 }
 
 export const HiroAppRoot: React.FC<HiroAppRootProps> = ({
-  auth,
+  orm,
   children,
   store
 }) => (
   <BrowserRouter>
     <StoreContext.Provider value={store}>
-      {auth ? <HiroGraph config={auth}>{children}</HiroGraph> : children}
+      {orm ? <HiroGraph orm={orm}>{children}</HiroGraph> : children}
       <ErrorBar />
     </StoreContext.Provider>
   </BrowserRouter>
