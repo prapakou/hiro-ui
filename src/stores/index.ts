@@ -14,7 +14,6 @@ export * from "./graph";
 
 // Combine built-in sagas
 function* mainSaga(orm?: Orm) {
-  console.log("ORM", orm);
   yield fork(handleGraphRequests, orm);
 }
 

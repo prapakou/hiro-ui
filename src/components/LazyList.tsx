@@ -2,14 +2,15 @@ import React, { useCallback, useState, ReactNode, useEffect } from "react";
 import {
   Pagination,
   PaginationProps,
-  Container,
   List,
   Grid,
-  Segment
+  Segment,
+  Placeholder
 } from "semantic-ui-react";
 import { MappedTypes } from "@hiro-graph/orm-mappings";
+import { GraphVertex } from "@hiro-graph/orm";
 
-import { useGraphDispatch } from "../stores";
+import { useGraphQuery } from "../stores";
 
 export interface LasyListProps {
   entity: MappedTypes;
@@ -18,6 +19,22 @@ export interface LasyListProps {
   offset?: number;
 }
 
+const renderPlaceholder = (limit: number) => {
+  const output: JSX.Element[] = [];
+
+  for (let i = 0; i < limit; i += 1) {
+    output.push(
+      <Placeholder key={`list-placeholder-${i}`}>
+        <Placeholder.Header image>
+          <Placeholder.Line />
+        </Placeholder.Header>
+      </Placeholder>
+    );
+  }
+
+  return output;
+};
+
 export const LazyList: React.FC<LasyListProps> = ({
   entity,
   item,
@@ -25,7 +42,25 @@ export const LazyList: React.FC<LasyListProps> = ({
 }) => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
-  const { sendQuery } = useGraphDispatch();
+
+  const { send: findCount, response: count } = useGraphQuery({
+    entity,
+    method: "findCount"
+  });
+  const { send: find, response = [], loading } = useGraphQuery(
+    {
+      entity,
+      method: "find",
+      args: [
+        {},
+        {
+          limit,
+          offset
+        }
+      ]
+    },
+    [entity, limit, offset]
+  );
 
   const onPageChange = useCallback(
     (_, { activePage }: PaginationProps) => {
@@ -37,36 +72,35 @@ export const LazyList: React.FC<LasyListProps> = ({
   );
 
   useEffect(() => {
-    const cancel = sendQuery({
-      entity,
-      method: "find",
-      args: [
-        {},
-        {
-          limit,
-          offset
-        }
-      ]
-    });
+    const cancel = findCount();
 
     return cancel;
-  }, [sendQuery, limit, offset, entity]);
+  }, [entity]);
+
+  useEffect(() => {
+    const cancel = find();
+
+    return cancel;
+  }, [page, entity]);
+
+  const renderItem = useCallback(
+    (r: GraphVertex) => <List.Item as={item} value={r as any} key={r._id} />,
+    [item]
+  );
 
   return (
     <Segment>
       <List divided>
-        <List.Item as={item} value="test" />
+        {loading && !response.length
+          ? renderPlaceholder(limit)
+          : response.map(renderItem)}
       </List>
 
       <Grid centered padded>
         <Pagination
-          boundaryRange={0}
+          disabled={!count}
           defaultActivePage={page}
-          ellipsisItem={null}
-          firstItem={null}
-          lastItem={null}
-          siblingRange={2}
-          totalPages={page + 4}
+          totalPages={count ? Math.ceil(count / limit) : 1}
           onPageChange={onPageChange}
         />
       </Grid>

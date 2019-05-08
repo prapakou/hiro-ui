@@ -1,10 +1,14 @@
-import { useCallback } from "react";
+import { useCallback, DependencyList } from "react";
 import { useMappedState, useDispatch } from "redux-react-hook";
 import { get } from "lodash-es";
 
 import { HIRO_NAMESPACE } from "../constants";
 
-import { GRAPH_NAMESPACE, GraphQueryRequest } from "./constants";
+import {
+  GRAPH_NAMESPACE,
+  GraphQueryRequest,
+  GraphQueryItem
+} from "./constants";
 import { graphQuery } from "./actions";
 
 export const useGraphState = () => {
@@ -18,23 +22,35 @@ export const useGraphState = () => {
 
 type SendQueryParams = Pick<GraphQueryRequest, "args" | "method" | "entity">;
 
-export const useGraphDispatch = () => {
+export const useGraphQuery = (
+  query: SendQueryParams,
+  deps: DependencyList = []
+) => {
   const dispatch = useDispatch();
+  let id = `${query.entity}-${query.method}`;
 
-  const sendQuery = useCallback(
-    (query: SendQueryParams) => {
-      let id = `${query.entity}-${query.method}`;
+  if (query.args) {
+    id = `${id}-${JSON.stringify(query.args)}`;
+  }
 
-      if (query.args) {
-        id = `${id}-${JSON.stringify(query.args)}`;
-      }
+  const send = useCallback(() => {
+    dispatch(graphQuery.request({ ...query, id }));
 
-      dispatch(graphQuery.request({ ...query, id }));
+    return () => void dispatch(graphQuery.cancel({ id }));
+  }, [deps]);
 
-      return () => void dispatch(graphQuery.cancel({ id }));
-    },
-    [dispatch]
+  const mapState = useCallback(
+    state =>
+      get(state, [HIRO_NAMESPACE, GRAPH_NAMESPACE, id], {}) as GraphQueryItem,
+    [deps]
   );
 
-  return { sendQuery };
+  const state = useMappedState(mapState);
+
+  return {
+    send,
+    loading: state.loading,
+    response: state.response,
+    error: state.error
+  };
 };

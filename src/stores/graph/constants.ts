@@ -13,17 +13,16 @@ export interface GraphQueryRequest {
 
 export interface GraphQuerySuccess {
   id: string;
-  result: any;
+  response: any;
 }
 
 export interface GraphQueryError {
   id: string;
-  error: Error;
+  error: string;
 }
 
 export type GraphQueryItem = {
   loading?: boolean;
-  error?: Error;
 } & Partial<GraphQueryRequest & GraphQuerySuccess & GraphQueryError>;
 
 export interface GraphStateType {

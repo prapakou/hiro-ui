@@ -1,7 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import HiroGraphOrm from "@hiro-graph/orm";
-import HiroGraphMappings from "@hiro-graph/orm-mappings";
+import HiroGraphMappings, {
+  AuthDataScopeVertex
+} from "@hiro-graph/orm-mappings";
 
 import {
   HiroAppRoot,
@@ -29,14 +31,15 @@ const globalOrm = new HiroGraphOrm(
 
 const store = init({ orm: globalOrm });
 
-const ListItem: React.FC = props => {
-  console.log("props", props);
+const ListItem: React.FC<{ "data-value": AuthDataScopeVertex }> = props => {
+  const { "data-value": value } = props;
+
   return (
     <List.Item>
-      <List.Icon name="github" size="large" verticalAlign="middle" />
+      <List.Icon name="database" size="large" verticalAlign="middle" />
       <List.Content>
-        <List.Header as="a">Semantic-Org/Semantic-UI</List.Header>
-        <List.Description as="a">Updated 10 mins ago</List.Description>
+        <List.Header>{value.get("name")}</List.Header>
+        <List.Description>{value.get("description")}</List.Description>
       </List.Content>
     </List.Item>
   );
@@ -49,7 +52,7 @@ const Test = () => {
     return null;
   }
 
-  return <LazyList entity="Event" item={ListItem} />;
+  return <LazyList entity="AuthDataScope" item={ListItem} limit={10} />;
 };
 
 storiesOf("LazyList", module).add("Default", () => (

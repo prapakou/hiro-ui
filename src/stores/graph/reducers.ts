@@ -6,6 +6,7 @@ export const graphReducer = createReducer<GraphStateType, GraphActionsType>({})
   .handleAction("GRAPH_QUERY_REQUEST", (state, { payload }) => ({
     ...state,
     [payload.id]: {
+      ...state[payload.id],
       ...payload,
       loading: true
     }
@@ -14,7 +15,7 @@ export const graphReducer = createReducer<GraphStateType, GraphActionsType>({})
     ...state,
     [payload.id]: {
       ...state[payload.id],
-      result: payload.result,
+      response: payload.response,
       loading: false
     }
   }))
