@@ -1,4 +1,4 @@
-import { takeEvery, take, call, put, race, delay } from "redux-saga/effects";
+import { takeEvery, take, call, put, race } from "redux-saga/effects";
 import { ActionType } from "typesafe-actions";
 
 import { Orm } from "../../contexts";
@@ -36,6 +36,5 @@ export function* handleGraphRequests(orm?: Orm) {
     return;
   }
 
-  // @ts-ignore
   yield takeEvery(graphQuery.request, handleRequest, orm);
 }
