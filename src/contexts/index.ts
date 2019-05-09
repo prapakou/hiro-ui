@@ -3,23 +3,17 @@ import { ORM } from "@hiro-graph/orm";
 import {
   MappedTypes,
   VertexLookup,
-  AuthAccountVertex,
-  AuthAccountProfileVertex
+  AuthAccountVertex
 } from "@hiro-graph/orm-mappings";
 
 export type Orm = {
   me(): Promise<AuthAccountVertex>;
 } & ORM<MappedTypes, typeof VertexLookup>;
 
-export interface AuthMe {
-  account: AuthAccountVertex;
-  profile: AuthAccountProfileVertex;
-}
-
 export interface GraphContext {
   token?: string;
   orm?: Orm;
-  me?: AuthMe;
+  me?: AuthAccountVertex;
 }
 
 export const HiroGraphContext = createContext<GraphContext>({});

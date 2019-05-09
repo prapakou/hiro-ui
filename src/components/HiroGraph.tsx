@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
-import {
-  AuthAccountVertex,
-  AuthAccountProfileVertex
-} from "@hiro-graph/orm-mappings";
+import { AuthAccountVertex } from "@hiro-graph/orm-mappings";
 
-import { HiroGraphContext, Orm, AuthMe } from "../contexts";
+import { HiroGraphContext, Orm } from "../contexts";
 
 export interface HiroGraphConfig {
   token: string;
@@ -12,21 +9,12 @@ export interface HiroGraphConfig {
 }
 
 export const HiroGraph = ({ orm, children }: { orm: Orm; children: any }) => {
-  const [me, setMe] = useState<AuthMe>();
+  const [me, setMe] = useState<AuthAccountVertex>();
   const getMe = useCallback(
     () =>
       orm &&
-      Promise.all([
-        orm
-          .getClient()
-          .api.meAccount()
-          .then(account => orm.insertRaw<AuthAccountVertex>(account)),
-        orm
-          .getClient()
-          .api.getMeProfile()
-          .then(account => orm.insertRaw<AuthAccountProfileVertex>(account))
-      ])
-        .then(([account, profile]) => ({ account, profile }))
+      orm
+        .me()
         .then(newMe => void setMe(newMe))
         .catch(() => {
           if (process.env && process.env.NODE_ENV === "development") {

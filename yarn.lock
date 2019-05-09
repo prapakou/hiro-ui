@@ -1026,10 +1026,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
   integrity sha512-n/VQ4mbfr81aqkx/XmVicOLjviMuy02eenSdJY33SVA7S2J42EU0P1H0mOogfYedb3wXA0d/LVtBrgTSm04WEA==
 
-"@hiro-graph/client@^1.2.1", "@hiro-graph/client@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@hiro-graph/client/-/client-1.2.2.tgz#0715b8a3db09ef146520a8413b07a073f2f7d381"
-  integrity sha512-+IIkoTAawHzvq+OlfpRNO60o4FLio7mGto9+RdHHcGFfhBs2g8f2zvpDZFqbLB6ecF0JJnH2ds/lVlhQyUnhQA==
+"@hiro-graph/client@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hiro-graph/client/-/client-6.0.0.tgz#1c67c7cbfe0eb52b8afa645f7632239b7b6260c9"
+  integrity sha512-fX7zs46JkjIQlYzuQU/kFDSK2Nae/GCmNDP9AgLRrVyJEqhVHBlyoQ5QnsdGbMFhrXc2ZKSz4ViUkibOQwFKSg==
   dependencies:
     "@arago/eslint-config-arago" "github:arago/eslint-config-arago"
     "@types/node-fetch" "*"
@@ -1039,69 +1039,68 @@
     isomorphic-fetch "^2.2.1"
     websocket "^1.0.25"
 
-"@hiro-graph/codecs@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@hiro-graph/codecs/-/codecs-1.0.1.tgz#0359a6e22d22731079afbfe04c4d41f1b7cc3b66"
-  integrity sha512-2A4dStX026k9pni2ChcWy5kK9UcpxzgqqWbaTLtV+BQk101wxlMCZiQiFQ4D6p8qOT5iFFYoFO15inP6mNLOsw==
+"@hiro-graph/codecs@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hiro-graph/codecs/-/codecs-6.0.0.tgz#99506b0842c2d621e1b0608d14c2fc136985766a"
+  integrity sha512-s9MyilZxGolS/jS/j7a9aZIvYdvrOJ1Q/TZdC7PSRWjk1j3FaHyVfcSYdmRAqHP6OA5j8DKEAxZtArrp7cddRg==
 
-"@hiro-graph/gremlin@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@hiro-graph/gremlin/-/gremlin-1.0.4.tgz#ad02dc5d4ee042a086387dce321a9d429e752032"
-  integrity sha512-zXz3265Jqm7fD5AsBNxy4wQv/PgJ2RL22Uyi/Eb9OB51IFLlasTU/H46/6U7a4jiOHaDvqqb0Y3+HP6NnLhovg==
+"@hiro-graph/gremlin@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hiro-graph/gremlin/-/gremlin-6.0.0.tgz#72e0375e89391948658bdbca527c24ff03398387"
+  integrity sha512-MVCVOC3R0Ek3ads696jHk09TOdjiutfijtxqeJIZOFYdjOfzrofJ9dyudSA39KKGnbDP2hdtc8dy5+IlEMN3uA==
 
-"@hiro-graph/implicit-oauth@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@hiro-graph/implicit-oauth/-/implicit-oauth-1.1.4.tgz#ac98be23f949a36f9beeb492c4d148d984bf8a42"
-  integrity sha512-K/E1c6c5alxHPRWF7t1fsgTO1fMwtlPatHTsDAPK/SZlv+fDPYws7u+QgTaD7KncO25QbWiNHgZbosKPmiqVog==
+"@hiro-graph/implicit-oauth@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hiro-graph/implicit-oauth/-/implicit-oauth-6.0.0.tgz#7348484100a5858a14b81a97f047d02b6916b4a3"
+  integrity sha512-FF5r3AfCdnne+futVdqR35mUuLvjnYNOBXt928b+JTjQd+b20CVzAVCcS8QM/CIgNlmBTtLhVNHO4lQmb7bzhA==
   dependencies:
     querystring "^0.2.0"
 
-"@hiro-graph/lucene@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@hiro-graph/lucene/-/lucene-1.0.1.tgz#e39402c37f4bd3590d89b898e91497b80fb00a86"
-  integrity sha512-8YCRjVrguUz9i+uSmNInJXkpXO7c4iZoVrxCrmWdfjcuF4XIb57DqlHv2TrkQlObvJB3OaGO6y5eNItlvE0guQ==
+"@hiro-graph/lucene@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hiro-graph/lucene/-/lucene-6.0.0.tgz#b98700231900dae79d849d4d0d30406b36d6002c"
+  integrity sha512-mcPp/eSj5hgcr3JwfCV9MBn/cgD+OKiCmubScy6b0AWrq0gx/nn0TtY3xSFE98DcGsYee+LeBVUUtsKHVVrDIA==
 
-"@hiro-graph/orm-mappings@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@hiro-graph/orm-mappings/-/orm-mappings-2.2.2.tgz#8cb16a316b4a32f20a99de5ca6bafaa9d880470f"
-  integrity sha512-T7YFGgUz4VFJ8LbjJ1QSqHfp9LqfhbkQf8+AFB6hPCaD8C3nc/LOgIucUhl+mswQRkfMC7ZZn4cKxZrydjcyGA==
+"@hiro-graph/orm-mappings@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hiro-graph/orm-mappings/-/orm-mappings-6.0.0.tgz#0c698cfc399dcac665d05afe1e017c4abde3594d"
+  integrity sha512-Y0ZcL3gk1YuwLLyCznODyUY2VukUAqte+Jm3qo0fSM6EksIns84ksOb1H029Z5qG45Fm/LHfGHajXfO9p9MryQ==
   dependencies:
     "@arago/eslint-config-arago" "github:arago/eslint-config-arago"
-    "@hiro-graph/orm" "^1.1.1"
+    "@hiro-graph/orm" "^6.0.0"
     eslint "^5.3.0"
     lerna "^3.10.8"
 
-"@hiro-graph/orm@^1.1.1":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@hiro-graph/orm/-/orm-1.1.2.tgz#9285bc8a3b49ce9c4e46d94090293129c3f99fc1"
-  integrity sha512-wpZiaG+fcBICC4skNtkt07bV88trSiLJBI5eSn/w2ss8NB7PAIvA1H27ozk4YsFT91y9lyn5zD6HI9UtG/3K/A==
+"@hiro-graph/orm@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hiro-graph/orm/-/orm-6.0.0.tgz#48690796800e6732435533a4738b24be515e2528"
+  integrity sha512-Dp3VPJ+ARygCw2O25A5pT6nQGyAa/DdJ+qhpWZYix9wfzUntqSHn1TTETYLA5jOLGSb/R20nP7KdW+WaMSSm3A==
   dependencies:
-    "@hiro-graph/client" "^1.2.1"
-    "@hiro-graph/codecs" "^1.0.1"
-    "@hiro-graph/gremlin" "^1.0.4"
-    "@hiro-graph/lucene" "^1.0.1"
+    "@hiro-graph/client" "^6.0.0"
+    "@hiro-graph/codecs" "^6.0.0"
+    "@hiro-graph/gremlin" "^6.0.0"
+    "@hiro-graph/lucene" "^6.0.0"
     lodash.isplainobject "^4.0.6"
 
-"@hiro-graph/redux@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@hiro-graph/redux/-/redux-1.2.1.tgz#49cfd051d584cb71f1497a6c686ca315fa96fbb5"
-  integrity sha512-IPGgzlKSPVZZXheuFC8IrR1OX8tUGzRTRuHriPL8dM9jYKHZdQGDxqOdAAPBXOlDt88Y1UbxAhDYP8zY2jw5Vw==
+"@hiro-graph/redux@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@hiro-graph/redux/-/redux-6.0.0.tgz#057a32c7881543aabb03899a4534e9c59b8f8b31"
+  integrity sha512-JjywkqkVYR7vO2L/rLcGCNPps+2Jji+DYJKPbK70s5xrKmkACJxmp8f3Nsd0JHts0HfqfYna6+3KbJOMiDWYVg==
   dependencies:
     "@arago/eslint-config-arago" "github:arago/eslint-config-arago"
-    "@hiro-graph/client" "^1.2.1"
-    "@hiro-graph/implicit-oauth" "^1.1.4"
-    "@hiro-graph/orm" "^1.1.1"
+    "@hiro-graph/client" "^6.0.0"
+    "@hiro-graph/implicit-oauth" "^6.0.0"
+    "@hiro-graph/orm" "^6.0.0"
     eslint "^5.3.0"
     lodash.isplainobject "^4.0.6"
     redux "^4.0.0"
     reselect "^4.0.0"
 
-"@hiro-ui/sdk@^1.0.0-rc5":
-  version "1.0.0-rc5"
-  resolved "https://registry.yarnpkg.com/@hiro-ui/sdk/-/sdk-1.0.0-rc5.tgz#16d144f268dfd666945d848ba8260151810f8ed1"
-  integrity sha512-Eftjr5dNUkI5PRzb4ENhCxZj1df5MMIeUIbr4Z+HDEp0jECrqldy5bblr4InuomD+HdEgmdl82OQWR2K+Vx8EQ==
+"@hiro-ui/sdk@^1.0.0-rc6":
+  version "1.0.0-rc6"
+  resolved "https://registry.yarnpkg.com/@hiro-ui/sdk/-/sdk-1.0.0-rc6.tgz#473073e20d433927e5b777ca31e18d52146497e2"
+  integrity sha512-P0RCFQpkFR4JFFdv9NQ9pMXGto4/YbiIWqXsEj4i9B5WMDabXt+wGWFORXqTMUIsR5nf/FG+2lAhF8PuvKM7yQ==
   dependencies:
-    "@hiro-graph/client" "^1.2.2"
     qs "^6.5.2"
 
 "@jest/console@^24.7.1":
@@ -12856,9 +12855,9 @@ symbol.prototype.description@^1.0.0:
     has-symbols "^1.0.0"
 
 table@^5.2.3:
-  version "5.2.3"
-  resolved "https://registry.yarnpkg.com/table/-/table-5.2.3.tgz#cde0cc6eb06751c009efab27e8c820ca5b67b7f2"
-  integrity sha512-N2RsDAMvDLvYwFcwbPyF3VmVSSkuF+G1e+8inhBLtHpvwXGw4QRPEZhihQNeEN0i1up6/f6ObCJXNdlRG3YVyQ==
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/table/-/table-5.3.0.tgz#8a2c3354dc87312328c68732039b38b6a41c86c9"
+  integrity sha512-6V2qlZHIbbZQGzoP3Ghcj/IQDPhBvQYjZE4W4JEyFMkbzHziIzG6jxmAD87BZ1ZXgwPwgu3MzvCUGMOFRN7wlw==
   dependencies:
     ajv "^6.9.1"
     lodash "^4.17.11"
@@ -13220,10 +13219,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typesafe-actions@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-4.2.0.tgz#96f26d644803790f4b93f0d82ed2d4187bbd8b92"
-  integrity sha512-UuND9OTYOoK47QFwXRpF+ax9r2+bnJ+M//13mBFU7+EB2NN/5ki6ocmYi4jtTjFTr+gRCOTRy6Sr1z6X1MhTOg==
+typesafe-actions@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-4.2.1.tgz#b794e141abcc05195df20ee340038fbd60ad2262"
+  integrity sha512-a+HpDcVl+hRxQS3u83vh3X2ga967b/3TwiFbcqlDOkMSsJTFwzahObsGWuTiSISjSvLKrx0ckeYheLUzti4kYw==
 
 typescript-compare@^0.0.2:
   version "0.0.2"
@@ -13536,9 +13535,9 @@ uuid@^3.0.1, uuid@^3.3.2:
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
 
 v8flags@^3.0.1:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/v8flags/-/v8flags-3.1.2.tgz#fc5cd0c227428181e6c29b2992e4f8f1da5e0c9f"
-  integrity sha512-MtivA7GF24yMPte9Rp/BWGCYQNaUj86zeYxV/x2RRJMKagImbbv3u8iJC57lNhWLPcGLJmHcHmFWkNsplbbLWw==
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/v8flags/-/v8flags-3.1.3.tgz#fc9dc23521ca20c5433f81cc4eb9b3033bb105d8"
+  integrity sha512-amh9CCg3ZxkzQ48Mhcb8iX7xpAfYJgePHxWMQCBWECpOSqJUXgY26ncA61UTV0BkPqfhcy6mzwCIoP4ygxpW8w==
   dependencies:
     homedir-polyfill "^1.0.1"
 
