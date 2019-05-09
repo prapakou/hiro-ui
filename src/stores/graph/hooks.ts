@@ -9,6 +9,14 @@ import { HIRO_NAMESPACE } from "../constants";
 import { GRAPH_NAMESPACE, GraphQueryItem } from "./constants";
 import { graphQuery } from "./actions";
 
+type EntityKeys = keyof Entity<GraphVertex>;
+
+type PromiseReturnType<M extends EntityKeys> = ReturnType<
+  Entity<GraphVertex>[M]
+> extends Promise<infer U>
+  ? U
+  : ReturnType<Entity<GraphVertex>[M]>;
+
 export const useGraphState = () => {
   const mapState = useCallback(
     state => get(state, [HIRO_NAMESPACE, GRAPH_NAMESPACE]),
@@ -18,10 +26,7 @@ export const useGraphState = () => {
   return useMappedState(mapState);
 };
 
-export const useGraphQuery = <
-  E extends MappedTypes,
-  M extends keyof Entity<GraphVertex>
->(
+export const useGraphQuery = <E extends MappedTypes, M extends EntityKeys>(
   query: {
     entity: E;
     method: M;
@@ -44,7 +49,9 @@ export const useGraphQuery = <
 
   const mapState = useCallback(
     state =>
-      get(state, [HIRO_NAMESPACE, GRAPH_NAMESPACE, id], {}) as GraphQueryItem,
+      get(state, [HIRO_NAMESPACE, GRAPH_NAMESPACE, id], {
+        loading: true
+      }) as GraphQueryItem,
     [deps]
   );
 
@@ -53,7 +60,7 @@ export const useGraphQuery = <
   return {
     send,
     loading: state.loading,
-    response: state.response,
+    response: state.response as PromiseReturnType<M>,
     error: state.error
   };
 };

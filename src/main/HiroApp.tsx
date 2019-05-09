@@ -59,7 +59,7 @@ export class HiroApp {
     }
   }
 
-  render = async (children: ReactNode, target: HTMLElement | null) => {
+  setup = async () => {
     const { ready, state, token, graphUrl } = await initSdk(this.config);
 
     let orm: Orm | undefined;
@@ -80,6 +80,12 @@ export class HiroApp {
       sagas: this.sagas,
       orm
     });
+
+    return { store, orm, ready };
+  };
+
+  render = async (children: ReactNode, target: HTMLElement | null) => {
+    const { store, orm, ready } = await this.setup();
 
     ReactDOM.render(
       <HiroAppRoot store={store} orm={orm}>

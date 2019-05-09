@@ -30,9 +30,6 @@ function* handleRequest(
 
 export function* handleGraphRequests(orm?: Orm) {
   if (!orm) {
-    console.warn(
-      `HiroGraph: No orm available will not run saga handleGraphRequests`
-    );
     return;
   }
 
