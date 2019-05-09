@@ -5,7 +5,7 @@ import {
   List,
   Grid,
   Segment,
-  Placeholder
+  Loader
 } from "semantic-ui-react";
 import { MappedTypes } from "@hiro-graph/orm-mappings";
 import { GraphVertex } from "@hiro-graph/orm";
@@ -23,12 +23,11 @@ const renderPlaceholder = (limit: number) => {
   const output: JSX.Element[] = [];
 
   for (let i = 0; i < limit; i += 1) {
+    const key = `list-placeholder-${i}`;
     output.push(
-      <Placeholder key={`list-placeholder-${i}`}>
-        <Placeholder.Header image>
-          <Placeholder.Line />
-        </Placeholder.Header>
-      </Placeholder>
+      <List.Item key={key}>
+        <Loader active size="small" inline="centered" />
+      </List.Item>
     );
   }
 
@@ -89,7 +88,7 @@ export const LazyList: React.FC<LasyListProps> = ({
   );
 
   return (
-    <Segment>
+    <Segment padded>
       <List divided>
         {loading && !response.length
           ? renderPlaceholder(limit)
