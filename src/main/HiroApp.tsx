@@ -2,17 +2,15 @@ import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { SdkConfig, initSdk } from "@hiro-ui/sdk";
 import HiroGraphOrm from "@hiro-graph/orm";
-import HiroGraphMappings from "@hiro-graph/orm-mappings";
 import { Reducer } from "typesafe-actions";
 import { Saga } from "redux-saga";
 
 import { init } from "../stores";
 import { HiroAppRoot } from "../components";
 import { Orm } from "../contexts";
+import { getMappings } from "../helpers";
 
-const safeMappings = HiroGraphMappings.filter(
-  m => m.name !== "AutomationVariable"
-);
+const HiroGraphMappings = getMappings();
 
 interface HiroAppParams {
   config?: SdkConfig;
@@ -70,7 +68,7 @@ export class HiroApp {
           endpoint: graphUrl,
           token
         },
-        safeMappings
+        HiroGraphMappings
       ) as Orm;
     }
 

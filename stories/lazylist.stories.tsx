@@ -1,33 +1,30 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import HiroGraphOrm from "@hiro-graph/orm";
-import HiroGraphMappings, {
-  AutomationAutomationIssueVertex
-} from "@hiro-graph/orm-mappings";
+import { AutomationAutomationIssueVertex } from "@hiro-graph/orm-mappings";
 
 import {
+  getMappings,
   HiroAppRoot,
-  LazyList,
   HiroTheme,
   init,
+  LazyList,
   List,
   Orm,
-  SemanticICONS,
-  SemanticCOLORS
+  SemanticCOLORS,
+  SemanticICONS
 } from "../src";
 
-const safeMappings = HiroGraphMappings.filter(
-  m => m.name !== "AutomationVariable"
-);
+const HiroGraphMappings = getMappings();
 
 const token = "";
 
 const globalOrm = new HiroGraphOrm(
   {
-    endpoint: "https://ec2-34-252-56-37.eu-west-1.compute.amazonaws.com:8443",
+    endpoint: "https://eu-stagegraph.arago.co",
     token
   },
-  safeMappings
+  HiroGraphMappings
 ) as Orm;
 
 const store = init({ orm: globalOrm });

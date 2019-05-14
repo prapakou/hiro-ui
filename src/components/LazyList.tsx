@@ -5,7 +5,8 @@ import {
   List,
   Grid,
   Segment,
-  Loader
+  Loader,
+  Header
 } from "semantic-ui-react";
 import { MappedTypes } from "@hiro-graph/orm-mappings";
 import { GraphVertex } from "@hiro-graph/orm";
@@ -87,13 +88,19 @@ export const LazyList: React.FC<LasyListProps> = ({
     [item]
   );
 
+  let content: ReactNode = null;
+
+  if (loading && !response.length) {
+    content = renderPlaceholder(limit);
+  } else if (!loading && !response.length) {
+    content = <Header content="No results" textAlign="center" block />;
+  } else {
+    content = response.map(renderItem);
+  }
+
   return (
     <Segment padded>
-      <List divided>
-        {loading && !response.length
-          ? renderPlaceholder(limit)
-          : response.map(renderItem)}
-      </List>
+      <List divided>{content}</List>
 
       <Grid centered padded>
         <Pagination
