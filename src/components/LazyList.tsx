@@ -6,7 +6,8 @@ import {
   Grid,
   Segment,
   Loader,
-  Header
+  Header,
+  ListItemProps
 } from "semantic-ui-react";
 import { MappedTypes } from "@hiro-graph/orm-mappings";
 import { GraphVertex } from "@hiro-graph/orm";
@@ -15,9 +16,10 @@ import { useGraphQuery } from "../stores";
 
 export interface LasyListProps {
   entity: MappedTypes;
-  item: ReactNode;
+  item?: ReactNode;
   limit?: number;
   offset?: number;
+  children?: (props: ListItemProps & { "data-value": any }) => ReactNode;
 }
 
 const renderPlaceholder = (limit: number) => {
@@ -38,7 +40,8 @@ const renderPlaceholder = (limit: number) => {
 export const LazyList: React.FC<LasyListProps> = ({
   entity,
   item,
-  limit = 20
+  limit = 20,
+  children
 }) => {
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
@@ -88,12 +91,19 @@ export const LazyList: React.FC<LasyListProps> = ({
     [item]
   );
 
+  const renderChildren = useCallback(
+    (r: GraphVertex) => children && children({ "data-value": r, key: r._id }),
+    [item, children]
+  );
+
   let content: ReactNode = null;
 
   if (loading && !response.length) {
     content = renderPlaceholder(limit);
   } else if (!loading && !response.length) {
     content = <Header content="No results" textAlign="center" block />;
+  } else if (children && typeof children === "function") {
+    content = response.map(renderChildren);
   } else {
     content = response.map(renderItem);
   }

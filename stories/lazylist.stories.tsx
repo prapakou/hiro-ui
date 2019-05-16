@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { storiesOf } from "@storybook/react";
 import HiroGraphOrm from "@hiro-graph/orm";
-import { AutomationAutomationIssueVertex } from "@hiro-graph/orm-mappings";
+import {
+  AutomationKnowledgeItemVertex,
+  AutomationKnowledgePoolVertex
+} from "@hiro-graph/orm-mappings";
 
 import {
   getMappings,
@@ -11,8 +14,7 @@ import {
   LazyList,
   List,
   Orm,
-  SemanticCOLORS,
-  SemanticICONS
+  useGraph
 } from "../src";
 
 const HiroGraphMappings = getMappings();
@@ -30,57 +32,56 @@ const globalOrm = new HiroGraphOrm(
 const store = init({ orm: globalOrm });
 
 const ListItem: React.FC<{
-  "data-value": AutomationAutomationIssueVertex;
+  "data-value": AutomationKnowledgeItemVertex;
+  availablePools: AutomationKnowledgePoolVertex[];
 }> = props => {
-  const { "data-value": value } = props;
+  const { "data-value": value, availablePools } = props;
+  const [pools, setPools] = useState([]);
 
-  let statusIcon: SemanticICONS;
-  let statusColor: SemanticCOLORS;
-  let isLoading = false;
-
-  switch (value.get("status")) {
-    case "RESOLVED":
-      statusIcon = "check circle";
-      statusColor = "green";
-      break;
-    case "RESOLVED_EXTERNAL":
-      statusIcon = "check circle";
-      statusColor = "blue";
-      break;
-    case "PROCESSING":
-      statusIcon = "spinner";
-      statusColor = "grey";
-      isLoading = true;
-      break;
-    default:
-      statusIcon = "circle outline";
-      statusColor = "black";
-      break;
-  }
+  useEffect(() => {
+    value.fetchVertices(["usedByKnowledgePool"]).then(res => {
+      setPools(res._ids.usedByKnowledgePool);
+    });
+  }, []);
 
   return (
     <List.Item>
       <List.Content floated="right">
-        <List.Description>{value.get("status")}</List.Description>
+        {availablePools.map(p => (
+          <List.Icon
+            name="circle"
+            size="large"
+            verticalAlign="middle"
+            color={pools.includes(p._id) ? "green" : "grey"}
+          />
+        ))}
       </List.Content>
-      <List.Icon
-        name={statusIcon}
-        size="large"
-        verticalAlign="middle"
-        color={statusColor}
-        loading={isLoading}
-      />
+
       <List.Content>
-        <List.Header>{value.get("subject")}</List.Header>
-        <List.Description>{value.get("deployStatus")}</List.Description>
+        <List.Header>{value.get("name")}</List.Header>
       </List.Content>
     </List.Item>
   );
 };
 
-const Test = () => (
-  <LazyList entity="AutomationAutomationIssue" item={ListItem} limit={10} />
-);
+const Test = () => {
+  const { orm } = useGraph();
+  const [availablePools, setSvailablePools] = useState<
+    AutomationKnowledgePoolVertex[]
+  >([]);
+
+  useEffect(() => {
+    if (orm) {
+      orm.AutomationKnowledgePool.find({}).then(setSvailablePools);
+    }
+  }, [orm]);
+
+  return (
+    <LazyList entity="AutomationKnowledgeItem" limit={10}>
+      {props => <ListItem {...props} availablePools={availablePools} />}
+    </LazyList>
+  );
+};
 
 storiesOf("LazyList", module).add("Default", () => (
   <HiroAppRoot store={store} orm={globalOrm}>

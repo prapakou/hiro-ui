@@ -58,3 +58,5 @@ export function init({ state, reducers, sagas, orm }: StoreInit = {}) {
 
   return store;
 }
+
+export type GlobalStore = ReturnType<typeof init>;
