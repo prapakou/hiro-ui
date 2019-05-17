@@ -2,47 +2,34 @@ import React, { useCallback, useState, ReactNode, useEffect } from "react";
 import {
   Pagination,
   PaginationProps,
-  List,
   Grid,
   Segment,
   Loader,
-  Header,
-  ListItemProps
+  Table,
+  TableProps
 } from "semantic-ui-react";
 import { MappedTypes } from "@hiro-graph/orm-mappings";
-import { GraphVertex } from "@hiro-graph/orm";
 
 import { useGraphQuery } from "../stores";
 
-export interface LasyListProps {
+type EntityTableProps = TableProps & {
   entity: MappedTypes;
   item?: ReactNode;
-  limit?: number;
-  offset?: number;
-  children?: (props: ListItemProps & { "data-value": any }) => ReactNode;
-}
-
-const renderPlaceholder = (limit: number) => {
-  const output: JSX.Element[] = [];
-
-  for (let i = 0; i < limit; i += 1) {
-    const key = `list-placeholder-${i}`;
-    output.push(
-      <List.Item key={key}>
-        <Loader active size="small" inline="centered" />
-      </List.Item>
-    );
-  }
-
-  return output;
 };
 
-export const LazyList: React.FC<LasyListProps> = ({
-  entity,
-  item,
-  limit = 20,
-  children
-}) => {
+const renderPlaceholder = (index: number) => {
+  return (
+    <Table.Row key={`loader-${index}`}>
+      <Table.Cell width="16">
+        <Loader active size="small" inline="centered" />
+      </Table.Cell>
+    </Table.Row>
+  );
+};
+
+export const EntityTable: React.FC<EntityTableProps> = props => {
+  const { entity, limit = 20, renderBodyRow, ...tableProps } = props;
+
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
 
@@ -86,31 +73,23 @@ export const LazyList: React.FC<LasyListProps> = ({
     return cancel;
   }, [page, entity]);
 
-  const renderItem = useCallback(
-    (r: GraphVertex) => <List.Item as={item} value={r as any} key={r._id} />,
-    [item]
-  );
-
-  const renderChildren = useCallback(
-    (r: GraphVertex) => children && children({ "data-value": r, key: r._id }),
-    [item, children]
-  );
-
-  let content: ReactNode = null;
-
-  if (loading && !response.length) {
-    content = renderPlaceholder(limit);
-  } else if (!loading && !response.length) {
-    content = <Header content="No results" textAlign="center" block />;
-  } else if (children && typeof children === "function") {
-    content = response.map(renderChildren);
-  } else {
-    content = response.map(renderItem);
-  }
-
   return (
     <Segment padded>
-      <List divided>{content}</List>
+      <Table
+        {...tableProps}
+        tableData={response.length ? response : new Array(limit)}
+        renderBodyRow={(data, index) => {
+          if (loading && !response.length) {
+            return renderPlaceholder(index);
+          }
+
+          if (renderBodyRow) {
+            return renderBodyRow(data, index);
+          }
+
+          return null;
+        }}
+      />
 
       <Grid centered padded>
         <Pagination

@@ -11,19 +11,21 @@ import {
   HiroAppRoot,
   HiroTheme,
   init,
-  LazyList,
-  List,
+  EntityTable,
+  Table,
   Orm,
-  useGraph
+  useGraph,
+  Icon
 } from "../src";
 
 const HiroGraphMappings = getMappings();
 
-const token = "";
+const token =
+  "WlOM7V2VN6VZZ68Cptcb5xr6svZ4reLp9Rf0k0LIydsIguICh6B2pBALWrDfxklnknLPIaSeNMmHGaScozPnMylJa86hg7jnYCyl9VIqHL3govOzGSuvniZfETN9NXsq";
 
 const globalOrm = new HiroGraphOrm(
   {
-    endpoint: "https://eu-stagegraph.arago.co",
+    endpoint: "https://ec2-34-252-56-37.eu-west-1.compute.amazonaws.com:8443",
     token
   },
   HiroGraphMappings
@@ -31,11 +33,11 @@ const globalOrm = new HiroGraphOrm(
 
 const store = init({ orm: globalOrm });
 
-const ListItem: React.FC<{
-  "data-value": AutomationKnowledgeItemVertex;
+const Row: React.FC<{
+  data: AutomationKnowledgeItemVertex;
   availablePools: AutomationKnowledgePoolVertex[];
 }> = props => {
-  const { "data-value": value, availablePools } = props;
+  const { data: value, availablePools } = props;
   const [pools, setPools] = useState([]);
 
   useEffect(() => {
@@ -45,22 +47,20 @@ const ListItem: React.FC<{
   }, []);
 
   return (
-    <List.Item>
-      <List.Content floated="right">
+    <Table.Row>
+      <Table.Cell width="14">{value.get("name")}</Table.Cell>
+
+      <Table.Cell textAlign="center">
         {availablePools.map(p => (
-          <List.Icon
+          <Icon
+            key={p._id}
             name="circle"
             size="large"
-            verticalAlign="middle"
             color={pools.includes(p._id) ? "green" : "grey"}
           />
         ))}
-      </List.Content>
-
-      <List.Content>
-        <List.Header>{value.get("name")}</List.Header>
-      </List.Content>
-    </List.Item>
+      </Table.Cell>
+    </Table.Row>
   );
 };
 
@@ -77,13 +77,21 @@ const Test = () => {
   }, [orm]);
 
   return (
-    <LazyList entity="AutomationKnowledgeItem" limit={10}>
-      {props => <ListItem {...props} availablePools={availablePools} />}
-    </LazyList>
+    <EntityTable
+      entity="AutomationKnowledgeItem"
+      limit={10}
+      headerRow={[
+        "Test",
+        { content: "Status", textAlign: "center", key: "status" }
+      ]}
+      renderBodyRow={(data: AutomationKnowledgeItemVertex) => (
+        <Row key={data._id} data={data} availablePools={availablePools} />
+      )}
+    />
   );
 };
 
-storiesOf("LazyList", module).add("Default", () => (
+storiesOf("EntityTable", module).add("Default", () => (
   <HiroAppRoot store={store} orm={globalOrm}>
     <HiroTheme.Default />
     <Test />
