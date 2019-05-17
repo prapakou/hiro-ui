@@ -14,8 +14,7 @@
     "storybook": "start-storybook -p 6006",
     "test": "eslint src/**/*.{ts,tsx} && jest",
     "build": "gulp",
-    "preversion": "yarn test && yarn build",
-    "postversion": "git add -A . && git push && git push --tags"
+    "prepublish": "yarn test && yarn build"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
