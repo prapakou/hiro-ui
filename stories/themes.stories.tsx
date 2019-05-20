@@ -48,14 +48,16 @@ const ThemeController = () => {
   );
 };
 
-storiesOf("Themes", module).add("Demo", () => {
-  return (
-    <Container fluid>
-      <ThemeController />
-      <SiteDemo />
-      <MenuDemo />
-      <ButtonsDemo />
-      <TableDemo />
-    </Container>
-  );
-});
+storiesOf("Themes", module)
+  .addParameters({ options: { showAddonPanel: false } })
+  .add("Demo", () => {
+    return (
+      <Container fluid>
+        <ThemeController />
+        <SiteDemo />
+        <MenuDemo />
+        <ButtonsDemo />
+        <TableDemo />
+      </Container>
+    );
+  });
