@@ -9,3 +9,4 @@ eslintrc.json
 tslint.json
 .vscode
 pkg
+.out
