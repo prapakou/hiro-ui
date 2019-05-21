@@ -7,10 +7,8 @@ import {
   TopBar,
   TopBarDropdownProps,
   Container,
-  HiroTheme,
   Icon,
-  init,
-  useGraph
+  init
 } from "../src";
 
 const dropdown: TopBarDropdownProps = {
@@ -30,35 +28,16 @@ const dropdown: TopBarDropdownProps = {
   ]
 };
 
-const token = "";
 const store = init();
 
-const Hello = () => {
-  const { me } = useGraph();
-
-  if (!me) {
-    return null;
-  }
-
-  return <p>Hello {me.profile.get("displayName")}!</p>;
-};
-
-const auth = {
-  endpoint: "https://eu-stagegraph.arago.co",
-  token
-};
-
 storiesOf("App", module).add("Demo", () => (
-  <HiroAppRoot store={store} auth={auth}>
-    <HiroTheme.Default />
+  <HiroAppRoot store={store}>
     <TopBar
       title="Test"
       dropdown={dropdown}
       logo="https://arago.co/wp-content/uploads/2017/09/about_arago_icon.png"
     />
 
-    <Container>
-      <Hello />
-    </Container>
+    <Container>Hello world!</Container>
   </HiroAppRoot>
 ));

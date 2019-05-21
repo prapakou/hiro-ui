@@ -3,23 +3,17 @@ import { ORM } from "@hiro-graph/orm";
 import {
   MappedTypes,
   VertexLookup,
-  AuthAccountVertex,
-  AuthAccountProfileVertex
+  AuthAccountVertex
 } from "@hiro-graph/orm-mappings";
 
 export type Orm = {
   me(): Promise<AuthAccountVertex>;
 } & ORM<MappedTypes, typeof VertexLookup>;
 
-export interface AuthMe {
-  account: AuthAccountVertex;
-  profile: AuthAccountProfileVertex;
-}
-
 export interface GraphContext {
   token?: string;
   orm?: Orm;
-  me?: AuthMe;
+  me?: AuthAccountVertex;
 }
 
 export const HiroGraphContext = createContext<GraphContext>({});
@@ -27,8 +21,8 @@ export const HiroGraphContext = createContext<GraphContext>({});
 export const useGraph = () => {
   const state = useContext(HiroGraphContext);
 
-  if (process.env.NODE_ENV === "development" && !state.token) {
-    console.warn("HiroGraph: No token found. ORM will not be available");
+  if (process.env.NODE_ENV === "development" && !state.orm) {
+    console.warn("HiroGraph: ORM not available, check token");
   }
 
   return state;
