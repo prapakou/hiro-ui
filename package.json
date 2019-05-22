@@ -1,7 +1,8 @@
 {
   "private": true,
-  "npmClient": "yarn",
-  "useWorkspaces": true,
+  "scripts": {
+    "test": "lerna bootstrap --concurrency 1 && lerna run test && lerna run build"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
@@ -21,5 +22,6 @@
     "globals": {
       "__DEV__": true
     }
-  }
+  },
+  "name": "hiro-ui"
 }
