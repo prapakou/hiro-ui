@@ -6,6 +6,11 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "keywords": [
+    "hiro-ui",
+    "bootstrap",
+    "arago"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/arago/hiro-ui"
@@ -40,19 +45,9 @@
     "@types/storybook__addon-links": "^3.3.4",
     "@types/storybook__addon-storyshots": "^4.0.0",
     "@types/storybook__react": "^4.0.1",
-    "@typescript-eslint/eslint-plugin": "^1.7.0",
-    "@typescript-eslint/parser": "^1.7.0",
-    "babel-eslint": "10.0.1",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",
     "del": "^4.1.1",
-    "eslint": "5.16.0",
-    "eslint-config-airbnb": "17.1.0",
-    "eslint-config-prettier": "^4.2.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.0",
-    "eslint-plugin-react-hooks": "1.6.0",
     "gulp": "^4.0.2",
     "gulp-csso": "^3.0.1",
     "gulp-filter": "^5.1.0",

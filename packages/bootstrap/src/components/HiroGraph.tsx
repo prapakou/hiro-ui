@@ -8,6 +8,8 @@ export interface HiroGraphConfig {
   endpoint: string;
 }
 
+const ME_POLL = 30_000;
+
 export const HiroGraph = ({ orm, children }: { orm: Orm; children: any }) => {
   const [me, setMe] = useState<AuthAccountVertex>();
   const getMe = useCallback(
@@ -34,7 +36,7 @@ export const HiroGraph = ({ orm, children }: { orm: Orm; children: any }) => {
 
     const i = setInterval(() => {
       getMe();
-    }, 30000);
+    }, ME_POLL);
 
     return () => clearInterval(i);
   }, [getMe]);

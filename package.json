@@ -3,9 +3,23 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "devDependencies": {
-    "lerna": "^3.14.1"
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "lerna": "^3.14.1",
+    "prettier": "^1.17.1"
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "eslintConfig": {
+    "extends": "./packages/eslint-config/index.js",
+    "globals": {
+      "__DEV__": true
+    }
+  }
 }
