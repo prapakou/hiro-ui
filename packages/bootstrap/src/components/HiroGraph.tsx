@@ -8,7 +8,7 @@ export interface HiroGraphConfig {
   endpoint: string;
 }
 
-const ME_POLL = 30_000;
+const ME_POLL = 30000;
 
 export const HiroGraph = ({ orm, children }: { orm: Orm; children: any }) => {
   const [me, setMe] = useState<AuthAccountVertex>();
