@@ -1,0 +1,11 @@
+.idea/
+
+npm-debug.log*
+yarn-error.log*
+node_modules/
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+lerna-debug.log*

@@ -1,0 +1,21 @@
+{
+  "name": "@hiro-ui/eslint-config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ESLint Configuration",
+  "main": "index.js",
+  "keywords": [
+    "hiro-ui",
+    "eslint"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0"
+  }
+}
