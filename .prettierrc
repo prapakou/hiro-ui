@@ -1,0 +1,10 @@
+{
+  "overrides": [
+    {
+      "files": ["packages/bootstrap/src/style/themes/**/*.overrides"],
+      "options": {
+        "parser": "less"
+      }
+    }
+  ]
+}
