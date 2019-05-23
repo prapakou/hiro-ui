@@ -10,7 +10,7 @@
   box-shadow @defaultDuration @defaultEasing,
   width @defaultDuration @defaultEasing
 ;
-@borderRadius: @defaultBorderRadius;
+@borderRadius: @24px;
 
 @raisedShadow: 0px 2px 3px 0px @borderColor;
 
@@ -133,7 +133,7 @@
 @selectionMinHeight: @inputLineHeight + (@selectionVerticalPadding * 2) - @selectionBorderEmWidth;
 @selectionBackground: @inputBackground;
 @selectionDisplay: inline-block;
-@selectionIconDistance: @inputHorizontalPadding + @glyphWidth;
+@selectionIconDistance: @inputHorizontalPadding;
 @selectionPadding: @selectionVerticalPadding @selectionIconDistance @selectionVerticalPadding @selectionHorizontalPadding;
 @selectionZIndex: 10;
 
@@ -294,11 +294,11 @@
 @activeItemZIndex: @menuZIndex + 1;
 @activeItemBackground: transparent;
 @activeItemBoxShadow: none;
-@activeItemFontWeight: @bold;
+@activeItemFontWeight: @normal;
 @activeItemColor: @selectedTextColor;
 
 /* Selected */
-@selectedBackground: @subtleTransparentBlack;
+@selectedBackground: transparent;
 @selectedColor: @selectedTextColor;
 
 /* Error */

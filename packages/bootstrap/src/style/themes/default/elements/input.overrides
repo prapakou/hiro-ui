@@ -1,3 +1,6 @@
 /*******************************
          Theme Overrides
 *******************************/
+.ui.input > input:hover {
+  box-shadow: 1px 1px 12px 0px rgba(0, 0, 0, 0.16);
+}

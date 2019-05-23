@@ -1,3 +1,19 @@
 /*******************************
          Theme Overrides
 *******************************/
+
+.ui.buttons:not(.rocker) .button:not(:last-child):not(.active) {
+  border-right: 1px solid @midWhite;
+}
+
+.ui.buttons.rocker .button {
+  text-transform: uppercase;
+  padding: @verticalPadding @rockerHorizontalPadding
+    (@verticalPadding + @shadowOffset);
+}
+
+.ui.secondary.button {
+  border: 1px solid fade(@midWhite, 45%);
+  color: fade(@black, 45%);
+  background-color: transparent;
+}

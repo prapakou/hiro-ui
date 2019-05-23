@@ -1,3 +1,4 @@
+yarn build
 yarn storybook:build
 
 ssh ubuntu@prototypes.arago-demo.com rm /usr/share/nginx/html/*

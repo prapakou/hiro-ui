@@ -11,6 +11,30 @@
   font-style: normal;
 }
 
+/* Search Dropdown */
+.ui.search.dropdown > input.search {
+  border-right: 1px solid @borderColor !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  width: 80%;
+  padding: inherit;
+}
+
+.ui.selection.active.dropdown {
+  border-color: @grey;
+}
+
+.ui.selection.active.dropdown .menu {
+  border-top-width: 1px !important;
+  border-top-color: @grey;
+}
+
+.ui.dropdown.selecte:hover,
+.ui.dropdown .menu .selected.item:hover {
+  background: @transparentBlack;
+}
+
 .ui.dropdown > .dropdown.icon {
   font-family: "Dropdown";
   line-height: 1;

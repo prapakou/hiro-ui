@@ -1,8 +1,38 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
-import { Grid, Header, Segment, Button, Divider } from "../../src";
+import { Grid, Header, Segment, Button, Divider, Rocker } from "../../src";
 
 export const ButtonsDemo = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleToggle = useCallback(() => void setToggle(!toggle), [toggle]);
+
+  return (
+    <>
+      <Header as="h1">Buttons</Header>
+
+      <Button>Default</Button>
+      <Button active>Active</Button>
+      <Divider hidden />
+      <Button.Group>
+        <Button active>Active</Button>
+        <Button>Tab</Button>
+        <Button>Tab</Button>
+      </Button.Group>
+      <Divider hidden />
+      <Rocker active={!toggle} onClick={handleToggle} />
+      <Rocker active={toggle} onClick={handleToggle} />
+      <Divider hidden />
+      <Button disabled>Disabled button</Button>
+      <Button secondary>Secondary button</Button>
+      <Divider hidden />
+      <Button>Normal</Button>
+      <Button size="mini">Small</Button>
+    </>
+  );
+};
+
+/* export const ButtonsDemo = () => {
   return (
     <Segment basic padded>
       <Header dividing>Buttons</Header>
@@ -11,6 +41,9 @@ export const ButtonsDemo = () => {
         <Grid.Column>
           <Grid.Row>
             <Button>Default</Button>
+            <Button active>Active</Button>
+            <Button disabled>Disabled</Button>
+            <Divider hidden />
             <Button primary>Primary</Button>
             <Button secondary>Secondary</Button>
             <Button basic>Basic</Button>
@@ -95,4 +128,4 @@ export const ButtonsDemo = () => {
       </Grid>
     </Segment>
   );
-};
+}; */

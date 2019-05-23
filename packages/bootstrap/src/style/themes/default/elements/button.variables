@@ -9,24 +9,25 @@
 /* Button */
 @verticalMargin: 0em;
 @horizontalMargin: 0.25em;
-@backgroundColor: #E0E1E2;
+@backgroundColor: @darkWhite;
 @backgroundImage: none;
 @background: @backgroundColor @backgroundImage;
 @lineHeight: 1em;
 
 /* Button defaults to using same height as input globally */
 @verticalPadding: @inputVerticalPadding;
-@horizontalPadding: 1.5em;
+@horizontalPadding: 3em;
+@rockerHorizontalPadding: 1em;
 
 /* Text */
 @textTransform: none;
 @tapColor: transparent;
 @fontFamily: @pageFont;
-@fontWeight: @bold;
-@textColor: rgba(0, 0, 0, 0.6);
+@fontWeight: @normal;
+@textColor: @grey;
 @textShadow: none;
 @invertedTextShadow: @textShadow;
-@borderRadius: @defaultBorderRadius;
+@borderRadius: @24px;
 @verticalAlign: baseline;
 
 /* Internal Shadow */
@@ -84,7 +85,7 @@
 --------------------*/
 
 /* Hovered */
-@hoverBackgroundColor: #CACBCD;
+@hoverBackgroundColor: @darkWhiteHover;
 @hoverBackgroundImage: @backgroundImage;
 @hoverBoxShadow: @boxShadow;
 @hoverColor: @hoveredTextColor;
@@ -102,7 +103,7 @@
 @disabledBoxShadow: none;
 
 /* Pressed Down */
-@downBackgroundColor: #BABBBC;
+@downBackgroundColor: @midWhite;
 @downBackgroundImage: '';
 @downPressedShadow: none;
 @downBoxShadow:
@@ -112,7 +113,7 @@
 @downColor: @pressedTextColor;
 
 /* Active */
-@activeBackgroundColor: #C0C1C2;
+@activeBackgroundColor: @midWhite;
 @activeBackgroundImage: none;
 @activeColor: @selectedTextColor;
 @activeBoxShadow: @borderBoxShadow;
@@ -153,7 +154,7 @@
 @orBackgroundColor: @white;
 @orTextShadow: @invertedTextShadow;
 @orTextStyle: @normal;
-@orTextWeight: @bold;
+@orTextWeight: @normal;
 @orTextColor: @lightTextColor;
 
 

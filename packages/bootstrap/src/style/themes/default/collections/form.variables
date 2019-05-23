@@ -23,7 +23,7 @@
 @labelDistance: @4px;
 @labelMargin: 0em 0em @labelDistance 0em;
 @labelFontSize: @relativeSmall;
-@labelFontWeight: @bold;
+@labelFontWeight: @normal;
 @labelTextTransform: none;
 @labelColor: @textColor;
 
@@ -33,7 +33,7 @@
 @inputFontSize: 1em;
 @inputPadding: (@inputVerticalPadding + ((1em - @inputLineHeight) / 2)) @inputHorizontalPadding;
 @inputBorder: 1px solid @borderColor;
-@inputBorderRadius: @absoluteBorderRadius;
+@inputBorderRadius: @24px;
 @inputColor: @textColor;
 @inputTransition:
   color @defaultDuration @defaultEasing,
@@ -100,9 +100,9 @@
 @disabledLabelOpacity: @disabledOpacity;
 
 /* Errored Input */
-@formErrorColor: @negativeTextColor;
+@formErrorColor: @textColor;
 @formErrorBorder: @negativeBorderColor;
-@formErrorBackground: @negativeBackgroundColor;
+@formErrorBackground: transparent;
 
 /* AutoFill */
 @inputAutoFillBackground: #FFFFF0;
@@ -125,14 +125,14 @@
 @dropdownErrorLabelColor: @errorTextColor;
 
 /* Focused Error */
-@inputErrorFocusBackground: @negativeBackgroundColor;
-@inputErrorFocusColor: @negativeTextColor;
+@inputErrorFocusBackground: @inputFocusBackground;
+@inputErrorFocusColor: @inputFocusColor;
 @inputErrorFocusBorder: @negativeBorderColor;
-@inputErrorFocusBoxShadow: none;
+@inputErrorFocusBoxShadow: @inputFocusBoxShadow;
 
 /* Placeholder Error */
-@inputErrorPlaceholderColor: lighten(@formErrorColor, 40);
-@inputErrorPlaceholderFocusColor: lighten(@formErrorColor, 30);
+@inputErrorPlaceholderColor: @lightGrey;
+@inputErrorPlaceholderFocusColor: @lightGrey;
 
 /* Loading Dimmer */
 @loaderDimmerColor: rgba(255, 255, 255, 0.8);

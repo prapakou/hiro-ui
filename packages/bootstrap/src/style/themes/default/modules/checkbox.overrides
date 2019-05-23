@@ -20,6 +20,10 @@
   content: "\e800";
 }
 
+.ui.checkbox input:checked ~ label {
+  color: @selectedTextColor;
+}
+
 /* Indeterminate */
 .ui.checkbox input:indeterminate ~ .box:after,
 .ui.checkbox input:indeterminate ~ label:after {

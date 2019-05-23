@@ -1,12 +1,13 @@
 import React, { useCallback } from "react";
 import { storiesOf } from "@storybook/react";
 
-import { Container, HiroTheme, Dropdown, Menu } from "../src";
+import { Container, HiroTheme, Dropdown, Menu, Segment } from "../src";
 
-import { SiteDemo } from "./theming/site";
+import { SiteDemo, TextDemo, ColoursDemo } from "./theming/site";
 import { MenuDemo } from "./theming/menu";
 import { ButtonsDemo } from "./theming/buttons";
 import { TableDemo } from "./theming/tables";
+import { InputDemo } from "./theming/inputs";
 
 const ThemeController = () => {
   const theme = sessionStorage.getItem("theme") || "default";
@@ -53,11 +54,13 @@ storiesOf("Themes", module)
   .add("Demo", () => {
     return (
       <Container fluid>
-        <ThemeController />
-        <SiteDemo />
-        <MenuDemo />
-        <ButtonsDemo />
-        <TableDemo />
+        <Segment basic padded>
+          <ThemeController />
+          <TextDemo />
+          <ButtonsDemo />
+          <ColoursDemo />
+          <InputDemo />
+        </Segment>
       </Container>
     );
   });
