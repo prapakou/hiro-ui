@@ -126,7 +126,7 @@
    Selection
 --------------*/
 
-@selectionMinWidth: 14em;
+@selectionMinWidth: 16em;
 @selectionVerticalPadding: @inputVerticalPadding;
 @selectionHorizontalPadding: @inputHorizontalPadding;
 @selectionBorderEmWidth:  @relative1px;
