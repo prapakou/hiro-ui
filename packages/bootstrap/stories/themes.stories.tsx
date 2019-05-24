@@ -23,10 +23,6 @@ const ThemeController = () => {
     content = <HiroTheme.Portal />;
   }
 
-  if (theme === "saas") {
-    content = <HiroTheme.SAAS />;
-  }
-
   return (
     <>
       <Menu borderless secondary>
@@ -35,7 +31,6 @@ const ThemeController = () => {
           <Dropdown
             options={[
               { text: "Default", value: "default" },
-              { text: "SAAS", value: "saas" },
               { text: "Portal", value: "portal" }
             ]}
             onChange={changeTheme}
@@ -60,6 +55,7 @@ storiesOf("Themes", module)
           <ButtonsDemo />
           <ColoursDemo />
           <InputDemo />
+          <TableDemo />
         </Segment>
       </Container>
     );
