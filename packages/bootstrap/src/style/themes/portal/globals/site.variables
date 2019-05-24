@@ -442,8 +442,8 @@
 @lightTextColor              : rgba(255, 255, 255, 0.4);
 
 @unselectedTextColor         : rgba(255, 255, 255, 0.4);
-@hoveredTextColor            : rgba(255, 255, 255, 0.8);
-@pressedTextColor            : rgba(255, 255, 255, 0.9);
+@hoveredTextColor            : @secondaryColor;
+@pressedTextColor            : @secondaryColorDown;
 @selectedTextColor           : @secondaryColor;
 @disabledTextColor           : @strongTransparentWhite;
 
@@ -864,9 +864,9 @@
 
 /*---  Colors  ---*/
 @primaryColorDown        : darken(@primaryColor, 10);
-@secondaryColorDown      : lighten(@secondaryColor, 10);
+@secondaryColorDown      : darken(@secondaryColor, 10);
 @lightPrimaryColorDown   : darken(@lightPrimaryColor, 10);
-@lightSecondaryColorDown : lighten(@lightSecondaryColor, 10);
+@lightSecondaryColorDown : darken(@lightSecondaryColor, 10);
 
 @redDown                 : darken(@red, 10);
 @orangeDown              : darken(@orange, 10);
@@ -874,7 +874,7 @@
 @oliveDown               : darken(@olive, 10);
 @greenDown               : darken(@green, 10);
 @tealDown                : darken(@teal, 10);
-@blueDown                : darken(@blue, 10);
+@blueDown                : darken(@blue, 20);
 @violetDown              : darken(@violet, 10);
 @purpleDown              : darken(@purple, 10);
 @pinkDown                : darken(@pink, 10);

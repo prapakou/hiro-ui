@@ -2,6 +2,53 @@
          Theme Overrides
 *******************************/
 
+.ui.button:not(.secondary):not(.blue):not(.positive) {
+  border: 1px solid @lightSecondaryColor;
+
+  // After click
+  &:focus:hover {
+    color: @hoverColor;
+  }
+
+  // Mouse down
+  &:active:hover {
+    border: 1px solid @pressedTextColor;
+    color: @pressedTextColor;
+  }
+
+  &:hover,
+  &:active,
+  &.active {
+    border: 1px solid @secondaryColor;
+  }
+}
+
+.ui.button.secondary {
+  background-color: transparent;
+
+  // After click
+  &:focus:hover {
+    color: @white;
+    background-color: transparent;
+  }
+
+  &:focus {
+    background-color: transparent;
+  }
+
+  // Mouse down
+  &:active:hover {
+    color: @pressedTextColor;
+  }
+
+  &:hover,
+  &:active,
+  &.active {
+    background-color: transparent;
+    color: @hoverColor;
+  }
+}
+
 .ui.compact.button {
   background: none;
   font-weight: @normal;

@@ -1,11 +1,14 @@
 import React, { useCallback, useState } from "react";
 
-import { Grid, Header, Segment, Button, Divider, Rocker } from "../../src";
+import { Header, Button, Divider, Rocker } from "../../src";
 
 export const ButtonsDemo = () => {
   const [toggle, setToggle] = useState(false);
+  const [tab, setTab] = useState(0);
 
   const handleToggle = useCallback(() => void setToggle(!toggle), [toggle]);
+
+  const handleTab = useCallback((i: number) => () => void setTab(i), []);
 
   return (
     <>
@@ -15,9 +18,15 @@ export const ButtonsDemo = () => {
       <Button active>Active</Button>
       <Divider hidden />
       <Button.Group>
-        <Button active>Active</Button>
-        <Button>Tab</Button>
-        <Button>Tab</Button>
+        <Button active={tab === 0} onClick={handleTab(0)}>
+          {tab === 0 ? "Active" : "Tab 1"}
+        </Button>
+        <Button active={tab === 1} onClick={handleTab(1)}>
+          {tab === 1 ? "Active" : "Tab 2"}
+        </Button>
+        <Button active={tab === 2} onClick={handleTab(2)}>
+          {tab === 2 ? "Active" : "Tab 3"}
+        </Button>
       </Button.Group>
       <Divider hidden />
       <Rocker active={!toggle} onClick={handleToggle} />

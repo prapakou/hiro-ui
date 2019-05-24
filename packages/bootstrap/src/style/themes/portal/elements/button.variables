@@ -9,7 +9,7 @@
 /* Button */
 @verticalMargin: 0em;
 @horizontalMargin: 0.25em;
-@backgroundColor: #fff;
+@backgroundColor: transparent;
 @backgroundImage: none;
 @background: @backgroundColor @backgroundImage;
 @lineHeight: 1em;
@@ -22,8 +22,8 @@
 @textTransform: none;
 @tapColor: transparent;
 @fontFamily: @pageFont;
-@fontWeight: @bold;
-@textColor: rgba(0, 0, 0, 0.6);
+@fontWeight: @normal;
+@textColor: @lightSecondaryColor;
 @textShadow: none;
 @invertedTextShadow: @textShadow;
 @borderRadius: @defaultBorderRadius;
@@ -79,7 +79,7 @@
 --------------------*/
 
 /* Hovered */
-@hoverBackgroundColor: #cacbcd;
+@hoverBackgroundColor: transparent;
 @hoverBackgroundImage: @backgroundImage;
 @hoverBoxShadow: @boxShadow;
 @hoverColor: @hoveredTextColor;
@@ -89,7 +89,7 @@
 @focusBackgroundColor: @hoverBackgroundColor;
 @focusBackgroundImage: "";
 @focusBoxShadow: "";
-@focusColor: @hoveredTextColor;
+@focusColor: @textColor;
 @iconFocusOpacity: 0.85;
 
 /* Disabled */
@@ -97,14 +97,14 @@
 @disabledBoxShadow: none;
 
 /* Pressed Down */
-@downBackgroundColor: #babbbc;
+@downBackgroundColor: transparent;
 @downBackgroundImage: "";
 @downPressedShadow: none;
 @downBoxShadow: @borderBoxShadow, @downPressedShadow;
 @downColor: @pressedTextColor;
 
 /* Active */
-@activeBackgroundColor: #c0c1c2;
+@activeBackgroundColor: transparent;
 @activeBackgroundImage: none;
 @activeColor: @selectedTextColor;
 @activeBoxShadow: @borderBoxShadow;
@@ -253,7 +253,7 @@
 @orangeTextShadow: @invertedTextShadow;
 @greenTextColor: @green;
 @greenTextShadow: @invertedTextShadow;
-@blueTextColor: @blue;
+@blueTextColor: @white;
 @blueTextShadow: @invertedTextShadow;
 @violetTextColor: @violet;
 @violetTextShadow: @invertedTextShadow;

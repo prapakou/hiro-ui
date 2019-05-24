@@ -74,7 +74,7 @@
 /* Focus */
 @focusBorderColor: @focusedFormBorderColor;
 @focusBackground: @background;
-@focusColor: @hoveredTextColor;
+@focusColor: @textColor;
 @focusBoxShadow: none;
 
 /* Error */

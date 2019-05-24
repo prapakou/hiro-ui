@@ -3,20 +3,19 @@ import React, { useState, useCallback } from "react";
 import {
   Grid,
   Header,
-  Segment,
   Button,
   Divider,
   Dropdown,
   Checkbox,
   Input,
-  Form,
-  Message,
-  Label,
-  Container
+  Form
 } from "../../src";
 
 export const InputDemo = () => {
   const [value, setValue] = useState();
+  const [checked, setChecked] = useState(false);
+
+  const handleCheck = useCallback(() => setChecked(!checked), [checked]);
 
   const handleDropdown = useCallback(
     (_, { value: newValue }) => void setValue(newValue),
@@ -78,7 +77,12 @@ export const InputDemo = () => {
       <Form widths="equal">
         <Form.Group inline>
           <Form.Checkbox label="Default" />
-          <Form.Checkbox label="Default" radio />
+          <Form.Checkbox
+            label="Default"
+            radio
+            checked={checked}
+            onClick={handleCheck}
+          />
         </Form.Group>
         <Form.Group inline>
           <Form.Checkbox label="Checked" checked />
@@ -104,7 +108,7 @@ export const InputDemo = () => {
         />
       </Form>
 
-      <Divider hidden/>
+      <Divider hidden />
 
       <Grid columns="2">
         <Grid.Column>
