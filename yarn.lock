@@ -1213,7 +1213,7 @@
   resolved "https://registry.yarnpkg.com/@hiro-graph/lucene/-/lucene-6.0.2.tgz#bd6cbbe42bcf8d12b553ec09acc6de636f1d9ff6"
   integrity sha512-DqsvjEQ7yhKpsouUPDKLUhaJ+n/P/h0eeqnWFUPXlWHBmzlfZZxKcljdFCHGPlYHoCEx3xC5g8nEeWaIKFKebA==
 
-"@hiro-graph/orm-mappings@^6.0.0":
+"@hiro-graph/orm-mappings@^6.0.3":
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@hiro-graph/orm-mappings/-/orm-mappings-6.0.3.tgz#81e36bc50783157273314dfdc3d1db6936313cea"
   integrity sha512-rgJnp7mIFN+F3Demm73tzPhQvzrGGfw0JWoadA/ohoNGvqY7WRvQyZ4XldCsoXqkte9zm5MWUUbt8ga4q9Yxiw==
@@ -1223,7 +1223,7 @@
     eslint "^5.3.0"
     lerna "^3.10.8"
 
-"@hiro-graph/orm@^6.0.0", "@hiro-graph/orm@^6.0.3":
+"@hiro-graph/orm@^6.0.3":
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/@hiro-graph/orm/-/orm-6.0.3.tgz#6a415c9c4fe5e79a473f6c91264a8ab27bfe723e"
   integrity sha512-Fe3p9oblMrIhBaU0LxkN/L2NQeZeGeUTh5rXLHjUWUa9Zr1vW85j6zOueH/pObvVRuYkinm/bw+PRgEJugLKQA==
@@ -1234,7 +1234,7 @@
     "@hiro-graph/lucene" "^6.0.2"
     lodash.isplainobject "^4.0.6"
 
-"@hiro-ui/sdk@^1.0.0-rc6":
+"@hiro-ui/sdk@^1.0.0-rc7":
   version "1.0.0-rc7"
   resolved "https://registry.yarnpkg.com/@hiro-ui/sdk/-/sdk-1.0.0-rc7.tgz#2da9a2b70dbfbc075a9d306553d630234f9189d3"
   integrity sha512-BxV7GT1Wwyp8Wt995AK+ChHvh2m3khFp8h03X5SXDU8jFDzYpH6nMqdM9mMQE7m0+STKB5buhjUqC9/ajbeB4A==
