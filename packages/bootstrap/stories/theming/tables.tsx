@@ -1,7 +1,16 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { sortBy } from "lodash-es";
 
-import { Header, Table, Label, Progress, Button } from "../../src";
+import {
+  Header,
+  Table,
+  Label,
+  Progress,
+  Button,
+  Pagination,
+  Grid,
+  Divider
+} from "../../src";
 
 type TableRowProps = [string, Date | undefined, number, string, boolean];
 
@@ -129,6 +138,13 @@ export const TableDemo = () => {
             <TableRow cells={cells} key={cells[0]} />
           ))}
         </Table.Body>
+
+        <Header as="h1">Pagination</Header>
+        <Pagination totalPages={10} activePage={2} />
+        <Divider hidden />
+        <Grid centered padded>
+          <Pagination totalPages={10} activePage={2} />
+        </Grid>
       </Table>
     </>
   );
