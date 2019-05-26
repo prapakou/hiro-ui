@@ -332,10 +332,8 @@
 
 /* Pagination */
 @paginationMinWidth: 3em;
-@paginationFontSize: 0.75em;
 @paginationActiveBackground: @transparentBlack;
 @paginationActiveTextColor: @selectedTextColor;
-@paginationBorderRadius: @24px;
 
 /* Labeled Icon */
 @labeledIconItemHorizontalPadding: @relativeMassive;
