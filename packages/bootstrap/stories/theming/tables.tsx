@@ -16,8 +16,8 @@ type TableRowProps = [string, Date | undefined, number, string, boolean];
 
 const RowDesc = () => {
   return (
-    <Table.Row>
-      <Table.Cell colSpan="5" style={{ backgroundColor: "rgba(0,0,0,.02)" }}>
+    <Table.Row disabled>
+      <Table.Cell colSpan="5">
         <Segment basic>
           <Header as="h2">Description</Header>
           <p>

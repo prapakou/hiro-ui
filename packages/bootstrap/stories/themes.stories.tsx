@@ -3,8 +3,7 @@ import { storiesOf } from "@storybook/react";
 
 import { Container, HiroTheme, Dropdown, Menu, Segment } from "../src";
 
-import { SiteDemo, TextDemo, ColoursDemo } from "./theming/site";
-import { MenuDemo } from "./theming/menu";
+import { TextDemo, ColoursDemo } from "./theming/site";
 import { ButtonsDemo } from "./theming/buttons";
 import { TableDemo } from "./theming/tables";
 import { InputDemo } from "./theming/inputs";
@@ -31,7 +30,8 @@ const ThemeController = () => {
           <Dropdown
             options={[
               { text: "Default", value: "default" },
-              { text: "Portal", value: "portal" }
+              { text: "Portal", value: "portal" },
+              { text: "KAT", value: "kat" }
             ]}
             onChange={changeTheme}
             selection

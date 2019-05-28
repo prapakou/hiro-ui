@@ -33,7 +33,7 @@
 @inputFontSize: 1em;
 @inputPadding: (@inputVerticalPadding + ((1em - @inputLineHeight) / 2)) @inputHorizontalPadding;
 @inputBorder: 1px solid @borderColor;
-@inputBorderRadius: @24px;
+@inputBorderRadius: @absoluteBorderRadius;
 @inputColor: @textColor;
 @inputTransition:
   color @defaultDuration @defaultEasing,

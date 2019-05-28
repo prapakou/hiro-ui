@@ -2,6 +2,11 @@
             Table
 *******************************/
 
+.ui.selectable.table tbody tr.disabled,
+.ui.table tbody tr.disabled td.selectable {
+  background: @offWhite !important;
+}
+
 .ui.selectable.table tbody tr:hover,
 .ui.table tbody tr td.selectable:hover {
   background: @selectableBackground !important;

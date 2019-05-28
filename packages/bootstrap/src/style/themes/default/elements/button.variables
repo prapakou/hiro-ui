@@ -27,7 +27,7 @@
 @textColor: @grey;
 @textShadow: none;
 @invertedTextShadow: @textShadow;
-@borderRadius: @24px;
+@borderRadius: @defaultBorderRadius;
 @verticalAlign: baseline;
 
 /* Internal Shadow */
