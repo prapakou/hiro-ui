@@ -94,9 +94,15 @@ export const TableDemo = () => {
     []
   );
 
+  const [page, setPage] = useState(1);
   const [currentColumn, setCurrentColumn] = useState(1);
   const [direction, setDirection] = useState<"ascending" | "descending">(
     "descending"
+  );
+
+  const changePage = useCallback(
+    (_, { activePage }) => setPage(activePage),
+    []
   );
 
   const handleSort = useCallback(
@@ -188,7 +194,15 @@ export const TableDemo = () => {
       </Table>
 
       <Header as="h1">Pagination</Header>
-      <Pagination totalPages="10" activePage="1" />
+      <Pagination
+        totalPages="10"
+        activePage={page}
+        onPageChange={changePage}
+        nextItem={{ content: <Icon name="chevron right" />, icon: true }}
+        prevItem={{ content: <Icon name="chevron left" />, icon: true }}
+        lastItem={null}
+        firstItem={null}
+      />
     </>
   );
 };
