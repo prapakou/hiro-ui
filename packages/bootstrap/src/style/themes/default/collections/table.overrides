@@ -11,6 +11,7 @@
 .ui.table tbody tr td.selectable:hover {
   background: @selectableBackground !important;
   color: @selectableTextColor !important;
+  cursor: pointer;
 
   & i.bordered.icon {
     background: @darkWhiteHover !important;
@@ -22,6 +23,7 @@
 .ui.inverted.table tbody tr td.selectable:hover {
   background: @selectableInvertedBackground !important;
   color: @selectableInvertedTextColor !important;
+  cursor: pointer;
 
   & i.bordered.icon {
     background: @darkWhiteHover !important;
