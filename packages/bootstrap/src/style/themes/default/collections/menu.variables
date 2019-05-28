@@ -334,6 +334,7 @@
 @paginationMinWidth: 3em;
 @paginationActiveBackground: @transparentBlack;
 @paginationActiveTextColor: @selectedTextColor;
+@paginationActiveBorderRadius: @15px;
 
 /* Labeled Icon */
 @labeledIconItemHorizontalPadding: @relativeMassive;

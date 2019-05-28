@@ -11,7 +11,7 @@
 @margin: @verticalMargin @horizontalMargin;
 @borderCollapse: separate;
 @borderSpacing: 0px;
-@borderRadius: @defaultBorderRadius;
+@borderRadius: @15px;
 @transition:
   background @defaultDuration @defaultEasing,
   color @defaultDuration @defaultEasing

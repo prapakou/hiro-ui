@@ -1,36 +1,90 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { sortBy } from "lodash-es";
 
-import { Header, Table, Label, Progress, Button } from "../../src";
+import {
+  Header,
+  Table,
+  Label,
+  Progress,
+  Button,
+  Pagination,
+  Segment,
+  Icon
+} from "../../src";
 
 type TableRowProps = [string, Date | undefined, number, string, boolean];
+
+const RowDesc = () => {
+  return (
+    <Table.Row>
+      <Table.Cell colSpan="5" style={{ backgroundColor: "rgba(0,0,0,.02)" }}>
+        <Segment basic>
+          <Header as="h2">Description</Header>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            blandit felis nec nulla sollicitudin, sed euismod odio molestie.
+            Aliquam consectetur rutrum orci, at mattis arcu egestas sit amet.
+            Vivamus commodo vitae eros ut ultricies. Mauris velit eros,
+            dignissim quis lacus eget, dictum vestibulum libero. Cras consequat
+            tincidunt luctus. Cras placerat.
+          </p>
+        </Segment>
+      </Table.Cell>
+    </Table.Row>
+  );
+};
 
 const TableRow = ({ cells }: { cells: TableRowProps }) => {
   const [name, modifedOn, progress, useCase, isStarted] = cells;
 
-  return (
-    <Table.Row>
-      <Table.Cell content={name} />
-      <Table.Cell
-        content={
-          modifedOn ? modifedOn.toLocaleDateString() : <Label content="None" />
-        }
-      />
-      <Table.Cell
-        content={
-          progress === -1 ? (
-            <Label content="New" />
-          ) : (
-            <Progress percent={progress} />
-          )
-        }
-      />
-      <Table.Cell content={useCase} />
+  const [showDesc, setShowDesc] = useState(false);
 
-      <Table.Cell>
-        <Button content={isStarted ? "Continue teaching" : "Start teaching"} />
-      </Table.Cell>
-    </Table.Row>
+  const handleClick = useCallback(() => void setShowDesc(!showDesc), [
+    showDesc
+  ]);
+
+  return (
+    <>
+      <Table.Row onClick={handleClick}>
+        <Table.Cell
+          content={name}
+          icon={
+            <Icon
+              name={showDesc ? "chevron down" : "chevron right"}
+              bordered
+              data-open={showDesc}
+            />
+          }
+        />
+        <Table.Cell
+          content={
+            modifedOn ? (
+              modifedOn.toLocaleDateString()
+            ) : (
+              <Label content="None" />
+            )
+          }
+        />
+        <Table.Cell
+          content={
+            progress === -1 ? (
+              <Label content="New" />
+            ) : (
+              <Progress percent={progress} />
+            )
+          }
+        />
+        <Table.Cell content={useCase} />
+
+        <Table.Cell>
+          <Button
+            content={isStarted ? "Continue teaching" : "Start teaching"}
+          />
+        </Table.Cell>
+      </Table.Row>
+
+      {showDesc && <RowDesc />}
+    </>
   );
 };
 
@@ -113,16 +167,18 @@ export const TableDemo = () => {
   return (
     <>
       <Header as="h1">Table</Header>
-      <Table sortable>
+      <Table sortable selectable>
         <Table.Header>
-          {headers.map((h, i) => (
-            <Table.HeaderCell
-              content={h}
-              key={h}
-              onClick={handleSort(i)}
-              sorted={currentColumn === i ? direction : null}
-            />
-          ))}
+          <Table.Row>
+            {headers.map((h, i) => (
+              <Table.HeaderCell
+                content={h}
+                key={h}
+                onClick={handleSort(i)}
+                sorted={currentColumn === i ? direction : null}
+              />
+            ))}
+          </Table.Row>
         </Table.Header>
         <Table.Body>
           {rows.map(cells => (
@@ -130,6 +186,9 @@ export const TableDemo = () => {
           ))}
         </Table.Body>
       </Table>
+
+      <Header as="h1">Pagination</Header>
+      <Pagination totalPages="10" activePage="1" />
     </>
   );
 };

@@ -52,7 +52,7 @@
 @opacity: 1;
 @width: @iconWidth;
 @height: 1em;
-@distanceFromText: 0.25rem;
+@distanceFromText: 1rem;
 
 
 /* Variations */
@@ -64,10 +64,11 @@
 @circularPadding: 0.5em 0em;
 @circularShadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
 
-@borderedSize: 2em;
+@borderedSize: 1.75em;
 @borderedVerticalPadding: ((@borderedSize - @height) / 2);
-@borderedHorizontalPadding: 0em;
+@borderedHorizontalPadding: 0.5em;
 @borderedShadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
+@borderedBorderRadius: @5px;
 
 @cornerIconSize: 0.45em;
 @cornerIconStroke: 1px;
