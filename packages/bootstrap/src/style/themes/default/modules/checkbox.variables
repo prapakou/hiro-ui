@@ -9,6 +9,8 @@
 
 /* Label */
 @labelDistance: 1.85714em; /* 26px @ 14/em */
+@labelDistanceRight: @labelDistance;
+@labelDistanceLeft: 0;
 
 /* Checkbox */
 @checkboxBackground: @white;
@@ -24,7 +26,8 @@
 /* Checkmark */
 @checkboxCheckFontSize: 14px;
 @checkboxCheckTop: 0px;
-@checkboxCheckLeft: 0px;
+@checkboxCheckLeft: unset;
+@checkboxCheckRight: 0px;
 @checkboxCheckSize: @checkboxSize;
 
 /* Label */
