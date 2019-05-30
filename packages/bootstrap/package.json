@@ -90,5 +90,11 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-klika-arago/typescript-react",
+    "globals": {
+      "__DEV__": true
+    }
   }
 }
